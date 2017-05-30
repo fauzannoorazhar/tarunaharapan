@@ -58,8 +58,8 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7d7e7d', endColorstr='#565656', GradientType=0);
   /* IE6-9 */
 }
-html {
-  background: url(../images/background.jpg) no-repeat center center fixed;
+html { 
+  background: url(../images/background3.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   background-position: 90% 20%;
   -moz-background-size: cover;

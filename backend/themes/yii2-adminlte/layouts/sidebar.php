@@ -30,15 +30,8 @@ $items = ArrayHelper::getValue($this->params, 'sideMenu', []);
 		<ul class="sidebar-menu">
 			<li class="header">MENU NAVIGASI</li>
 			<!-- Optionally, you can add icons to the links -->
-			<li><a href="<?= Url::to(['tokoh/index'])?>"><i class="fa fa-user-circle"></i> <span>Tokoh</span></a></li>
-			<li><a href="<?= Url::to(['anggota/index'])?>"><i class="fa fa-users"></i> <span>Anggota</span></a></li>
-			<li><a href="<?= Url::to(['angkatan/index'])?>"><i class="fa fa-mortar-board"></i> <span>Angkatan</span></a></li>
-			<li><a href="<?= Url::to(['universitas/index'])?>"><i class="fa fa-university"></i> <span>Universitas</span></a></li>
-			<li><a href="<?= Url::to(['kegiatan/index'])?>"><i class="fa fa-book"></i> <span>Kegiatan</span></a></li>
-			<li><a href="<?= Url::to(['artikel/index'])?>"><i class="fa fa-file-text"></i> <span>Artikel</span></a></li>
-			<li><a href="<?= Url::to(['slide/index'])?>"><i class="fa fa-image"></i> <span>Slide</span></a></li>
-			<li><a href="<?= Url::to(['user/index'])?>"><i class="fa fa-user"></i> <span>User</span></a></li>
-
+			<li><a href="<?= Url::to(['site/index'])?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
+			<li><a href="<?= Url::to(['user/index'])?>"><i class="fa fa-user-circle"></i> <span>User</span></a></li>
             <?php 
 			//TODO: tambahkan pada array jika menambah menu baru ke dalam menu pengaturan
 			if(Yii::$app->controller->id === 'user' ) { 

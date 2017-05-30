@@ -78,7 +78,7 @@ $this->registerJs($format_money, View::POS_END, '');
                 <div class="pull-right hidden-xs">
                     Version 1.0 Beta
                 </div>
-                Copyright &copy; <?= date('Y') ?> PERHIMPUNAN MAHASISWA BANDUNG
+                Copyright &copy; <?= date('Y') ?> Perhimpunan Mahasiswa Bandung. All rights reserved.
             </footer>
         </div>
         <?php $this->endBody() ?>

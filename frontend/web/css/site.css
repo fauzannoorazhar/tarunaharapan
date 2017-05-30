@@ -159,3 +159,221 @@ a.desc:after {
     color: #555;
     background-color: #480000;
 }
+
+.slide-container-fluid {
+    background-color: #610101;
+    color: #f8fdfc;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 110px;
+}
+
+.box-center {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 195px;
+    padding-left: 195px;
+    border-radius: 1px;
+    
+}
+
+.box-pengurus {
+    -webkit-box-shadow: 2px 2px 6px 0px rgba(153,153,153,1);
+    -moz-box-shadow: 2px 2px 6px 0px rgba(153,153,153,1);
+    box-shadow: 2px 2px 6px 0px rgba(153,153,153,1);
+}
+
+@media (min-width: 1200px) {
+.container {
+    width: 100;
+    }
+}
+
+.title-tautan {
+    background-color: #610101;
+    margin-bottom: 10px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    position: relative;
+    padding: 6px 20px;
+    color: #fff;
+}
+
+.forum .forum-recent li {
+    margin-bottom: 10px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+    border-left: 10px solid #610101;
+    /*border-right: 10px solid #610101;*/
+    position: relative;
+    padding: 15px 20px;
+    background-color: #fff;
+}
+
+.galeri-container-fluid {
+    background-color: #f5f5f5;
+}
+
+img .gambar {
+    width: 210px;
+    height: 300px;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: -20px;
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    line-height: 1;
+    height: 407px;
+}
+
+.img-sejarah {
+    width: 100%;
+    height: 407px;
+    border: 1px solid rgb(224, 224, 224);
+}
+
+.berita-container-fluid {
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-right: auto;
+    background-color: #fff;
+    padding-bottom: 30px;
+
+}
+
+.label-box {
+    background-color: rgba(234, 234, 234, 0.19);
+    width: 18%;
+    height: -102%;
+    color: #610101;
+    font-weight: bold;
+    border-left: 5px solid #610101;
+    border-bottom: 2px solid #610101;
+    padding-left: 15px;
+    margin-bottom: 8px;
+    border-radius: 20px;
+}
+
+.label-box2 {
+    background-color: transparent;
+    width: 18%;
+    height: -102%;
+    color: #610101;
+    font-weight: bold;
+    margin-top: -25px;
+    padding-left: 19px;
+    margin-bottom: 23px;
+    border-left: 5px solid #610101;
+    border-bottom: 2px solid #610101;
+    border-radius: 25px;
+}
+
+.label-box3 {
+    background-color: transparent;
+    width: 25%;
+    height: -102%;
+    color: #610101;
+    font-weight: bold;
+    margin-top: -25px;
+    padding-left: 19px;
+    margin-bottom: 23px;
+    border-left: 5px solid #610101;
+    border-bottom: 2px solid #610101;
+    border-radius: 25px;
+}
+
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    line-height: 1;
+    height: 420px;
+}
+
+
+.feed-kegiatan {
+    border-right: 1px solid #610101;
+    border-top: 1px solid #610101;
+    border-left: 1px solid #610101;
+}
+
+.box-kegiatan {
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 80px;
+    padding-top: 2px;
+    background-color: #fff;
+    border-right: 1px solid #610101;
+    border-left: 1px solid #610101;
+}
+
+.title-kegiatan {
+    background-color: #fff;
+    margin-bottom: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 7px solid #610101;
+    border-right: 1px solid #610101;
+    border-left: 1px solid #610101;
+}
+
+.artikel-link{
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer-bottom {
+    background-color: #480000;
+    border-bottom: 0px;
+    text-align: center;
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+a.icon-footer {
+    color: #fff;
+}
+
+.box {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    /*margin-bottom: 15px;*/
+    background-color: #fff;
+}
+
+a {
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+}
+
+.galeri-list {
+    border: 2px solid #b1b1b1;
+    margin-bottom: 20px;
+}
+
+.galeri-list img {
+    width: 100%;
+    height: 150px;
+}
+
+.footer2 {
+    background-color: #610101;  
+    color: white;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.box-tokoh {
+    border: 2px solid #ccc;
+}
+
+.box-gambar {
+    border: 1px solid #610101;
+}

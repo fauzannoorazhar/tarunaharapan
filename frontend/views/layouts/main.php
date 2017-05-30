@@ -33,9 +33,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About Us', 'url' => ['/site/about']],
-        ['label' => 'Menu', 'url' => ['site/menu']],
+
     ];
     /*if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -84,13 +82,14 @@ AppAsset::register($this);
             ],
         ]);
         $menuItems = [
+            ['label' => 'HOME', 'url' => ['tokoh/index']],
+            ['label' => 'ABOUT US', 'url' => ['/site/about']],
             ['label' => 'KEPENGURUSAN', 'url' => ['/site/kepengurusan']],
-            ['label' => 'ANGGOTA', 'url' => ['angkatan/index']],
+            ['label' => 'ANGGOTA', 'url' => ['anggota/index']],
             ['label' => 'SEJARAH', 'url' => ['/site/sejarah']],
             ['label' => 'ARTIKEL', 'url' => ['artikel/index']],
             ['label' => 'KEGIATAN', 'url' => ['kegiatan/index']],
             ['label' => 'GALERI', 'url' => ['/site/galeri']],
-            ['label' => 'FORUM', 'url' => ['/site/forum']],
         ];
         /*if (Yii::$app->user->isGuest) {
             $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -123,71 +122,32 @@ AppAsset::register($this);
 <div>&nbsp;</div>
 
 <footer>
-    <div class="slide-container-fluid">
-        <div class="container-fluid">
+    <div class="footer2">  
+        <div class="container">
             <div class="row">
 
-                <div class="col-sm-3">
-                    <a class="icon-footer" href="https://www.facebook.com/PerhimpunanMahasiswaBandung/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
-                    <a class="icon-footer" href="https://twitter.com/PMB_1948" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
-                    <a class="icon-footer" href="https://twitter.com/PMB_1948" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
-                    <p class="icon-footer">arsip.pmb1948@gmail.com
-                    pmb.1948@yahoo.com</p>
+                <div class="col-sm-4">
+                    <?= Html::img('@web/pictures/lambang-pmb.png',['width'=>'100px','height'=>'130px']); ?>
                 </div>
 
-                <div class="col-sm-5">
-                    <div class="row">
-                        <h3>Link Terkait</h3>
-                            <div class="col-sm-6">
-                                <ul>
-                                    <li style="font-size: 15px">
-                                        <a class="icon-footer" href="#" target="_blank">
-                                        Perhimpunan Mahasiswa Jakarta (PMJ)
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul>
-                                    <li style="font-size: 15px">
-                                        <a class="icon-footer" href="#" target="_blank">
-                                        Perhimpunan Mahasiswa Belanda
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul>
-                                    <li style="font-size: 15px">
-                                        <a class="icon-footer" href="#" target="_blank">
-                                        Perhimpunan Mahasiswa Jepang
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul>
-                                    <li style="font-size: 15px">
-                                        <a class="icon-footer" href="#" target="_blank">
-                                        Perhimpunan Mahasiswa Surabaya
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul>
-                                    <li style="font-size: 15px">
-                                        <a class="icon-footer" href="#" target="_blank">
-                                        Join With Us
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                <div class="col-sm-4">
+                    <div class="row">  
+                        <div class="col-sm-12">
+                            <!-- <strong><h4 style="text-align: center;">Perhimpunan Mahasiswa Bandung</h4></strong> -->
+                        </div>
+                        <div class="col-sm-12" style="text-align: center">
+                            <p style="text-align: center;">arsip.pmb1948@gmail.com / pmb.1948@yahoo.com</p>
+                            <p style="text-align: center;">Sekretariat PMB Jalan Merdeka No.7 Bandung.</p>
+                            <a class="icon-footer" href="https://www.facebook.com/PerhimpunanMahasiswaBandung/" target="_blank"><i class="fa fa-facebook fa-2x"></i></a>
+                            <a class="icon-footer" href="https://twitter.com/PMB_1948" target="_blank"><i class="fa fa-twitter fa-2x"></i></a>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-4">
-                    <p style="text-align: right; margin-right: 88px;"><?= Html::img('@web/pictures/logo_kecil.png',['width'=>'250px','height'=>'100%']); ?></p>
+                    <div class="pull-right">
+                        <?= Html::img('@web/pictures/logo_kecil.png',['width'=>'270px','height'=>'35px']); ?>
+                    </div>
                 </div>
 
             </div>
