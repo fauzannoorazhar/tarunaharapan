@@ -31,7 +31,12 @@ $items = ArrayHelper::getValue($this->params, 'sideMenu', []);
 			<li class="header">MENU NAVIGASI</li>
 			<!-- Optionally, you can add icons to the links -->
 			<li><a href="<?= Url::to(['site/index'])?>"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
-			<li><a href="<?= Url::to(['user/index'])?>"><i class="fa fa-user-circle"></i> <span>User</span></a></li>
+			<li><a href="<?= Url::to(['alumni/index'])?>"><i class="fa fa-mortar-board"></i> <span>Alumni</span></a></li>
+			<li><a href="<?= Url::to(['angkatan/index'])?>"><i class="fa fa-users"></i> <span>Angkatan</span></a></li>
+			<li><a href="<?= Url::to(['guru/index'])?>"><i class="fa fa-user-circle"></i> <span>Guru</span></a></li>
+			<li><a href="<?= Url::to(['jurusan/index'])?>"><i class="fa fa-steam"></i> <span>Jurusan</span></a></li>
+			<li><a href="<?= Url::to(['siswa/index'])?>"><i class="fa fa-user"></i> <span>Siswa</span></a></li>
+			<li><a href="<?= Url::to(['user/index'])?>"><i class="fa fa-user-o"></i> <span>User</span></a></li>
             <?php 
 			//TODO: tambahkan pada array jika menambah menu baru ke dalam menu pengaturan
 			if(Yii::$app->controller->id === 'user' ) { 

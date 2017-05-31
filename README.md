@@ -1,4 +1,4 @@
-Yii 2 Advanced Project Template
+Aplikasi SMK TARUNA HARAPAN 1 CIPATAT
 ===============================
 
 Yii 2 Advanced Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
@@ -53,3 +53,4 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+Dalam Proses Pengembangan :) . Fauzannoor98@gmail.com

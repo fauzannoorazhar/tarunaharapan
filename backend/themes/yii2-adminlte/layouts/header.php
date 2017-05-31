@@ -8,8 +8,8 @@ use yii\helpers\ArrayHelper;
 ?>
 <header class="main-header">
 	<a href="<?= Yii::$app->homeUrl; ?>" class="logo">
-		<span class="logo-mini"><?= ArrayHelper::getValue(Yii::$app->params, 'app.name.small', '#')?></span>
-		<span class="logo-lg">TARUNA</span>
+		<span class="logo-mini"><?= ArrayHelper::getValue(Yii::$app->params, 'app.name.small', 'ONE')?></span>
+		<span class="logo-lg">TARPAN ONE</span>
 	</a>
 	<nav class="navbar navbar-static-top" role="navigation">
 		<!-- Sidebar toggle button-->
