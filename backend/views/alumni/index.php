@@ -64,8 +64,18 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
             ],*/
             'nama',
-            'id_angkatan',
-            'id_jurusan',
+            [
+            'attribute' => 'id_angkatan',
+            'value' => function($data){
+                    return $data->getRelationField('angkatan','tahun');
+                }, 
+            ],
+            [
+            'attribute' => 'id_jurusan',
+            'value' => function($data){
+                    return $data->getRelationField('jurusan','nama');
+                }, 
+            ],
             /*[
             'attribute' => 'id_angkatan',
             'value' => function($data){

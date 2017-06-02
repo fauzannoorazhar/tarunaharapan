@@ -51,4 +51,23 @@ class Alumni extends \yii\db\ActiveRecord
             'alamat' => 'Alamat',
         ];
     }
+
+    public function getAngkatan()
+    {
+        return $this->hasOne(Angkatan::className(),['angkatan.id'=>'id_angkatan']);
+    }
+
+    public function getJurusan()
+    {
+        return $this->hasOne(Jurusan::className(),['jurusan.id'=>'id_jurusan']);
+    }
+
+    public function getRelationField($relation,$field)
+    {
+        if(!empty($this->$relation->$field)){
+            return $this->$relation->$field;   
+        } else {
+            return null;
+        }
+    }
 }

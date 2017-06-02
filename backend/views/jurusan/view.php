@@ -6,9 +6,6 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Jurusan */
 
-
-$this->params['breadcrumbs'][] = ['label' => 'Jurusan', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary jurusan-view">

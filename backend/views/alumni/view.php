@@ -5,10 +5,6 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Alumni */
-
-
-$this->params['breadcrumbs'][] = ['label' => 'Alumni', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary alumni-view">

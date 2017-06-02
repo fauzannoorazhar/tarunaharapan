@@ -7,8 +7,6 @@ use yii\widgets\DetailView;
 /* @var $model common\models\Guru */
 
 
-$this->params['breadcrumbs'][] = ['label' => 'Guru', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary guru-view">
