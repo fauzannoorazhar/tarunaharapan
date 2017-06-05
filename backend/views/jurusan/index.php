@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\modelSearch\JurusanSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,18 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            [
-                'class'=>'kartik\grid\ExpandRowColumn',
-                'width'=>'50px',
-                'value'=>function ($model, $key, $index, $column) {
-                    return GridView::ROW_COLLAPSED;
-                },
-                'detail'=>function ($model, $key, $index, $column) {
-                    return Yii::$app->controller->renderPartial('view', ['model'=>$model]);
-                },
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'expandOneOnly'=>true
-            ],
             /*[
                 'attribute' => 'id_angkatan',
                 'filterType'=>GridView::FILTER_SELECT2,
@@ -54,8 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format'=>'raw',
             ],*/
             'nama',
-            'id_angkatan',
-
+            [
+            'attribute' => 'id_angkatan',
+            'value' => function($data){
+                    return $data->getRelationField('angkatan','tahun');
+                }, 
+            ],
             [
                 'class' => 'app\components\ToggleActionColumn',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],

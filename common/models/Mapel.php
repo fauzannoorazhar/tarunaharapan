@@ -3,23 +3,22 @@
 namespace common\models;
 
 use Yii;
+use yii\Helpers\ArrayHelper;
 
 /**
- * This is the model class for table "guru".
+ * This is the model class for table "mapel".
  *
  * @property integer $id
  * @property string $nama
- * @property string $alamat
- * @property string $photo
  */
-class Guru extends \yii\db\ActiveRecord
+class Mapel extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'guru';
+        return 'mapel';
     }
 
     /**
@@ -28,9 +27,8 @@ class Guru extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama','nip','id_mapel'], 'required'],
-            [['alamat'], 'string'],
-            [['nama', 'photo','nip'], 'string', 'max' => 255],
+            [['nama'], 'required'],
+            [['nama'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,12 +39,13 @@ class Guru extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
-            'id_mapel' => 'Mata Pelajaran',
-            'alamat' => 'Alamat',
-            'photo' => 'Photo',
-            'nip' => 'NIP'
+            'nama' => 'Nama Mata Pelajaran',
         ];
+    }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(Mapel::find()->all(),'id','nama');
     }
 
     public function getMapel()
@@ -58,7 +57,8 @@ class Guru extends \yii\db\ActiveRecord
     {
         if(!empty($this->$relation->$field)){
             return $this->$relation->$field;   
-        } else {
+        }
+        else{
             return null;
         }
     }

@@ -31,22 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            [
-                'class'=>'kartik\grid\ExpandRowColumn',
-                'width'=>'50px',
-                'value'=>function ($model, $key, $index, $column) {
-                    return GridView::ROW_COLLAPSED;
-                },
-                'detail'=>function ($model, $key, $index, $column) {
-                    return Yii::$app->controller->renderPartial('view', ['model'=>$model]);
-                },
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'expandOneOnly'=>true
-            ],
             'nama',
+            [
+            'attribute'=>'id_mapel',
+            'value' => function($data){
+                    return $data->getRelationField('mapel','nama');
+                },
+            ],
             'nip',
-            'photo',
-
             [
                 'class' => 'app\components\ToggleActionColumn',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],

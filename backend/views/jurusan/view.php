@@ -5,7 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Jurusan */
-
+$this->params['breadcrumbs'][] = ['label' => 'Jurusan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary jurusan-view">
@@ -17,7 +18,12 @@ use yii\widgets\DetailView;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id_angkatan',
+            [
+            'attribute' => 'id_angkatan',
+            'value' => function($data){
+                    return $data->getRelationField('angkatan','tahun');
+                }, 
+            ],
             'nama',
         ],
     ]) ?>

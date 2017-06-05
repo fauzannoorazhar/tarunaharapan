@@ -50,14 +50,14 @@ class Jurusan extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getAngkatans()
-    {
-        return $this->hasOne(Angkatan::className(),['angkatan.id'=>'id_angkatan']);
-    }
-
     public static function getList()
     {
         return ArrayHelper::map(Jurusan::find()->all(),'id','nama');
+    }
+
+    public function getAngkatan()
+    {
+        return $this->hasOne(Angkatan::className(),['angkatan.id'=>'id_angkatan']);
     }
     
     public function getRelationField($relation,$field)

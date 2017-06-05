@@ -47,7 +47,18 @@ use common\models\Jurusan;
 
     <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'status')->widget(Select2::classname(), [
+        'data' => [
+            0 => 'Belum Lulus',
+            1 => 'Alumni',
+        ],
+        'options' => ['placeholder' => 'Pilih Status'],
+        'pluginOptions' => [
+        'allowClear' => true
+        ],
+    ]); ?>
+
+    <?= $form->field($model, 'photo')->fileInput(['maxlength' => true]) ?>
 
     </div>
     <div class="box-footer with-border form-group">

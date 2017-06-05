@@ -18,7 +18,7 @@ class SiswaSearch extends Siswa
     public function rules()
     {
         return [
-            [['id', 'id_jurusan', 'id_angkatan','nisn'], 'integer'],
+            [['id', 'id_jurusan', 'id_angkatan','nisn','status'], 'integer'],
             [['nama'], 'safe'],
         ];
     }

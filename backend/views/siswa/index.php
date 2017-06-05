@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
+use common\models\Siswa;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\modelSearch\SiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -31,21 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            [
-                'class'=>'kartik\grid\ExpandRowColumn',
-                'width'=>'50px',
-                'value'=>function ($model, $key, $index, $column) {
-                    return GridView::ROW_COLLAPSED;
-                },
-                'detail'=>function ($model, $key, $index, $column) {
-                    return Yii::$app->controller->renderPartial('view', ['model'=>$model]);
-                },
-                'headerOptions'=>['class'=>'kartik-sheet-style'],
-                'expandOneOnly'=>true
-            ],
             'nama',
             'nisn',
-            [
+            /*[
                 'attribute' => 'id_jurusan',
                 'filterType'=>GridView::FILTER_SELECT2,
                 //'filter'=>NamaModel::getList(), ini array untuk dropdown model relasi
@@ -64,7 +54,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'filterInputOptions'=>['placeholder'=>'Filter Data'],
                 'format'=>'raw',
-            ],            'photo',
+            ],*/
+            [
+            'attribute'=>'id_jurusan',
+            'value' => function($data){
+                    return $data->getRelationField('jurusan','nama');
+                },
+            ],
+            [
+            'attribute'=>'id_angkatan',
+            'value' => function($data){
+                    return $data->getRelationField('angkatan','tahun');
+                },
+            ],
+            [
+                'attribute'=>'status',
+                'value' => function($data){
+                    return $data->getStatus();
+                },
+                'filter'=>Siswa::getList(),
+            ],
 
             [
                 'class' => 'app\components\ToggleActionColumn',

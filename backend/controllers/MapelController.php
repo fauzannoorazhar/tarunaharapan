@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Alumni;
-use common\modelSearch\AlumniSearch;
+use common\models\Mapel;
+use common\modelSearch\MapelSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * AlumniController implements the CRUD actions for Alumni model.
+ * MapelController implements the CRUD actions for Mapel model.
  */
-class AlumniController extends Controller
+class MapelController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class AlumniController extends Controller
     }
 
     /**
-     * Lists all Alumni models.
+     * Lists all Mapel models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AlumniSearch();
+        $searchModel = new MapelSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class AlumniController extends Controller
     }
 
     /**
-     * Displays a single Alumni model.
+     * Displays a single Mapel model.
      * @param integer $id
      * @return mixed
      */
@@ -57,13 +57,13 @@ class AlumniController extends Controller
     }
 
     /**
-     * Creates a new Alumni model.
+     * Creates a new Mapel model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Alumni();
+        $model = new Mapel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -75,7 +75,7 @@ class AlumniController extends Controller
     }
 
     /**
-     * Updates an existing Alumni model.
+     * Updates an existing Mapel model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -94,7 +94,7 @@ class AlumniController extends Controller
     }
 
     /**
-     * Deletes an existing Alumni model.
+     * Deletes an existing Mapel model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class AlumniController extends Controller
     }
 
     /**
-     * Finds the Alumni model based on its primary key value.
+     * Finds the Mapel model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Alumni the loaded model
+     * @return Mapel the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Alumni::findOne($id)) !== null) {
+        if (($model = Mapel::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

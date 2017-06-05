@@ -5,8 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Guru */
-
-
+$this->params['breadcrumbs'][] = ['label' => 'Guru', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary guru-view">
@@ -19,6 +19,12 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'nama',
+            [
+            'attribute'=>'id_mapel',
+            'value' => function($data){
+                    return $data->getRelationField('mapel','nama');
+                },
+            ],
             'nip',
             'alamat:ntext',
             'photo',

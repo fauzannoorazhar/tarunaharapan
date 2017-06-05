@@ -5,12 +5,12 @@ namespace common\modelSearch;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Alumni;
+use common\models\Mapel;
 
 /**
- * AlumniSearch represents the model behind the search form of `common\models\Alumni`.
+ * MapelSearch represents the model behind the search form of `common\models\Mapel`.
  */
-class AlumniSearch extends Alumni
+class MapelSearch extends Mapel
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class AlumniSearch extends Alumni
     public function rules()
     {
         return [
-            [['id', 'id_angkatan', 'id_jurusan'], 'integer'],
+            [['id'], 'integer'],
             [['nama'], 'safe'],
         ];
     }
@@ -42,7 +42,7 @@ class AlumniSearch extends Alumni
 
     public function getQuerySearch($params)
     {
-        $query = Alumni::find();
+        $query = Mapel::find();
 
         $this->load($params);
 
@@ -51,13 +51,9 @@ class AlumniSearch extends Alumni
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_angkatan' => $this->id_angkatan,
-            'id_jurusan' => $this->id_jurusan,
         ]);
 
-        $query->andFilterWhere(['like', 'nama', $this->nama])
-            ->andFilterWhere(['like', 'photo', $this->photo])
-            ->andFilterWhere(['like', 'alamat', $this->alamat]);
+        $query->andFilterWhere(['like', 'nama', $this->nama]);
 
         return $query;
     }

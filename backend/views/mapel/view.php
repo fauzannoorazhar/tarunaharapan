@@ -4,12 +4,15 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Alumni */
+/* @var $model common\models\Mapel */
+
+
+$this->params['breadcrumbs'][] = ['label' => 'Mapel', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div>&nbsp;</div>
-<div class="box box-primary alumni-view">
+<div class="box box-primary mapel-view">
     <div class="box-header with-border">
-        <h1 class="box-title">Detail Alumni <?= Html::encode($this->title) ?></h1>
+        <h1 class="box-title">Detail Mapel <?= Html::encode($this->title) ?></h1>
     </div>
     <div class="box-body">
 
@@ -17,10 +20,6 @@ use yii\widgets\DetailView;
         'model' => $model,
         'attributes' => [
             'nama',
-            'id_angkatan',
-            'id_jurusan',
-            'alamat:ntext',
-            'photo',
         ],
     ]) ?>
         

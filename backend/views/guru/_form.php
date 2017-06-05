@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use kartik\select2\Select2;
+use common\models\Mapel;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Guru */
@@ -25,6 +27,13 @@ use yii\bootstrap\ActiveForm;
                     ]]); ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'id_mapel')->widget(select2::className(), [
+        'data' => Mapel::getList(),
+        'options' => [
+            'placeholder' => 'Pilih Mata Pelajaran',
+        ]
+    ]) ?>
 
     <?= $form->field($model, 'nip')->textInput(['maxlength' => true]) ?>
 

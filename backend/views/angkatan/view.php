@@ -5,6 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Angkatan */
+$this->params['breadcrumbs'][] = ['label' => 'Angkatan', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary angkatan-view">

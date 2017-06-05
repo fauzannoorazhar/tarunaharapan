@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel common\modelSearch\AngkatanSearch */
+/* @var $searchModel common\modelSearch\MapelSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Kelola Angkatan';
+$this->title = 'Kelola Mapel';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="box box-primary angkatan-index">
+<div class="box box-primary mapel-index">
 
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="box-header with-border">
         <p>
-            <?= Html::a('Tambah Angkatan', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('Tambah Mapel', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
         </p>
     </div>
     <div class="box-body">
@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            'tahun',
+            'nama',
 
             [
                 'class' => 'app\components\ToggleActionColumn',

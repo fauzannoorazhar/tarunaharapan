@@ -19,7 +19,7 @@ class GuruSearch extends Guru
     {
         return [
             [['id'], 'integer'],
-            [['nama', 'alamat','nip'], 'safe'],
+            [['nama','id_mapel', 'alamat','nip'], 'safe'],
         ];
     }
 
@@ -54,6 +54,7 @@ class GuruSearch extends Guru
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'id_mapel', $this->id_mapel])
             ->andFilterWhere(['like', 'alamat', $this->alamat])
             ->andFilterWhere(['like', 'nip', $this->photo]);
 

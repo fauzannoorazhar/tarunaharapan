@@ -4,13 +4,13 @@ use yii\helpers\Html;
 
 
 /* @var $this yii\web\View */
-/* @var $model common\models\Alumni */
+/* @var $model common\models\Mapel */
 
-$this->title = 'Tambah Alumni';
-$this->params['breadcrumbs'][] = ['label' => 'Alumni', 'url' => ['index']];
+$this->title = 'Tambah Mapel';
+$this->params['breadcrumbs'][] = ['label' => 'Mapel', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="alumni-create">
+<div class="mapel-create">
 
     <?= $this->render('_form', [
         'model' => $model,

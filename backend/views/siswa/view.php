@@ -5,7 +5,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Siswa */
-
+$this->params['breadcrumbs'][] = ['label' => 'Siswa', 'url' => ['index']];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div>&nbsp;</div>
 <div class="box box-primary siswa-view">
@@ -19,9 +20,25 @@ use yii\widgets\DetailView;
         'attributes' => [
             'nama',
             'nisn',
-            'id_jurusan',
-            'id_angkatan',
+            [
+            'attribute'=>'id_jurusan',
+            'value' => function($data){
+                    return $data->getRelationField('jurusan','nama');
+                },
+            ],
+            [
+            'attribute'=>'id_angkatan',
+            'value' => function($data){
+                    return $data->getRelationField('angkatan','tahun');
+                },
+            ],
             'alamat:ntext',
+            [
+                'attribute' => 'status',
+                'value' => function($data){
+                    return $data->getStatus();
+                }
+            ],
             'photo',
         ],
     ]) ?>
