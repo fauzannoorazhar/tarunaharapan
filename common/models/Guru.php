@@ -9,8 +9,12 @@ use Yii;
  *
  * @property integer $id
  * @property string $nama
+ * @property string $nip
  * @property string $alamat
+ * @property integer $id_mapel
  * @property string $photo
+ *
+ * @property Mapel $idMapel
  */
 class Guru extends \yii\db\ActiveRecord
 {
@@ -28,9 +32,11 @@ class Guru extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama','nip','id_mapel'], 'required'],
+            [['nama', 'nip', 'alamat', 'id_mapel'], 'required'],
             [['alamat'], 'string'],
-            [['nama', 'photo','nip'], 'string', 'max' => 255],
+            [['id_mapel'], 'integer'],
+            [['nama', 'nip', 'photo'], 'string', 'max' => 255],
+            [['id_mapel'], 'exist', 'skipOnError' => true, 'targetClass' => Mapel::className(), 'targetAttribute' => ['id_mapel' => 'id']],
         ];
     }
 
@@ -42,24 +48,23 @@ class Guru extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama' => 'Nama',
-            'id_mapel' => 'Mata Pelajaran',
+            'nip' => 'Nip',
             'alamat' => 'Alamat',
+            'id_mapel' => 'Mapel',
             'photo' => 'Photo',
-            'nip' => 'NIP'
         ];
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getMapel()
     {
-        return $this->hasOne(Mapel::className(),['mapel.id'=>'id_mapel']);
+        return $this->hasOne(Mapel::className(), ['id' => 'id_mapel']);
     }
 
-    public function getRelationField($relation,$field)
+    public static function getJumlah()
     {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
-        } else {
-            return null;
-        }
+        return self::find()->count();
     }
 }

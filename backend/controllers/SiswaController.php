@@ -4,10 +4,12 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Siswa;
-use common\modelSearch\SiswaSearch;
+use common\models\SiswaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * SiswaController implements the CRUD actions for Siswa model.
@@ -20,6 +22,15 @@ class SiswaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [ 
+                    [
+                        'actions' => ['index','view','create','update','delete','alumni','aktif'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -28,6 +39,7 @@ class SiswaController extends Controller
             ],
         ];
     }
+
 
     /**
      * Lists all Siswa models.
@@ -42,6 +54,16 @@ class SiswaController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+    public function actionAlumni()
+    {
+        return $this->render('alumni');
+    }
+
+    public function actionAktif()
+    {
+        return $this->render('aktif');
     }
 
     /**
@@ -65,8 +87,24 @@ class SiswaController extends Controller
     {
         $model = new Siswa();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Action Tambah Berkas Upload
+            $picture = UploadedFile::getInstance($model, 'photo');
+
+            if(is_object($picture))//is_object adalah fungsi yang digunakan unutuk mengetahui apakah sebuah variabel bernilai objek atau tidak
+            {
+                $model->photo = $picture->baseName; 
+                /*print $picture->name;
+                die;*/
+                $model->photo .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+                $model->photo .= '.' . $picture->extension;
+
+                $path = Yii::getAlias('@app').'/web/uploads/'.$model->photo;
+                $picture->saveAs($path, false);
+            }
+            if($model->save()){
             return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +122,38 @@ class SiswaController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        // Untuk merubah atau update photo, jadi tidak perlu menambah photo lagi ketika akan mengupdate photo
+        $old_picture = $model->photo;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Action Tambah Berkas Upload 
+            $photo = UploadedFile::getInstance($model, 'photo');
+
+            // kondisi yang tidak mengharuskan menambah photo lagi
+            if(is_object($photo)){
+                $model->photo = $photo->baseName;//Nama dasar file uploads
+                $model->photo .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+                $model->photo .= '.' . $photo->extension;
+
+                //@path Penyimpanan Jelas
+                $path = Yii::getAlias('@app').'/web/uploads/';
+
+                $photo->saveAs($path.$model->photo, false);
+
+                //Memerikasi apakah file dalam di rektori ada
+                if(file_exists($path.$old_picture) AND $old_picture != null)
+                {
+                    //Menghapus file
+                    unlink($path.$old_picture);
+                }
+
+            } else {
+                $model->photo = $old_picture;
+            }
+
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,

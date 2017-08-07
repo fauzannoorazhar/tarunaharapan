@@ -3,18 +3,17 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 use yii\Helpers\ArrayHelper;
+
 
 /**
  * This is the model class for table "jurusan".
  *
  * @property integer $id
- * @property integer $id_angkatan
- * @property string $rpl
- * @property string $akutansi
- * @property string $pemasaran
- * @property string $tsm
- * @property string $tkr
+ * @property string $nama
+ *
+ * @property JurusanAngkatan[] $jurusanAngkatans
  */
 class Jurusan extends \yii\db\ActiveRecord
 {
@@ -32,9 +31,9 @@ class Jurusan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_angkatan'], 'required'],
-            [['id_angkatan'], 'integer'],
-            [['nama'], 'string', 'max' => 255],
+            [['nama'], 'required'],
+            [['nama','logo'], 'string', 'max' => 255],
+            [['nama'],'unique','message'=>'{attribute} Jurusan Sudah Ada'],
         ];
     }
 
@@ -45,29 +44,37 @@ class Jurusan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'id_angkatan' => 'Angkatan',
-            'nama' => 'Nama Jurusan',
+            'nama' => 'Nama',
+            'logo' => 'Logo',
         ];
     }
 
-    public static function getList()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJurusanAngkatan()
+    {
+        return $this->hasMany(JurusanAngkatan::className(), ['id_jurusan' => 'id']);
+    }
+
+    public function getList()
     {
         return ArrayHelper::map(Jurusan::find()->all(),'id','nama');
     }
 
-    public function getAngkatan()
+    public static function getJumlah()
     {
-        return $this->hasOne(Angkatan::className(),['angkatan.id'=>'id_angkatan']);
-    }
-    
-    public function getRelationField($relation,$field)
-    {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
-        }
-        else{
-            return null;
-        }
+        return Jurusan::find()->count();
     }
 
+    //Fungsi Untuk Mengecek Apakaha Gambar Terdapat Dalam Direktori
+    public function getGambar($htmlOptions=[])
+    {
+        //Jika file ada dalam direktori
+        if($this->logo == null && !file_exists('@web/uploads/'.$this->logo)){
+            return Html::img('@web/images/logo.png',$htmlOptions);
+        } else {
+            return Html::img('@web/uploads/'. $this->logo,$htmlOptions);
+        }
+    }
 }

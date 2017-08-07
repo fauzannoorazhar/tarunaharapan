@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel common\modelSearch\GuruSearch */
+/* @var $searchModel common\models\GuruSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Kelola Guru';
@@ -32,13 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
             'nama',
+            'nip',
+            'alamat:ntext',
             [
-            'attribute'=>'id_mapel',
-            'value' => function($data){
-                    return $data->getRelationField('mapel','nama');
+                'attribute' => 'id_mapel',
+                'value' => function($data) {
+                    return $data->mapel->nama;
                 },
             ],
-            'nip',
+            // 'photo',
+
             [
                 'class' => 'app\components\ToggleActionColumn',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],

@@ -5,10 +5,11 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Guru */
+
+
 $this->params['breadcrumbs'][] = ['label' => 'Guru', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div>&nbsp;</div>
 <div class="box box-primary guru-view">
     <div class="box-header with-border">
         <h1 class="box-title">Detail Guru <?= Html::encode($this->title) ?></h1>
@@ -19,14 +20,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'nama',
-            [
-            'attribute'=>'id_mapel',
-            'value' => function($data){
-                    return $data->getRelationField('mapel','nama');
-                },
-            ],
             'nip',
             'alamat:ntext',
+            [
+                'attribute' => 'id_mapel',
+                'value' => function($data) {
+                    return $data->mapel->nama;
+                },
+            ],
             'photo',
         ],
     ]) ?>

@@ -3,20 +3,34 @@
 namespace common\models;
 
 use Yii;
-use yii\Helpers\ArrayHelper;
+use yii\db\ActiveRecord;
+use yii\helpers\Html;
+
+use common\models\User;
+
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "siswa".
  *
  * @property integer $id
  * @property string $nama
+ * @property string $nisn
  * @property string $alamat
  * @property string $photo
- * @property integer $id_jurusan
- * @property integer $id_angkatan
+ * @property integer $status
+ * @property integer $id_jenis_kelamin
+ * @property integer $id_jurusan_angkatan
+ *
+ * @property JurusanAngkatan $idJurusanAngkatan
+ * @property JenisKelamin $idJenisKelamin
  */
 class Siswa extends \yii\db\ActiveRecord
 {
+    const ALUMNI = 2;
+    const BELUM_LULUS = 1;
+
     /**
      * @inheritdoc
      */
@@ -31,11 +45,15 @@ class Siswa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama', 'id_jurusan','status', 'id_angkatan','nisn'], 'required'],
+            [['nama'], 'unique','message' => '{attribute} Siswa Sudah Ada'],
+            [['nama', 'nisn', 'alamat','status', 'id_jenis_kelamin', 'id_jurusan_angkatan'], 'required'],
             [['alamat'], 'string'],
-            [['id_jurusan', 'id_angkatan'], 'integer'],
-            [['nama','nisn'], 'string', 'max' => 255],
-            [['photo'], 'file']
+            [['tanggal_lahir'],'safe'],
+            [['status', 'id_jenis_kelamin', 'id_jurusan_angkatan'], 'integer'],
+            [['nama', 'nisn', 'photo'], 'string', 'max' => 255],
+            ['photo', 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'gif'], 'maxSize' => 1024 * 1024 * 2],
+            [['id_jurusan_angkatan'], 'exist', 'skipOnError' => true, 'targetClass' => JurusanAngkatan::className(), 'targetAttribute' => ['id_jurusan_angkatan' => 'id']],
+            [['id_jenis_kelamin'], 'exist', 'skipOnError' => true, 'targetClass' => JenisKelamin::className(), 'targetAttribute' => ['id_jenis_kelamin' => 'id']],
         ];
     }
 
@@ -47,47 +65,149 @@ class Siswa extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'nama' => 'Nama',
-            'nisn' => 'NISN',
+            'nisn' => 'Nisn',
             'alamat' => 'Alamat',
             'photo' => 'Photo',
-            'id_jurusan' => 'Jurusan',
-            'id_angkatan' => 'Angkatan',
-            'status' => 'Status'
+            'tanggal_lahir' => 'Tanggal Lahir',
+            'status' => 'Status',
+            'id_jenis_kelamin' => 'Jenis Kelamin',
+            'id_jurusan_angkatan' => 'Jurusan Angkatan',
+            'create_by' => 'Create By',
+            'update_by' => 'Update By',
+            'create_at' => 'Waktu Dibuat',
+            'update_at' => 'Waktu Dirubah',
         ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::className(),
+                'createdAtAttribute' => 'create_at',
+                'updatedAtAttribute' => 'update_at',
+            ],
+            'blameable' => [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'create_by',
+                'updatedByAttribute' => 'update_by',
+                    'value' => function ($event) {
+                        return User::getNamaUser();
+                },
+            ],
+        ];
+    }
+
+/*'class' => TimestampBehavior::className(),
+    'attributes' => [
+        ActiveRecord::EVENT_BEFORE_INSERT => ['create_at', 'update_at'],
+        ActiveRecord::EVENT_BEFORE_UPDATE => ['update_at'],
+    ],*/
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJurusanAngkatan()
+    {
+        return $this->hasOne(JurusanAngkatan::className(), ['id' => 'id_jurusan_angkatan']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJenisKelamin()
+    {
+        return $this->hasOne(JenisKelamin::className(), ['id' => 'id_jenis_kelamin']);
+    }
+
+    public static function getListStatus()
+    {
+        return [self::ALUMNI=>'Alumni',self::BELUM_LULUS=>'Siswa Aktif'];
     }
 
     public function getStatus()
     {
-        if ($this->status == 1) {
-        return 'Alumni';
-    }elseif($this->status == 0) {
-        return 'Belum Lulus';
-    } else {
-        return 'tidak ada';
+        if($this->status == self::ALUMNI) {
+            return '<span class="label label-warning">Alumni</span>';
+        } elseif ($this->status == self::BELUM_LULUS) {
+            return '<span class="label label-success">Siswa Aktif</span>';
         }
     }
 
     public static function getList()
     {
-        return [1=>'Alumni',0=>'Belum Lulus'];
+        $hasil = [];
+        foreach (JurusanAngkatan::find()->all() as $data) {
+            $hasil[$data->id] = $data->jurusan->nama.' - '.$data->angkatan->tahun;
+        }
+
+        return $hasil;  
     }
 
-    public function getAngkatan()
+    public function getNamaJurusanAngkatan()
     {
-        return $this->hasOne(Angkatan::className(),['angkatan.id'=>'id_angkatan']);
+        if($this->id_jurusan_angkatan == $this->id_jurusan_angkatan){
+            return $this->getList();
+        }
     }
 
-    public function getJurusan()
+    public static function getJumlah()
     {
-        return $this->hasOne(Jurusan::className(),['jurusan.id'=>'id_jurusan']);
+        return Siswa::find()->count();
     }
 
-    public function getRelationField($relation,$field)
+    public static function getJumlahRpl()
     {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
+        return Siswa::find()->where(['id_jurusan_angkatan' => 6,'status' => 2])->count();
+    }
+
+    public static function getJumlahAka()
+    {
+        return Siswa::find()->where(['id_jurusan_angkatan' => 8,'status' => 2])->count();
+    }
+
+    public static function getJumlahPm()
+    {
+        return Siswa::find()->where(['id_jurusan_angkatan' => 9,'status' => 2])->count();
+    }
+
+    public static function getJumlahTkr()
+    {
+        return Siswa::find()->where(['id_jurusan_angkatan' => 10,'status' => 2])->count();
+    }
+
+    public static function getJumlahTsm()
+    {
+        return Siswa::find()->where(['id_jurusan_angkatan' => 11,'status' => 2])->count();
+    }
+
+    public function getJumlahSiswaByJurusan()
+    {
+        return Siswa::find()->joinWith('jurusanAngkatan')->where(['id_jurusan' => 1])->count();
+    }
+
+    /*$data->jurusanAngkatan->jurusan->nama.' - '.$data->jurusanAngkatan->angkatan;*/
+
+
+    /* Memberikan return untuk di radiobutton
+    public function getStatus()
+    {
+        if ($this->status == 1){
+            return "Belum Lulus";
+        } elseif ($this->status == 2) {
+            return "Alumni";
         } else {
-            return null;
+            return "";
+        }
+    }*/
+
+    public function getGambar($htmlOptions=[])
+    {
+        //Jika file ada dalam direktori
+        if($this->photo == null && !file_exists('@web/uploads/'.$this->photo)){
+            return Html::img('@web/images/avatar.jpeg',$htmlOptions);
+        } else {
+            return Html::img('@web/uploads/'. $this->photo,$htmlOptions);
         }
     }
 }

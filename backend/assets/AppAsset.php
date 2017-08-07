@@ -1,6 +1,6 @@
 <?php
 
-namespace app\assets;
+namespace backend\assets;
 
 use yii\web\AssetBundle;
 
@@ -15,15 +15,11 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
-        'js/fusioncharts/js/fusioncharts.js',
-        'js/fusioncharts/js/themes/fusioncharts.theme.fint.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'rmrevin\yii\fontawesome\AssetBundle'
     ];
-    public $jsOptions = [
-        'position' => \yii\web\View::POS_HEAD
-    ];
+
 }

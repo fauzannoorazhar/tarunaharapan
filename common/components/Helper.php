@@ -1,6 +1,6 @@
 <?php
 
-namespace backend\components;
+namespace common\components;
 
 use Yii;
 use yii\base\Component;
@@ -8,6 +8,69 @@ use yii\base\InvalidConfigException;
 
 class Helper extends Component
 {
+	const DATE_FORMAT = 'php:Y-m-d';
+    const DATETIME_FORMAT = 'php:Y-m-d H:i:s';
+    const TIME_FORMAT = 'php:H:i:s';
+
+    public static function getWaktuWIB($waktu)
+	{
+		if($waktu == '')
+			return null;
+		else {
+		$time = strtotime($waktu);
+		
+		$h = date('N',$time);
+		
+		if($h == '1') $hari = 'Senin';
+		if($h == '2') $hari = 'Selasa';
+		if($h == '3') $hari = 'Rabu';
+		if($h == '4') $hari = 'Kamis';
+		if($h == '5') $hari = 'Jumat';
+		if($h == '6') $hari = 'Sabtu';
+		if($h == '7') $hari = 'Minggu';
+		
+		
+		$tgl = date('j',$time);
+		
+		$h = date('n',$time);
+		
+		if($h == '1') $bulan = 'Januari';
+		if($h == '2') $bulan = 'Februari';
+		if($h == '3') $bulan = 'Maret';
+		if($h == '4') $bulan = 'April';
+		if($h == '5') $bulan = 'Mei';
+		if($h == '6') $bulan = 'Juni';
+		if($h == '7') $bulan = 'Juli';
+		if($h == '8') $bulan = 'Agustus';
+		if($h == '9') $bulan = 'September';
+		if($h == '10') $bulan = 'Oktober';
+		if($h == '11') $bulan = 'November';
+		if($h == '12') $bulan = 'Desember';
+		
+		$tahun  = date('Y',$time);
+		
+		$pukul = date('H:i:s',$time);
+		
+		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' | '.$pukul.' WIB';
+		
+		return $output;
+		}
+		
+	}
+ 
+    public static function convert($dateStr, $type='date', $format = null) {
+        if ($type === 'datetime') {
+              $fmt = ($format == null) ? self::DATETIME_FORMAT : $format;
+        }
+        elseif ($type === 'time') {
+              $fmt = ($format == null) ? self::TIME_FORMAT : $format;
+        }
+        else {
+              $fmt = ($format == null) ? self::DATE_FORMAT : $format;
+        }
+        return \Yii::$app->formatter->asDate($dateStr, $fmt);
+    }
+
  	public static function rp($jumlah,$null=null)
 	{
 		$jumlah = str_replace(' ', '', $jumlah);
@@ -147,51 +210,6 @@ class Helper extends Component
 
 	}
 
-	public static function getWaktuWIB($waktu)
-	{
-		if($waktu == '')
-			return null;
-		else {
-		$time = strtotime($waktu);
-		
-		$h = date('N',$time);
-		
-		if($h == '1') $hari = 'Senin';
-		if($h == '2') $hari = 'Selasa';
-		if($h == '3') $hari = 'Rabu';
-		if($h == '4') $hari = 'Kamis';
-		if($h == '5') $hari = 'Jumat';
-		if($h == '6') $hari = 'Sabtu';
-		if($h == '7') $hari = 'Minggu';
-		
-		
-		$tgl = date('j',$time);
-		
-		$h = date('n',$time);
-		
-		if($h == '1') $bulan = 'Januari';
-		if($h == '2') $bulan = 'Februari';
-		if($h == '3') $bulan = 'Maret';
-		if($h == '4') $bulan = 'April';
-		if($h == '5') $bulan = 'Mei';
-		if($h == '6') $bulan = 'Juni';
-		if($h == '7') $bulan = 'Juli';
-		if($h == '8') $bulan = 'Agustus';
-		if($h == '9') $bulan = 'September';
-		if($h == '10') $bulan = 'Oktober';
-		if($h == '11') $bulan = 'November';
-		if($h == '12') $bulan = 'Desember';
-		
-		$tahun  = date('Y',$time);
-		
-		$pukul = date('H:i:s',$time);
-		
-		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' | '.$pukul.' WIB';
-		
-		return $output;
-		}
-		
-	}
 
 	public function getBulanList()
 	{

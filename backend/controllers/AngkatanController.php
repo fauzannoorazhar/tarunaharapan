@@ -4,10 +4,11 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Angkatan;
-use common\modelSearch\AngkatanSearch;
+use common\models\AngkatanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * AngkatanController implements the CRUD actions for Angkatan model.
@@ -20,6 +21,15 @@ class AngkatanController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [ 
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -51,8 +61,10 @@ class AngkatanController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 

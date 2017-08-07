@@ -4,7 +4,8 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\User;
-use common\modelSearch\UserSearch;
+use common\models\UserSearch;
+use common\models\setPasswordForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\AccessControl;
@@ -21,25 +22,10 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),//Untuk Memeberikan Akses Login Ke halaman Mana
-                'rules' => [ 
-                    [
-                        'actions' => ['signup','login'],//Hanya bisa mengakses halaman signup dan login
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['index','logout','view','create','update','delete'],//Bisa mengakses halaman index,logout,view,create,update,delete
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    //'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -65,8 +51,16 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView()
     {
+        if (User::isSuperAdmin()) {
+            $id = Yii::$app->user->identity->id;
+            $user = User::find()->where(['id' => $id])->one();
+        } elseif (User::isAdmin()) {
+            $id = Yii::$app->user->identity->id;
+            $user = User::find()->where(['id' => $id])->one();
+        }
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -80,8 +74,12 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
+        $model->id_role = 2;
+        $model->model = 'Admin';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())){
+            $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -100,13 +98,48 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            /*$model->setPasswordHash();*/
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionSetPassword()
+    {
+        if (User::isSuperAdmin()) {
+            $id = Yii::$app->user->identity->id;
+            $user = User::find()->where(['id' => $id])->one();
+        } elseif (User::isAdmin()) {
+            $id = Yii::$app->user->identity->id;
+            $user = User::find()->where(['id' => $id])->one();
+        }
+
+        $model = new SetPasswordForm;
+
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);    
+
+            if($user->save()) {
+                \Yii::$app->session->setFlash('success','Password berhasil disimpan');
+
+                /*if ($user->id_role == Role::OPD)
+                    return $this->redirect(['opd/index']);*/
+                
+                return $this->redirect(['view','id' => Yii::$app->user->identity->id]);
+            } else {
+                print_r($user->getErrors());
+                break;
+            }
+        }
+
+        return $this->render('setPassword', [
+            'model' => $model,
+        ]);
     }
 
     /**

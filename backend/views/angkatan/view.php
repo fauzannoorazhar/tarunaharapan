@@ -2,9 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use common\components\Helper;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Angkatan */
+
+
 $this->params['breadcrumbs'][] = ['label' => 'Angkatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -25,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('Hapus', ['delete', 'id' => $model->id], [
+            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger btn-flat',
                 'data' => [
                     'confirm' => 'Yakin Akan Menghapus Data?',

@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use common\models\User;
 
 /**
  * Site controller
@@ -18,15 +19,15 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
+                        'actions' => ['signup', 'login', 'error'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['index','logout','login','logout'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -35,7 +36,7 @@ class SiteController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'logout' => ['post'],
+                    'delete' => ['POST'],
                 ],
             ],
         ];
@@ -76,8 +77,9 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['site/index']);
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -92,8 +94,14 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
+        $user = User::findOne(['id' => Yii::$app->user->identity->id]);
+        $user->touch('last_login');
+
         Yii::$app->user->logout();
 
-        return $this->goHome();
+        if ($user->save()) {
+            return $this->redirect(['site/login']);
+        }
+
     }
 }

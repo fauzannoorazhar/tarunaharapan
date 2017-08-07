@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\modelSearch\GuruSearch */
+/* @var $model common\models\GuruSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -18,11 +18,17 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
+    <?= $form->field($model, 'id') ?>
+
     <?= $form->field($model, 'nama') ?>
+
+    <?= $form->field($model, 'nip') ?>
 
     <?= $form->field($model, 'alamat') ?>
 
-    <?= $form->field($model, 'photo') ?>
+    <?= $form->field($model, 'id_mapel') ?>
+
+    <?php // echo $form->field($model, 'photo') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

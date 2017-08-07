@@ -6,13 +6,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use kartik\date\DatePicker;
-use kartik\select2\Select2;
-use app\models\Pendidikan;
-use app\models\Golongan;
-use app\models\Provinsi;
-use app\models\Peserta;
-use app\models\Agama;
 
 $this->title = 'Set Password';
 
@@ -32,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ]); ?>
 
     <div class="box box-primary">
-        <div class="box-header">
+        <div class="box-header with-border">
             <h3 class="box-title">Form Set Password</h3>
         </div>
         <div class="box-body">

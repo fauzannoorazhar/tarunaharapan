@@ -4,9 +4,10 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\Siswa;
+use common\models\JenisKelamin;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\modelSearch\SiswaSearch */
+/* @var $searchModel common\models\SiswaSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Kelola Siswa';
@@ -15,10 +16,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="box box-primary siswa-index">
 
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
     <div class="box-header with-border">
         <p>
-            <?= Html::a('Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-mortar-board"></i> Siswa Alumni', ['alumni'], ['class' => 'btn btn-primary btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-spinner"></i> Siswa Aktif', ['aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
+            <div class="box-tools pull-right">
+                <div class="has-feedback"> 
+                    <?= $this->render('_search', ['model' => $searchModel]); ?>
+                </div>
+            </div>
         </p>
     </div>
     <div class="box-body">
@@ -26,6 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        /*'hover'=>true,*/
+        'responsive'=>true,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
@@ -34,46 +44,33 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
             'nama',
-            'nisn',
-            /*[
-                'attribute' => 'id_jurusan',
-                'filterType'=>GridView::FILTER_SELECT2,
-                //'filter'=>NamaModel::getList(), ini array untuk dropdown model relasi
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'Filter Data'],
-                'format'=>'raw',
+            [
+                'attribute' => 'nisn',
+                'options' => ['style' => 'width:200px']
             ],
             [
-                'attribute' => 'id_angkatan',
-                'filterType'=>GridView::FILTER_SELECT2,
-                //'filter'=>NamaModel::getList(), ini array untuk dropdown model relasi
-                'filterWidgetOptions'=>[
-                    'pluginOptions'=>['allowClear'=>true],
-                ],
-                'filterInputOptions'=>['placeholder'=>'Filter Data'],
-                'format'=>'raw',
-            ],*/
-            [
-            'attribute'=>'id_jurusan',
-            'value' => function($data){
-                    return $data->getRelationField('jurusan','nama');
-                },
-            ],
-            [
-            'attribute'=>'id_angkatan',
-            'value' => function($data){
-                    return $data->getRelationField('angkatan','tahun');
-                },
-            ],
-            [
-                'attribute'=>'status',
+                'attribute' => 'id_jenis_kelamin',
+                'filter' => JenisKelamin::getList(),
                 'value' => function($data){
+                    return $data->jenisKelamin->nama;
+                },
+            ],
+            [
+                'attribute' => 'status',
+                'filter' => Siswa::getListStatus(),
+                'value' => function ($data) {
                     return $data->getStatus();
                 },
-                'filter'=>Siswa::getList(),
+                'format' => 'raw',
             ],
+            [
+                'attribute' => 'id_jurusan_angkatan',
+                'filter' => Siswa::getList(),
+                'value' => function($data) {
+                    return $data->jurusanAngkatan->jurusan->nama . ' - ' . $data->jurusanAngkatan->angkatan->tahun;
+                }
+            ],
+            //'photo',
 
             [
                 'class' => 'app\components\ToggleActionColumn',

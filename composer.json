@@ -25,7 +25,8 @@
         "components/font-awesome": "^4.7",
         "2amigos/yii2-ckeditor-widget": "^2.0",
         "kartik-v/yii2-widget-select2": "^2.0",
-        "branchonline/yii2-lightbox": "^1.2"
+        "branchonline/yii2-lightbox": "^1.2",
+        "dmstr/yii2-adminlte-asset": "^2.4"
         
 
 

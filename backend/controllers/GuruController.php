@@ -4,10 +4,11 @@ namespace backend\controllers;
 
 use Yii;
 use common\models\Guru;
-use common\modelSearch\GuruSearch;
+use common\models\GuruSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * GuruController implements the CRUD actions for Guru model.
@@ -20,6 +21,15 @@ class GuruController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [ 
+                    [
+                        'actions' => ['index','view','create','update','delete'],
+                        'allow' => true,
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

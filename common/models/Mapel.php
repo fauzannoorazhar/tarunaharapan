@@ -10,6 +10,8 @@ use yii\Helpers\ArrayHelper;
  *
  * @property integer $id
  * @property string $nama
+ *
+ * @property Guru[] $gurus
  */
 class Mapel extends \yii\db\ActiveRecord
 {
@@ -39,27 +41,20 @@ class Mapel extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama Mata Pelajaran',
+            'nama' => 'Nama',
         ];
     }
 
-    public static function getList()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGuru()
+    {
+        return $this->hasMany(Guru::className(), ['id_mapel' => 'id']);
+    }
+
+    public function getList()
     {
         return ArrayHelper::map(Mapel::find()->all(),'id','nama');
-    }
-
-    public function getMapel()
-    {
-        return $this->hasOne(Mapel::className(),['mapel.id'=>'id_mapel']);
-    }
-
-    public function getRelationField($relation,$field)
-    {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
-        }
-        else{
-            return null;
-        }
     }
 }

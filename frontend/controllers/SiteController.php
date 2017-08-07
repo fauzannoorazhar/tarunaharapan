@@ -75,6 +75,15 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionAbout()
+    {
+        return $this->render('about');
+    }
+
+    public function actionContact()
+    {
+        return $this->render('contact');
+    }
     /**
      * Logs in a user.
      *
@@ -113,23 +122,6 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending your message.');
-            }
-
-            return $this->refresh();
-        } else {
-            return $this->render('contact', [
-                'model' => $model,
-            ]);
-        }
-    }
 
     /**
      * Displays about page.
@@ -207,48 +199,4 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionKepengurusan()
-    {
-        return $this->render('kepengurusan');
-    }
-
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    public function actionMenu()
-    {
-        return $this->render('menu');
-    }
-
-    public function actionSejarah()
-    {
-        return $this->render('sejarah');
-    }
-
-     public function actionAnggota()
-    {
-        return $this->render('anggota');
-    }
-
-     public function actionKegiatan()
-    {
-        return $this->render('kegiatan');
-    }
-
-     public function actionGaleri()
-    {
-        return $this->render('galeri');
-    }
-
-     public function actionForum()
-    {
-        return $this->render('forum');
-    }
-
-    public function actionArtikel()
-    {
-        return $this->render('artikel');
-    }
 }

@@ -11,6 +11,7 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'timeZone' => 'Asia/Jakarta',
     'modules' => [
         'gridview' =>  [
             'class' => '\kartik\grid\Module'

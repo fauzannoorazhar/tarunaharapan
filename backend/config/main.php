@@ -7,9 +7,10 @@ $params = array_merge(
 );
 
 return [
-    'id' => 'app-backend',
+    'id' => 'Taruna Harapan',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'timeZone' => 'Asia/Jakarta',
     'bootstrap' => ['log'],
     'modules' => [
         'gridview' =>  [
@@ -25,12 +26,18 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'dateFormat' => 'd-M-Y',
+            'datetimeFormat' => 'd-M-Y H:i:s',
+            'timeFormat' => 'H:i:s',
+        ],
         'view' => [
-            'theme' => [
-                'pathMap' => ['@app/views' => '@app/themes/yii2-adminlte'],
-                'baseUrl' => '@web/../themes/yii2-adminlte',
+            'theme' => [//admin lte dsmtr
+                'pathMap' => ['@backend/themes/adminlte'],
             ],
         ],
+        
 
 
         'user' => [

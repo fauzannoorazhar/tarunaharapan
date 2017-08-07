@@ -29,7 +29,7 @@ use yii\bootstrap\ActiveForm;
     </div>
     <div class="box-footer with-border form-group">
         <div class="col-sm-3 col-sm-offset-3">
-            <?= Html::submitButton('Simpan', ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::submitButton('<i class="fa fa-check"></i> Simpan', ['class' => 'btn btn-success btn-flat']) ?>
         </div>
     </div>
 

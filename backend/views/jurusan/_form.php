@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use kartik\select2\Select2;
-use common\models\Angkatan;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Jurusan */
@@ -27,18 +25,12 @@ use common\models\Angkatan;
                     ]]); ?>
 
     <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'id_angkatan')->widget(select2::className(), [
-        'data' => Angkatan::getList(),
-        'options' => [
-            'placeholder' => 'Pilih Angkatan',
-        ]
-    ]) ?>
+    <?= $form->field($model, 'logo')->fileInput() ?>
 
     </div>
     <div class="box-footer with-border form-group">
         <div class="col-sm-3 col-sm-offset-3">
-            <?= Html::submitButton('Simpan', ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::submitButton('<i class="fa fa-check"></i> Simpan', ['class' => 'btn btn-success btn-flat']) ?>
         </div>
     </div>
 

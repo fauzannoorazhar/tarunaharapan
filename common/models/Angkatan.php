@@ -3,13 +3,15 @@
 namespace common\models;
 
 use Yii;
-use yii\Helpers\ArrayHelper;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "angkatan".
  *
  * @property integer $id
  * @property string $tahun
+ *
+ * @property JurusanAngkatan[] $jurusanAngkatans
  */
 class Angkatan extends \yii\db\ActiveRecord
 {
@@ -28,7 +30,8 @@ class Angkatan extends \yii\db\ActiveRecord
     {
         return [
             [['tahun'], 'required'],
-            [['tahun'], 'string', 'max' => 255],
+            [['tahun'], 'safe'],
+            [['tahun'],'unique','message'=>'{attribute} Angkatan Sudah Ada'],
         ];
     }
 
@@ -43,22 +46,21 @@ class Angkatan extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getJurusans()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getJurusanAngkatan()
     {
-        return $this->hasMany(Jurusan::className(),['angkatan'=>'id']);
+        return $this->hasMany(JurusanAngkatan::className(), ['id_angkatan' => 'id']);
     }
 
-    public static function getList()
+    public function getList()
     {
         return ArrayHelper::map(Angkatan::find()->all(),'id','tahun');
-    }   
+    }
 
-    public function getRelationField($relation,$field)
+    public static function getJumlah()
     {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
-        } else {
-            return null;
-        }
+        return self::find()->count();
     }
 }
