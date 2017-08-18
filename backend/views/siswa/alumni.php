@@ -5,7 +5,7 @@ use common\models\Siswa;
 $this->params['breadcrumbs'][] = ['label' => 'Alumni', 'url' => ['siswa/alumni']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php foreach (Siswa::find()->where(['status' => 2])->groupBy('id_jurusan_angkatan')->all() as $JurusanAngkatan) { ?>
+<?php foreach (Siswa::findSiswaGroupBy() as $JurusanAngkatan) { ?>
     <div class="box box-primary collapsed-box">
         <div class="box-header with-border">
             <h3 class="box-title"><?= $JurusanAngkatan->jurusanAngkatan->jurusan->nama.' - '.$JurusanAngkatan->jurusanAngkatan->angkatan->tahun ?></h3>
@@ -28,15 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
                     </tr>
                 </thead>
 
-                <?php $i = 1; foreach (Siswa::find()->where(['status' => 2,'id_jurusan_angkatan' => $JurusanAngkatan])->all() as $data) { ?>
+                <?php 
+                $i = 1; 
+                foreach (Siswa::findSiswaByJurusanAngkatan($JurusanAngkatan) as $siswa) { ?>
                     <tr>
                         <td><?= $i; ?></td>
-                        <td><?= $data->nama ?></td>
-                        <td><?= $data->nisn ?></td>
-                        <td><?= $data->jenisKelamin->nama ?></td>
-                        <td><?= $data->getStatus() ?></td>
-                        <td><?= $data->jurusanAngkatan->jurusan->nama . ' - ' . $data->jurusanAngkatan->angkatan->tahun; ?></td>
-                        <th><?= Html::a('<i class="fa fa-eye"></i>', ['view','id' => $data->id]); ?></th>
+                        <td><?= $siswa->nama ?></td>
+                        <td><?= $siswa->nisn ?></td>
+                        <td><?= $siswa->jenisKelamin->nama ?></td>
+                        <td><?= $siswa->getStatus() ?></td>
+                        <td><?= $siswa->jurusanAngkatan->jurusan->nama . ' - ' . $siswa->jurusanAngkatan->angkatan->tahun; ?></td>
+                        <th><?= Html::a('<i class="fa fa-eye"></i>', ['view','id' => $siswa->id]); ?></th>
                     </tr>
                 <?php $i++; } ?>
 

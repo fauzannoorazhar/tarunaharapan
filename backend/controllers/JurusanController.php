@@ -90,7 +90,7 @@ class JurusanController extends Controller
                 $model->logo .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
                 $model->logo .= '.' . $picture->extension;
 
-                $path = Yii::getAlias('@app').'/web/uploads/'.$model->logo;
+                $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->logo;
                 $picture->saveAs($path, false);
             }
             if($model->save()){
@@ -127,7 +127,7 @@ class JurusanController extends Controller
                 $model->logo .= '.' . $logo->extension;
 
                 //@path Penyimpanan Jelas
-                $path = Yii::getAlias('@app').'/web/uploads/';
+                $path = Yii::getAlias('@frontend').'/web/uploads/';
 
                 $logo->saveAs($path.$model->logo, false);
 

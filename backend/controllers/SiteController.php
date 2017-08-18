@@ -7,6 +7,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
+use common\models\Anggota;
+use common\models\JurusanAngkatan;
 
 /**
  * Site controller
@@ -23,11 +25,12 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login', 'error'],
+                        'actions' => ['signup', 'login', 'error','register','error','dev'],
                         'allow' => true,
+                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','logout','login','logout'],
+                        'actions' => ['index','logout','login','logout','error','dev'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -54,6 +57,15 @@ class SiteController extends Controller
         ];
     }
 
+    public function actionError()
+    {
+
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $this->render('error', ['exception' => $exception]);
+        }
+    }
+
     /**
      * Displays homepage.
      *
@@ -72,6 +84,7 @@ class SiteController extends Controller
     public function actionLogin()
     {
         $this->layout = 'login';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
@@ -79,12 +92,38 @@ class SiteController extends Controller
         $model = new LoginForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            if (User::isAdmin() || User::isOperator() || User::isAnggota()) {
+                $user = User::findOne(['id' => User::getUser()]);
+                $user->touch('last_login');
+                $user->update();
+            } 
+
+            \Yii::$app->getSession()->setFlash('success', 'Selamat Datang '.User::getNamaUser());
             return $this->redirect(['site/index']);
         } else {
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionRegister()
+    {
+        $this->layout = 'login';
+
+        $model = new Anggota();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->createUser();
+            $model->sendMailToUser();
+            $model->sendMailToAdmin();
+                return $this->redirect(['site/login']); 
+        } else {
+            return $this->render('register',[
+                'model' => $model
+            ]);
+         }
     }
 
     /**
@@ -94,13 +133,31 @@ class SiteController extends Controller
      */
     public function actionLogout()
     {
-        $user = User::findOne(['id' => Yii::$app->user->identity->id]);
-        $user->touch('last_login');
 
         Yii::$app->user->logout();
 
-        if ($user->save()) {
-            return $this->redirect(['site/login']);
+        return $this->redirect(['site/login']);
+    }
+
+    /*public function actionDev()
+    {
+        foreach (Artikel::find()->all() as $data) {
+            $data->id;
+            $data->judul;
+            $data->isi;
+            $data->slug;
+            if ($data->save()) {
+                return 'HAHAHAH';
+            }
+        }
+    }*/
+
+    public function actionDev()
+    {   
+        foreach (JurusanAngkatan::find()->all() as $data) {
+            if ($data->save()) {
+                Yii::$app->session->setFlash('success','Kamu Berhasil Melakukan Save Semua Data');
+            }
         }
 
     }

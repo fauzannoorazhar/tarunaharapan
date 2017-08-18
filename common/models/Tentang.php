@@ -73,8 +73,8 @@ class Tentang extends \yii\db\ActiveRecord
             'id' => 'ID',
             'isi' => 'Konten',
             'gambar' => 'Gambar',
-            'create_by' => 'Create By',
-            'update_by' => 'Update By',
+            'create_by' => 'Dibuat Oleh',
+            'update_by' => 'Dirubah Oleh',
             'create_at' => 'Waktu Dibuat',
             'update_at' => 'Waktu Dirubah',
         ];

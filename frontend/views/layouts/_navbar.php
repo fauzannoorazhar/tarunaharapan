@@ -12,24 +12,25 @@ use yii\bootstrap\NavBar;
             <li><a href="#." class="twitter"><i class="fa fa-twitter"></i></a></li>
             <li><a href="#." class="instagram"><i class="icon-instagram"></i></a></li>
           </ul>
-          
-      <?php
-          NavBar::begin([
+
+    <?php
+        NavBar::begin([
               'options' => [
                   'class' => 'navbar-default',
               ],
-          ]);
-          echo Nav::widget([
-              'options' => ['class' => 'navbar-nav navbar-right'],
-              'items' => [
+        ]);
+        echo Nav::widget([
+            'options' => ['class' => 'navbar-nav navbar-right'],
+            'items' => [
                   ['label' => 'Home', 'url' => ['/site/index']],
                   ['label' => 'Alumni', 'url' => ['/alumni/index']],
-                  ['label' => 'About', 'url' => ['/site/about']],
-                  ['label' => 'Contact', 'url' => ['/site/contact']],
+                  ['label' => 'Artikel', 'url' => ['/artikel/index']],
+                  ['label'=>'Login', 'url'=>\Yii::$app->urlManagerFrontEnd->baseUrl],
               ],
-          ]);
-          NavBar::end();
-      ?>
+        ]);
+        NavBar::end();
+    ?>
+
        </div>
        </div>
      </div>

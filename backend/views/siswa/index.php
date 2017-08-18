@@ -19,12 +19,18 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <div class="box-header with-border">
         <p>
-            <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-mortar-board"></i> Siswa Alumni', ['alumni'], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-spinner"></i> Siswa Aktif', ['aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
-            <div class="box-tools pull-right">
-                <div class="has-feedback"> 
-                    <?= $this->render('_search', ['model' => $searchModel]); ?>
+            <div class="row">
+                <div class="col-md-6 col-xs-7">
+                    <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+                    <?= Html::a('<i class="fa fa-mortar-board"></i> Siswa Alumni', ['alumni'], ['class' => 'btn btn-primary btn-flat']) ?>
+                    <?= Html::a('<i class="fa fa-check"></i> Siswa Aktif', ['aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
+                </div>
+                <div class="col-md-6 col-xs-5">
+                    <div class="pull-right">
+                        <div class="has-feedback"> 
+                            <?= $this->render('_search', ['model' => $searchModel]); ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </p>
@@ -34,8 +40,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        /*'hover'=>true,*/
+        'bordered' => true,
+        'striped' => false,
         'responsive'=>true,
+        'floatHeader'=>false,
+        'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'persistResize'=>false,
+        'pjax'=>true,
+        'responsiveWrap' => false,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',

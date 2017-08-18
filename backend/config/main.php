@@ -20,7 +20,7 @@ return [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
-        ]
+        ],
     ],
     'components' => [
         'request' => [
@@ -37,8 +37,9 @@ return [
                 'pathMap' => ['@backend/themes/adminlte'],
             ],
         ],
-        
-
+        'errorHandler' => [
+            'errorAction' => 'site/error',
+        ],
 
         'user' => [
             'identityClass' => 'common\models\User',
@@ -61,14 +62,20 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
+        
+        /*'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
+        ],*/
+        'urlManagerFrontEnd' => [
+            'class' => 'yii\web\urlManager',
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+            'baseUrl' => 'http://127.0.0.1/tarunaharapan2/frontend/web/site/index',
         ],
-        */
+        
     ],
     'params' => $params,
 ];

@@ -7,6 +7,7 @@ use common\models\User;
 
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\behaviors\SluggableBehavior;
 
 /**
  * This is the model class for table "jurusan_angkatan".
@@ -38,6 +39,7 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
             [['id_jurusan'],'unique','message' => '{attribute} Sudah Ada'],
             [['id_jurusan', 'id_angkatan'], 'required'],
             [['id_jurusan', 'id_angkatan'], 'integer'],
+            [['slug'],'string', 'max' => 255],
             [['id_jurusan'], 'exist', 'skipOnError' => true, 'targetClass' => Jurusan::className(), 'targetAttribute' => ['id_jurusan' => 'id']],
             [['id_angkatan'], 'exist', 'skipOnError' => true, 'targetClass' => Angkatan::className(), 'targetAttribute' => ['id_angkatan' => 'id']],
         ];
@@ -59,6 +61,10 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
                         return User::getNamaUser();
                 },
             ],
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'jurusan.nama',
+            ],
         ];
     }
 
@@ -77,6 +83,7 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_jurusan' => 'Jurusan',
             'id_angkatan' => 'Angkatan',
+            'slug' => 'Slug',
             'create_by' => 'Create By',
             'update_by' => 'Update By',
             'create_at' => 'Waktu Dibuat',
@@ -118,19 +125,11 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
         return $hasil;  
     }
 
-    public function findSiswaByJurusanAngkatan()
-    {
-        return Siswa::find()
-        ->where(['id_jurusan_angkatan' => $this->id])
-        ->orderBy('nama')
-        ->all();
-    }
-
     public static function findJurusanAngkatanStatus()
     {
         return self::find()
-        ->joinWith('siswa')
+        ->joinWith(['siswa','jurusan'])
         ->where(['siswa.status' => 2])
-        ->all();
+        ->orderBy(['id' => SORT_ASC]);
     }
 }

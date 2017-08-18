@@ -1,4 +1,6 @@
 <?php
+use yii\web\UrlNormalizer;
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -20,7 +22,16 @@ return [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
-        ]
+        ],
+        'social' => [
+            // the module class
+            'class' => 'kartik\social\Module',
+     
+            // the global settings for the facebook widget
+            'facebook' => [
+                'appId' => '1943341949212865',
+            ],
+        ],
     ],
     'components' => [
         'request' => [
@@ -47,14 +58,27 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                /*'<artikel:\w+>/<detail:\w+>/<slug>' => '<artikel>/<detail>',*/
+                'Artikel/<slug>' => 'artikel/detail',
+                'Alumni/<slug>' => 'alumni/detail',
+            ],
+            'normalizer' => [
+                'class' => UrlNormalizer::className(),
+                'collapseSlashes' => true,
+                'normalizeTrailingSlash' => true,
             ],
         ],
-        */
+        'urlManagerFrontEnd' => [
+            'class' => 'yii\web\urlManager',
+            'enablePrettyUrl' => false,
+            'showScriptName' => false,
+            'baseUrl' => 'http://127.0.0.1/tarunaharapan2/backend/web/index.php?r=site%2Flogin',
+        ],
     ],
     'params' => $params,
 ];

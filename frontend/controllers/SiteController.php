@@ -12,6 +12,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\data\ActiveDataProvider;
+use common\models\Anggota;
 
 /**
  * Site controller
@@ -58,11 +60,16 @@ class SiteController extends Controller
             'error' => [
                 'class' => 'yii\web\ErrorAction',
             ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
         ];
+    }
+
+    public function actionError()
+    {
+
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $this->render('error', ['exception' => $exception]);
+        }
     }
 
     /**
@@ -75,15 +82,6 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionAbout()
-    {
-        return $this->render('about');
-    }
-
-    public function actionContact()
-    {
-        return $this->render('contact');
-    }
     /**
      * Logs in a user.
      *
@@ -91,18 +89,38 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        $this->layout = 'login';
+
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->redirect(['user/profil']);
         } else {
             return $this->render('login', [
                 'model' => $model,
             ]);
         }
+    }
+
+    public function actionRegister()
+    {
+        $this->layout = 'login';
+
+        $model = new Anggota();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->createUser();
+            $model->sendMailToUser();
+            $model->sendMailToAdmin();
+            return $this->redirect(['site/login']); 
+        } else {
+            return $this->render('register',[
+                'model' => $model
+            ]);
+         }
     }
 
     /**

@@ -78,7 +78,7 @@ class TentangController extends Controller
                 $model->gambar .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
                 $model->gambar .= '.' . $picture->extension;
 
-                $path = Yii::getAlias('@app').'/web/uploads/'.$model->gambar;
+                $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->gambar;
                 $picture->saveAs($path, false);
             }
             if($model->save()){
@@ -115,7 +115,7 @@ class TentangController extends Controller
                 $model->gambar .= '.' . $gambar->extension;
 
                 //@path Penyimpanan Jelas
-                $path = Yii::getAlias('@app').'/web/uploads/';
+                $path = Yii::getAlias('@frontend').'/web/uploads/';
 
                 $gambar->saveAs($path.$model->gambar, false);
 

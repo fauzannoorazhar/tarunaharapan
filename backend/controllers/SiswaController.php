@@ -99,7 +99,7 @@ class SiswaController extends Controller
                 $model->photo .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
                 $model->photo .= '.' . $picture->extension;
 
-                $path = Yii::getAlias('@app').'/web/uploads/'.$model->photo;
+                $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->photo;
                 $picture->saveAs($path, false);
             }
             if($model->save()){
@@ -136,7 +136,7 @@ class SiswaController extends Controller
                 $model->photo .= '.' . $photo->extension;
 
                 //@path Penyimpanan Jelas
-                $path = Yii::getAlias('@app').'/web/uploads/';
+                $path = Yii::getAlias('@frontend').'/web/uploads/';
 
                 $photo->saveAs($path.$model->photo, false);
 

@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use common\components\Setup;
+use yii\filters\AccessControl;
+use common\models\User;
+use common\models\StatusArtikel;
 
 /**
  * ArtikelController implements the CRUD actions for Artikel model.
@@ -22,6 +25,21 @@ class ArtikelController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['signup', 'login', 'error','register','error'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index','view','update','delete','error','create','proses','terima','tolak','ubah-status'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -46,6 +64,54 @@ class ArtikelController extends Controller
         ]);
     }
 
+    public function actionProses()
+    {
+        $searchModel = new ArtikelSearch();
+        $dataProvider = $searchModel->searchProses(Yii::$app->request->queryParams);
+
+        return $this->render('proses', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionTerima()
+    {
+        $searchModel = new ArtikelSearch();
+        $dataProvider = $searchModel->searchTerima(Yii::$app->request->queryParams);
+
+        return $this->render('terima', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionTolak()
+    {
+        $searchModel = new ArtikelSearch();
+        $dataProvider = $searchModel->searchTolak(Yii::$app->request->queryParams);
+
+        return $this->render('tolak', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionUbahStatus($id,$id_status_artikel)
+    {
+        $model = $this->findModel($id);
+        $model->id_status_artikel = $id_status_artikel;
+        /*$model->sendMail();*/
+
+        //save tanpa validasi
+        if($model->save(false)){
+            Yii::$app->session->setFlash('success','Status Telah Diubah ! ');
+            return $this->redirect(Yii::$app->request->referrer);
+        } else{
+            return print_r($model->getErrors());
+        }
+    }
+
     /**
      * Displays a single Artikel model.
      * @param integer $id
@@ -67,6 +133,12 @@ class ArtikelController extends Controller
     {
         $model = new Artikel();
 
+        if (User::isAnggota()) {
+            $model->id_status_artikel = StatusArtikel::DIPROSES;
+        } else {
+            $model->id_status_artikel = StatusArtikel::DITERIMA;
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // Action Tambah Berkas Upload
             $picture = UploadedFile::getInstance($model, 'gambar');
@@ -79,7 +151,7 @@ class ArtikelController extends Controller
                 $model->gambar .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
                 $model->gambar .= '.' . $picture->extension;
 
-                $path = Yii::getAlias('@app').'/web/uploads/'.$model->gambar;
+                $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->gambar;
                 $picture->saveAs($path, false);
             }
             if($model->save()){
@@ -116,7 +188,7 @@ class ArtikelController extends Controller
                 $model->gambar .= '.' . $gambar->extension;
 
                 //@path Penyimpanan Jelas
-                $path = Yii::getAlias('@app').'/web/uploads/';
+                $path = Yii::getAlias('@frontend').'/web/uploads/';
 
                 $gambar->saveAs($path.$model->gambar, false);
 

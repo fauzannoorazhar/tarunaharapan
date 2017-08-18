@@ -49,9 +49,9 @@ class Helper extends Component
 		
 		$tahun  = date('Y',$time);
 		
-		$pukul = date('H:i:s',$time);
+		$pukul = date('H:i',$time);
 		
-		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' | '.$pukul.' WIB';
+		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' '.$pukul.' WIB';
 		
 		return $output;
 		}
@@ -274,4 +274,49 @@ class Helper extends Component
  
 }
 
-?>
+
+/*public static function getWaktuWIB($waktu)
+	{
+		if($waktu == '')
+			return null;
+		else {
+		$time = strtotime($waktu);
+		
+		$h = date('N',$time);
+		
+		if($h == '1') $hari = 'Senin';
+		if($h == '2') $hari = 'Selasa';
+		if($h == '3') $hari = 'Rabu';
+		if($h == '4') $hari = 'Kamis';
+		if($h == '5') $hari = 'Jumat';
+		if($h == '6') $hari = 'Sabtu';
+		if($h == '7') $hari = 'Minggu';
+		
+		
+		$tgl = date('j',$time);
+		
+		$h = date('n',$time);
+		
+		if($h == '1') $bulan = 'Januari';
+		if($h == '2') $bulan = 'Februari';
+		if($h == '3') $bulan = 'Maret';
+		if($h == '4') $bulan = 'April';
+		if($h == '5') $bulan = 'Mei';
+		if($h == '6') $bulan = 'Juni';
+		if($h == '7') $bulan = 'Juli';
+		if($h == '8') $bulan = 'Agustus';
+		if($h == '9') $bulan = 'September';
+		if($h == '10') $bulan = 'Oktober';
+		if($h == '11') $bulan = 'November';
+		if($h == '12') $bulan = 'Desember';
+		
+		$tahun  = date('Y',$time);
+		
+		$pukul = date('H:i:s',$time);
+		
+		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' | '.$pukul.' WIB';
+		
+		return $output;
+		}
+		
+	}*/

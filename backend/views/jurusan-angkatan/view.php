@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
             </tr>
                 <?php
                 $i=1;
-                 foreach ($model->findSiswaByJurusanAngkatan() as $data) { ?>
+                 foreach ($model->siswa as $data) { ?>
             <tr>
                 <td><?= $i; ?></td>
                 <td><?= $data->nama; ?></td>

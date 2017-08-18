@@ -71,10 +71,10 @@ class Jurusan extends \yii\db\ActiveRecord
     public function getGambar($htmlOptions=[])
     {
         //Jika file ada dalam direktori
-        if($this->logo == null && !file_exists('@web/uploads/'.$this->logo)){
-            return Html::img('@web/images/logo.png',$htmlOptions);
+        if($this->logo == null && !file_exists('@uploads/uploads/'.$this->logo)){
+            return Html::img('@uploads/images/logo2.png',$htmlOptions);
         } else {
-            return Html::img('@web/uploads/'. $this->logo,$htmlOptions);
+            return Html::img('@uploads/uploads/'. $this->logo,$htmlOptions);
         }
     }
 }

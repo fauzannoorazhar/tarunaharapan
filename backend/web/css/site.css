@@ -118,3 +118,19 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+input#siswasearch-globalsearch {
+    height: -10%;
+    width: 220px;
+    height: 35px;
+    border: 2px solid #3c8dbc;
+}
+
+@media only screen and (max-width: 500px) {
+    input#siswasearch-globalsearch {
+        height: -10%;
+        width: 220px;
+        height: 35px;
+        border: 2px solid #3c8dbc;
+    }
+}

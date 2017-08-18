@@ -1,6 +1,6 @@
 <?php
 // Untuk Mewakili Jalur File 
-Yii::setAlias('@uploads','../../backend/web/uploads/');
+Yii::setAlias('@uploads','../web/uploads/');
 
 return [
     'adminEmail' => 'admin@example.com',

@@ -51,17 +51,32 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionView()
-    {
-        if (User::isSuperAdmin()) {
-            $id = Yii::$app->user->identity->id;
+    public function actionView($id)
+    {        
+        /*if (User::isAdmin()) {
+            $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
-        } elseif (User::isAdmin()) {
-            $id = Yii::$app->user->identity->id;
+        } elseif (User::isOperator()) {
+            $id = User::getUser();
+            $user = User::find()->where(['id' => $id])->one();
+        }*/
+        
+        return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionProfil()
+    {        
+        if (User::isAdmin()) {
+            $id = User::getUser();
+            $user = User::find()->where(['id' => $id])->one();
+        } elseif (User::isOperator()) {
+            $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         }
         
-        return $this->render('view', [
+        return $this->render('profil', [
             'model' => $this->findModel($id),
         ]);
     }
@@ -74,8 +89,9 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        $model->id_role = 2;
-        $model->model = 'Admin';
+        $model->status = 1;
+        $model->id_role = 3;
+        $model->model = 'Anggota';
 
         if ($model->load(Yii::$app->request->post())){
             $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
@@ -111,11 +127,11 @@ class UserController extends Controller
 
     public function actionSetPassword()
     {
-        if (User::isSuperAdmin()) {
-            $id = Yii::$app->user->identity->id;
+        if (User::isAdmin()) {
+            $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
-        } elseif (User::isAdmin()) {
-            $id = Yii::$app->user->identity->id;
+        } elseif (User::isOperator()) {
+            $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         }
 
@@ -130,7 +146,7 @@ class UserController extends Controller
                 /*if ($user->id_role == Role::OPD)
                     return $this->redirect(['opd/index']);*/
                 
-                return $this->redirect(['view','id' => Yii::$app->user->identity->id]);
+                return $this->redirect(['view','id' => User::getUser()]);
             } else {
                 print_r($user->getErrors());
                 break;
@@ -168,6 +184,19 @@ class UserController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    public function actionAktifkan($id)
+    {
+        $model = $this->findModel($id);
+
+        if($model->status = 1){        
+            if($model->save()){
+                return $this->redirect(['site/login']);
+            }
+        } else {
+            return $this->redirect(['site/login']);
         }
     }
 }

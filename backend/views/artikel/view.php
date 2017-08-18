@@ -3,6 +3,10 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\components\Helper;
+use common\models\Artikel;
+use common\models\Rating;
+use common\models\StatusArtikel;
+use kartik\rating\StarRating;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Artikel */
@@ -26,62 +30,44 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'attributes' => [
                         'judul',
-                        'isi:ntext',
+                        [
+                            'attribute' => 'isi',
+                            'format' => 'raw',
+                        ],
                         'create_by',
-                        'update_by',
                         [
                             'attribute' => 'create_at',
                             'value' => function($data){
                                 return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
                             },
                         ],
-                        [
+                        /*[
                             'attribute' => 'update_at',
                             'value' => function($data){
                                 return Helper::getWaktuWIB(Helper::convert($data->update_at, 'datetime'));
                             },
+                        ],*/
+                        [
+                            'attribute' => 'id_status_artikel',
+                            'value' => function ($data) {
+                                return $data->getStatus();
+                            },
+                            'format' => 'raw',
                         ],
                     ],
                 ]) ?>
             </div>
         </div>
-
-    
         
     </div>
     <div class="box-footer with-border">
-        <p>
-            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+        <p> <?= Html::a('<i class="fa fa-list"></i> Daftar Artikel', Yii::$app->request->referrer, ['class' => 'btn btn-success btn-flat']); ?>
+            <?php 
+            if ($model->id_status_artikel == StatusArtikel::DIPROSES) { ?>
+                <?= Html::a('<i class="fa fa-check"></i> Ubah Menjadi Diterima', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITERIMA], ['class' => 'btn btn-primary btn-flat', 'data-confirm' => 'Yakin akan menerima artikel ini?']); ?>
+                <?= Html::a('<i class="fa fa-remove"></i> Tolak Artikel', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITOLAK], ['class' => 'btn btn-danger btn-flat', 'data-confirm' => 'Yakin akan menolak artikel ini?']); ?>
+            <?php } ?>
         </p>
     </div>
 
 </div>
-
-
-<?php
-
-/*    $a = 2;
-    $b = 3;
-    $c = 2.6;
-
-    echo var_dump($a);
-    echo "<br \>";
-
-    $hasil1 = $a + $b;
-    $hasil2 = $a + $c;
-    $hasil3 = $a.$b;
-
-    echo "$hasil1:"; var_dump($hasil1); 
-    echo "<br \>"; 
-    echo "$hasil2:"; var_dump($hasil2); 
-    echo "<br \>";
-    echo "$hasil3:"; var_dump($hasil3);  */
-
-?>

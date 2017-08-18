@@ -98,11 +98,6 @@ class Siswa extends \yii\db\ActiveRecord
         ];
     }
 
-/*'class' => TimestampBehavior::className(),
-    'attributes' => [
-        ActiveRecord::EVENT_BEFORE_INSERT => ['create_at', 'update_at'],
-        ActiveRecord::EVENT_BEFORE_UPDATE => ['update_at'],
-    ],*/
 
     /**
      * @return \yii\db\ActiveQuery
@@ -186,9 +181,6 @@ class Siswa extends \yii\db\ActiveRecord
         return Siswa::find()->joinWith('jurusanAngkatan')->where(['id_jurusan' => 1])->count();
     }
 
-    /*$data->jurusanAngkatan->jurusan->nama.' - '.$data->jurusanAngkatan->angkatan;*/
-
-
     /* Memberikan return untuk di radiobutton
     public function getStatus()
     {
@@ -200,6 +192,21 @@ class Siswa extends \yii\db\ActiveRecord
             return "";
         }
     }*/
+
+    public static function findSiswaGroupBy()
+    {
+        return Siswa::find()
+        ->where(['status' => 2])
+        ->groupBy('id_jurusan_angkatan')
+        ->all();
+    }
+
+    public static function findSiswaByJurusanAngkatan($JurusanAngkatan)
+    {
+        return Siswa::find()
+        ->where(['status' => 2,'id_jurusan_angkatan' => $JurusanAngkatan])
+        ->all();
+    }
 
     public function getGambar($htmlOptions=[])
     {

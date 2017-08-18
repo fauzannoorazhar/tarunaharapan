@@ -171,7 +171,7 @@ p.title{
 }
 
 .section-padding {
-    padding-top: 45px!important;
+    padding-top: 0%!important;
 }
 
 .padding-botom{
@@ -457,7 +457,7 @@ ul.top-right li a:hover,
  
 }
 #navigation.affix {
-  background-color: #fff;
+  background-color: #4097ca;
   position: fixed;
   -webkit-box-shadow:0 2px 10px -1px rgba(87, 97, 100, 0.35);
   -moz-box-shadow:0 2px 10px -1px rgba(87, 97, 100, 0.35);
@@ -516,19 +516,15 @@ ul.top-right li a:hover,
 	padding:22px 0;
 		
 }
-.navbar-default .navbar-nav > li > a:hover,
-#navigation.affix .navbar-default .navbar-nav > li > a:hover{
-	color:#07AAA5;
-	background-color:transparent;
+.navbar-default .navbar-nav > li > a:hover, #navigation.affix .navbar-default .navbar-nav > li > a:hover {
+    color: #000000;
+    background-color: transparent;
 }
-.navbar-default .navbar-nav > .active a, .navbar-default .navbar-nav > .active a:hover,
-.navbar-default .navbar-nav > .active a:focus,
-#navigation.affix .navbar-default .navbar-nav > .active a, #navigation.affix .navbar-default .navbar-nav > .active a:hover,
-#navigation.affix .navbar-default .navbar-nav > .active a:focus{
-	color:#000000;
-	border-bottom:3px solid #000000;
-	background-color:transparent;
-}	
+.navbar-default .navbar-nav > .active a, .navbar-default .navbar-nav > .active a:hover, .navbar-default .navbar-nav > .active a:focus, #navigation.affix .navbar-default .navbar-nav > .active a, #navigation.affix .navbar-default .navbar-nav > .active a:hover, #navigation.affix .navbar-default .navbar-nav > .active a:focus {
+    color: black;
+    border-bottom: 4px solid black;
+    background-color: transparent;
+}
 
 .navbar-toggle {
   background: transparent !important;
@@ -861,7 +857,7 @@ ul.top-right li a:hover.instagram{
 .color3{ color:#EC768C;}	
 .color4{ color:#C183D6;}	
 .color5{ color:#31AAE1;}
-.color6{ color:#82B440;}			
+.colortema{color: #4097ca;}			
 #about .canvas-box:hover span i,
 .counters-item:hover i,
 .we-do .do-wrap:hover i{
@@ -2260,13 +2256,13 @@ ul.category li a .date{
 
           /* Inner Pages Top*/
 .innerpage-banner {
-	background: url(../images/banner-about.jpg) no-repeat center center / cover;
-	padding-top: 200px;
-	max-height:440px;
-	border-bottom: 2px solid rgba(0,0,0,0.9);
-	color: #fff;
-	
+    background: url(../images/banner-about.jpg) no-repeat center center / cover;
+    padding-top: 200px;
+    max-height: 440px;
+    border-bottom: 4px solid #4097ca;
+    color: #fff;
 }
+
 .tagline {
 	color: #fff;
 	text-transform: uppercase;
@@ -2353,7 +2349,7 @@ margin-top: 30px;
 @media screen and (max-width: 767px){
 
   h2{ font-size:30px; }
-  #main-navigation{ background-color: #1b1d1f; }
+  #main-navigation{ background-color: #4097ca; }
   
   .navbar-brand, #navigation.affix .navbar-brand{ display:inline-block;  padding: 10px 0;}
   .navbar-default .navbar-nav > li > a, #navigation.affix  .navbar-default .navbar-nav > li > a {
@@ -2460,18 +2456,8 @@ margin-top: 30px;
       #thinkers .col-sm-4{
 		  width: 48%;
 		  display:inline-block;
-	  } 
-	  
-	 
-	  
-	  
-	  
-	  
-	  
-   
+	  }   
 }
-
-
 
 
 @media screen and (max-width: 480px) {

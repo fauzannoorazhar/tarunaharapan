@@ -19,7 +19,7 @@ class TentangSearch extends Tentang
     {
         return [
             [['id'], 'integer'],
-            [['isi', 'gambar','create_by','update_by','create_at','update_at'], 'safe'],
+            [['isi', 'gambar'], 'safe'],
         ];
     }
 

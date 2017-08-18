@@ -85,3 +85,30 @@ $this->title = 'Selamat Datang';
         </div>
     </div>
 </div>
+
+
+<?php
+    /*$hitunghari['awal'] = '1998-12-09';
+    $hitunghari['akhir'] = date('Y-m-d');
+    $lahir = $hitunghari['awal'];
+
+    $selisih = time() - strtotime ($lahir);
+
+    print $selisih.'<br>';
+    print time().'<br>';
+    print strtotime('1998-01-01').'<br>';
+
+    $tahun = floor ($selisih / 31536000);
+
+    print $tahun.'<br>';
+    print floor('1998-01-01' / 31536000);
+
+    $bulan = floor (($selisih % 31536000) / 2592000);
+        foreach ($hitunghari as $key => $val)
+        {
+            $hitunghari[$key] = strtotime ($val);
+        }
+    $hitunghari['selisih'] = $hitunghari['akhir'] - $hitunghari['awal'];
+    $hitunghari['selisih'] = number_format ($hitunghari['selisih'] / 86400, 2) . 'hari';*/
+    /*echo $tahun.' Tahun';*/
+?>

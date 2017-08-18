@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
+use dosamigos\ckeditor\CKEditor;
+/*use kartik\rating\StarRating;*/
+
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Artikel */
@@ -27,17 +30,12 @@ use kartik\date\DatePicker;
 
     <?= $form->field($model, 'judul')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'isi')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'isi')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'advanced'
+    ]) ?>
 
     <?= $form->field($model, 'gambar')->fileInput() ?>
-
-    <?php /*$form->field($model, 'tanggal')->widget(DatePicker::ClassName(),[
-        'options' => ['placeholder' => 'Pilih Tanggal'],
-        'pluginOptions' => [
-        'format' => 'dd-mm-yyyy',
-        'autoclose' =>true
-        ]
-    ])*/ ?>
 
     </div>
     <div class="box-footer with-border form-group">
