@@ -23,7 +23,7 @@ class ArtikelController extends \yii\web\Controller
 
     public function actionIndex()
     {
-        $query = Artikel::find()->orderBy(['id' => SORT_DESC]);
+        $query = Artikel::find()->where(['id_status_artikel' => 2])->orderBy(['id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [

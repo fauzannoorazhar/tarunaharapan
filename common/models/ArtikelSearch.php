@@ -43,7 +43,11 @@ class ArtikelSearch extends Artikel
 
     public function getQuerySearch($params)
     {
-        $query = Artikel::find()/*->andWhere(['create_by' => Yii::$app->user->identity->username])*/;
+        if (User::isAnggota()) {    
+            $query = Artikel::find()->andWhere(['create_by' => Yii::$app->user->identity->id]);
+        } else {
+            $query = Artikel::find();
+        }
 
         $this->load($params);
 
@@ -75,6 +79,7 @@ class ArtikelSearch extends Artikel
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['id' => SORT_DESC]],
         ]);        
 
         return $dataProvider;

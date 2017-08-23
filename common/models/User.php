@@ -50,7 +50,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
-            'model' => 'Model',
+            'model' => 'Status',
             'id_role' => 'Role',
             'status' => 'Status',
             'nama_anggota' => 'Nama Anggota',
@@ -71,9 +71,24 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    public function getArtikel()
+    {
+        return $this->hasMany(Artikel::className(),['create_by' => 'id']);
+    }
+
     public function getAnggota()
     {
-        return $this->hasOne(Anggota::className(), ['nama' => 'nama_anggota']);
+        return $this->hasOne(Anggota::className(), ['id' => 'nama_anggota']);
+    }
+
+    public function getRelationField($relation,$field)
+    {
+        if(!empty($this->$relation->$field)){
+            return $this->$relation->$field;   
+        }
+        else{
+            return null;
+        }
     }
 
     public function getRole()
@@ -206,16 +221,6 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             return 'Akun Tidak Aktif';
         } else {
             return 'Akun Aktif';
-        }
-    }
-
-    public function getRelationField($relation,$field)
-    {
-        if(!empty($this->$relation->$field)){
-            return $this->$relation->$field;   
-        }
-        else{
-            return null;
         }
     }
 }

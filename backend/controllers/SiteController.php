@@ -7,8 +7,9 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
-use common\models\Anggota;
+use common\models\Studen;
 use common\models\JurusanAngkatan;
+use common\models\Anggota;
 
 /**
  * Site controller
@@ -30,7 +31,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','logout','login','logout','error','dev'],
+                        'actions' => ['index','logout','login','logout','error','dev','anggota'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -66,6 +67,13 @@ class SiteController extends Controller
         }
     }
 
+    public function actionAnggota()
+    {
+        $this->layout = 'anggota';
+
+        return $this->render('anggota');
+    }
+
     /**
      * Displays homepage.
      *
@@ -73,7 +81,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+        
+        if (User::isAnggota()) {
+            return $this->render('anggota');
+        } else {
+            return $this->render('index');
+        }
     }
 
     /**
@@ -100,7 +116,12 @@ class SiteController extends Controller
             } 
 
             \Yii::$app->getSession()->setFlash('success', 'Selamat Datang '.User::getNamaUser());
-            return $this->redirect(['site/index']);
+            if (User::isAdmin() || User::isOperator()) {
+                return $this->redirect(['site/index']);
+            } else {
+                return $this->redirect(['site/anggota']);
+            }
+
         } else {
             return $this->render('login', [
                 'model' => $model,
@@ -152,13 +173,32 @@ class SiteController extends Controller
         }
     }*/
 
+    function get_students($obj)
+    {
+        if (!is_object($obj)) {
+            return false;
+        }
+
+        return $obj->students;
+    }
+
     public function actionDev()
     {   
-        foreach (JurusanAngkatan::find()->all() as $data) {
+        /*foreach (JurusanAngkatan::find()->all() as $data) {
             if ($data->save()) {
                 Yii::$app->session->setFlash('success','Kamu Berhasil Melakukan Save Semua Data');
             }
-        }
+        }*/
+        $obj = new Studen();
+        $obj->students = ['Kalle', 'Ross', 'Felipe'];
+
+        var_dump($this->get_students(null));
+        var_dump($this->get_students($obj));
+
+        $inst = new Studen();
+        $inst->test();
+
+        Studen::test();
 
     }
 }

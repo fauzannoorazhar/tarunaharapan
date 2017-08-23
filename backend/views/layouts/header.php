@@ -51,7 +51,7 @@ use common\models\User;
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <?= Html::a('<i class="fa fa-user-circle-o"></i> Profil', ['user/view'], ['class' => 'btn btn-default btn-flat']); ?>
+                                <?= Html::a('<i class="fa fa-user-circle-o"></i> Profil', ['user/profil'], ['class' => 'btn btn-default btn-flat']); ?>
                             </div>
                             <div class="pull-right">
                                 <?= Html::a(

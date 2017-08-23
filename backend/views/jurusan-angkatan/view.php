@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="box box-primary">
     <div class="box-header with-border">
-        <?= Html::a('Tambah Siswa', ['siswa/create', 'id_artis' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+        <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['siswa/create', 'id_jurusan_angkatan' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
     </div>
 
     <div class="box-body">

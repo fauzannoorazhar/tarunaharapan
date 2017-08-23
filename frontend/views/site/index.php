@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use ckarjun\owlcarousel\OwlCarouselWidget;
 
 /* @var $this yii\web\View */
 

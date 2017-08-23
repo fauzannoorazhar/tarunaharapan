@@ -102,6 +102,8 @@ $fieldPassword = [
             </div>
         </div>
 
+        <p style="color: red">*<em style="color: #999999">Silahkan Cek Email Yang Anda Cantumkan, Untuk Mengaktifkan Akun!!</em></p>
+
         <hr>
 
         <div class="row">

@@ -38,5 +38,34 @@ $this->params['breadcrumbs'][] = $this->title;
             ]) ?>
         </p>
     </div>
+</div>
 
+<div class="box box-primary">
+    <div class="box-header with-border">
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-condensed">
+            <tr>
+                <th>No</th>
+                <th>Nama</th>
+                <th>Nisn</th>
+                <th>Status</th>
+                <th>Jurusan Angkatan</th>
+                <th></th>
+            </tr>
+                <?php
+                $i=1;
+                 foreach ($model->siswa as $data) { ?>
+            <tr>
+                <td><?= $i; ?></td>
+                <td><?= $data->nama; ?></td>
+                <td><?= $data->nisn; ?></td>
+                <td><?= $data->getStatus(); ?></td>
+                <td><?= $data->jurusanAngkatan->jurusan->nama.' - '.$data->jurusanAngkatan->angkatan->tahun ?></td>
+                <td><?= Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ['siswa/view', 'id' => $data->id]) ?>
+            </tr>
+            <?php $i++; } ?>
+        </table>
+    </div>
 </div>

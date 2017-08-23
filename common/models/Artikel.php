@@ -46,7 +46,7 @@ class Artikel extends \yii\db\ActiveRecord
                 'createdByAttribute' => 'create_by',
                 'updatedByAttribute' => 'update_by',
                     'value' => function ($event) {
-                        return User::getNamaUser();
+                        return User::getUser();
                 },
             ],
             [
@@ -64,13 +64,17 @@ class Artikel extends \yii\db\ActiveRecord
     {
         return [
             [['judul'],'unique','message' => '{attribute} Artikel Sudah Ada'],
-            [['judul', 'isi'], 'required'],
+            [['judul', 'isi'], 'required','message' => '{attribute} Harus Diisi'],
             [['isi'], 'string'],
             [['judul'], 'string', 'max' => 50],
             /*[['rating'],'safe'],*/
             [['id_status_artikel'], 'safe'],
             [['gambar','slug'], 'string', 'max' => 255],
             ['gambar', 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'gif'], 'maxSize' => 1024 * 1024 * 2],
+            /*['gambar', 'image', 'extensions' => 'png', 'jpg', 'jpeg', 'gif',
+                'minWidth' => 100, 'maxWidth' => 1000,
+                'minHeight' => 100, 'maxHeight' => 1000,
+            ],*/
         ];
     }
 
@@ -99,9 +103,36 @@ class Artikel extends \yii\db\ActiveRecord
         return $this->hasMany(Rating::className(), ['id_artikel' => 'id']);
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'create_by']);
+    }
+
+    public function getRelationField($relation,$field)
+    {
+        if(!empty($this->$relation->$field)){
+            return $this->$relation->$field;   
+        }
+        else{
+            return null;
+        }
+    }
+
+    public function getGaleriArtikel()
+    {
+        return $this->hasMany(GaleriArtikel::className(), ['id_artikel' => 'id']);
+    }
+
     public function getStatusArtikel()
     {
         return $this->hasOne(StatusArtikel::className(),['id' => 'id_status_artikel']);
+    }
+
+    public function getAnggota()
+    {
+        return $this
+        ->hasOne(Anggota::className(),['id' => 'nama_anggota'])
+        ->via('user');
     }
 
     //Melakukan Sebuah Aksi Untuk Menset Data Sebelum Disimpan
@@ -163,6 +194,42 @@ class Artikel extends \yii\db\ActiveRecord
         } elseif ($this->id_status_artikel == StatusArtikel::DITOLAK) {
             return '<h5><span class="label label-danger">Artikel Ditolak</span></h5>';
         }
+    }
+
+    public static function getArtikelProses()
+    {
+        return static::find()
+        ->where(['id_status_artikel' => StatusArtikel::DIPROSES, 'create_by' => User::getUser()])
+        ->count();
+    }
+
+    public static function getArtikelDiterima()
+    {
+        return static::find()
+        ->where(['id_status_artikel' => StatusArtikel::DITERIMA, 'create_by' => User::getUser()])
+        ->count();
+    }
+
+    public static function getArtikelDitolak()
+    {
+        return static::find()
+        ->where(['id_status_artikel' => StatusArtikel::DITOLAK, 'create_by' => User::getUser()])
+        ->count();
+    }
+
+    public function findArtikelGroupByTanggal()
+    {
+        return Artikel::find()
+        ->where(['create_by' => 66])
+        ->groupBy('create_at')
+        ->all();
+    }
+
+    public function findArtikelAll($tanggal)
+    {
+        return Artikel::find()
+        ->where(['create_at' => $tanggal])
+        ->all();
     }
 
     /*public function getRata()

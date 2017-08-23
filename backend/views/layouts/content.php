@@ -24,7 +24,7 @@ use dmstr\widgets\Alert;
         <?=
         Breadcrumbs::widget(
             [
-                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [''],
             ]
         ) ?>
     </section>
@@ -39,8 +39,7 @@ use dmstr\widgets\Alert;
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; <?= date('Y') ?> Taruna Harapan 1 Cipatat</strong> 
 </footer>
 
 <!-- Control Sidebar -->

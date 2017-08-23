@@ -55,6 +55,10 @@ class ArtikelController extends Controller
      */
     public function actionIndex()
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         $searchModel = new ArtikelSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -119,6 +123,10 @@ class ArtikelController extends Controller
      */
     public function actionView($id)
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -131,6 +139,10 @@ class ArtikelController extends Controller
      */
     public function actionCreate()
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         $model = new Artikel();
 
         if (User::isAnggota()) {
@@ -154,8 +166,12 @@ class ArtikelController extends Controller
                 $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->gambar;
                 $picture->saveAs($path, false);
             }
-            if($model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+            if($model->save(false)){
+
+                if (User::isAnggota()) {
+                    Yii::$app->session->setFlash('success', 'Artikel telah dibuat, silahkan tunggu artikel diterima oleh admin, dengan melakukan cek pada email anda!');
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             return $this->render('create', [
@@ -172,6 +188,10 @@ class ArtikelController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+        
         $model = $this->findModel($id);
 
         // Untuk merubah atau update gambar, jadi tidak perlu menambah gambar lagi ketika akan mengupdate gambar

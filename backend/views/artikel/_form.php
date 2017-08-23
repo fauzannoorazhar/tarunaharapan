@@ -17,16 +17,17 @@ use dosamigos\ckeditor\CKEditor;
         <h3 class="box-title">Form artikel</h3>
     </div>
     <div class="box-body">
-    <?php $form = ActiveForm::begin([            
-                        'layout'=>'horizontal',
-                        'fieldConfig' => [
-                        'horizontalCssClasses' => [
-                            'label' => 'col-sm-3',
-                            'wrapper' => 'col-sm-4',
-                            'error' => '',
-                            'hint' => '',
-                    ],
-                    ]]); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data'],      
+        'layout'=>'horizontal',
+        'fieldConfig' => [
+        'horizontalCssClasses' => [
+            'label' => 'col-sm-3',
+            'wrapper' => 'col-sm-4',
+            'error' => '',
+            'hint' => '',
+        ],
+    ]]); ?>
 
     <?= $form->field($model, 'judul')->textInput(['maxlength' => true]) ?>
 

@@ -193,7 +193,7 @@ class Siswa extends \yii\db\ActiveRecord
         }
     }*/
 
-    public static function findSiswaGroupBy()
+    public static function findSiswaGroupByStatus()
     {
         return Siswa::find()
         ->where(['status' => 2])

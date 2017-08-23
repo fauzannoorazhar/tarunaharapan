@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\components\Helper;
 use common\models\JenisKelamin;
+use common\models\Artikel;
+use common\models\Anggota;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Anggota */
@@ -31,7 +33,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             'email:email',
-            'tanggal_lahir',
+            [
+                'attribute' => 'tanggal_lahir',
+                'value' => function($data){
+                    return Helper::getTanggal($data->tanggal_lahir);
+                },
+            ],
             [
                 'attribute' => 'create_at',
                 'value' => function($data){
@@ -56,3 +63,63 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+
+<div class="box box-primary">
+    <div class="box-header with-border">
+    </div>
+
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-condensed">
+            <tr>
+                <th>No</th>
+                <th>Judul</th>
+                <!-- <th>Dibuat Oleh</th> -->
+                <th>Dibuat Tanggal</th>
+                <th></th>
+            </tr>
+                <?php
+                $i=1;
+                 foreach ($model->artikel as $data) { ?>
+            <tr>
+                <td><?= $i; ?></td>
+                <td><?= $data->judul; ?></td>
+                <!-- <td><?= $data->anggota->nama ?></td> -->
+                <td><?= Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime')); ?></td>
+                <td><?= Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ['artikel/view', 'id' => $data->id]) ?></td>
+            </tr>
+            <?php $i++; } ?>
+        </table>
+    </div>
+</div>
+
+<?php foreach ($model->artikel as $tanggal) { ?>
+    <div class="box box-primary collapsed-box">
+        <div class="box-header with-border">
+            <h3 class="box-title"><?= Helper::getWaktuWIB(Helper::convert($tanggal->create_at, 'datetime')); ?></h3>
+            <div class="box-tools pull-left">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+            </div>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul</th>
+                    </tr>
+                </thead>
+
+                <?php 
+                $i = 1; 
+                foreach (Artikel::findArtikelAll($tanggal) as $artikel) { ?>
+                    <tr>
+                        <td><?= $i; ?></td>
+                        <td><?= $artikel->judul ?></td>
+                    </tr>
+                <?php $i++; } ?>
+
+            </table>
+        </div>
+    </div>
+<?php } ?>

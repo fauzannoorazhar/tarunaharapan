@@ -26,7 +26,7 @@ class SiswaController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [ 
                     [
-                        'actions' => ['index','view','create','update','delete','alumni','aktif'],
+                        'actions' => ['index','view','create','update','delete','alumni','siswa-aktif'],
                         'allow' => true,
                     ],
                 ],
@@ -61,9 +61,9 @@ class SiswaController extends Controller
         return $this->render('alumni');
     }
 
-    public function actionAktif()
+    public function actionSiswaAktif()
     {
-        return $this->render('aktif');
+        return $this->render('siswa_aktif');
     }
 
     /**
@@ -83,9 +83,10 @@ class SiswaController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id_jurusan_angkatan = null)
     {
         $model = new Siswa();
+        $model->id_jurusan_angkatan = $id_jurusan_angkatan;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             // Action Tambah Berkas Upload

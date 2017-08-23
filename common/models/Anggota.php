@@ -83,6 +83,18 @@ class Anggota extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['nama_anggota' => 'id']);
+    }
+
+    public function getArtikel()
+    {
+        return $this
+        ->hasMany(Artikel::className(), ['create_by' => 'id'])
+        ->via('user');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -98,8 +110,8 @@ class Anggota extends \yii\db\ActiveRecord
         $user->username = $this->username;
         $user->password = Yii::$app->getSecurity()->generatePasswordHash($this->password);
         $user->model = 'Anggota';
-        $user->nama_anggota = $this->nama;
-        $user->status = 1;
+        $user->nama_anggota = $this->id;
+        $user->status = 0;
         $user->id_role = 3;
 
         if ($user->save())
@@ -134,6 +146,10 @@ class Anggota extends \yii\db\ActiveRecord
         Dengan Artikel Yang Bermanfaat<br><br>
 
         Terima Kasih
+        <br><br>
+        Untuk Mengaktifkan Akun Anda Klik URL Dibawah Ini.
+            <a href="http://localhost/tarunaharapan2/backend/web/index.php?r=user/aktifkan&id='.$this->user->id.'">Klik disini</a>
+
         ';
 
     return Yii::$app->mailer->compose()
@@ -184,4 +200,5 @@ class Anggota extends \yii\db\ActiveRecord
             ->setHtmlBody($konten)
             ->send();
     }
+
 }

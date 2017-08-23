@@ -9,7 +9,7 @@ use yii\widgets\Pjax;
 $this->title = 'Alumni';
 $this->params['breadcrumbs']['alumni/index'] = ['label' => 'Jurusan - Angkatan'];
 ?>
-<body style="background: rgb(236, 240, 245)">
+<body style="background: #F2F2F2">
 	<section id="area-main" class="padding">
 	<h5 class="hidden">hidden</h5>
 		<div class="container">

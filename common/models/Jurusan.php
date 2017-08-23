@@ -44,7 +44,7 @@ class Jurusan extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'nama' => 'Nama',
+            'nama' => 'Nama Jurusan',
             'logo' => 'Logo',
         ];
     }
@@ -55,6 +55,13 @@ class Jurusan extends \yii\db\ActiveRecord
     public function getJurusanAngkatan()
     {
         return $this->hasMany(JurusanAngkatan::className(), ['id_jurusan' => 'id']);
+    }
+
+    public function getSiswa()
+    {
+        return $this
+            ->hasMany(Siswa::className(),['id_jurusan_angkatan' => 'id'])
+            ->via('jurusanAngkatan');
     }
 
     public function getList()

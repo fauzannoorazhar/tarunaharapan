@@ -51,7 +51,7 @@ class Helper extends Component
 		
 		$pukul = date('H:i',$time);
 		
-		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' '.$pukul.' WIB';
+		$output = $hari.', '.$tgl.' '.$bulan.' '.$tahun.' | '.$pukul.' WIB';
 		
 		return $output;
 		}

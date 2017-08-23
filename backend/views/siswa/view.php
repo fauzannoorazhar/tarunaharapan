@@ -63,7 +63,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-                        'create_by',
+                        /*'create_by',
                         'update_by',
                         [
                             'attribute' => 'create_at',
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function($data){
                                 return Helper::getWaktuWIB(Helper::convert($data->update_at, 'datetime'));
                             },
-                        ],
+                        ],*/
                     ],
                 ]) ?>
             </div>

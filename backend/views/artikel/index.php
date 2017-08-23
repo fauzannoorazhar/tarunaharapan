@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="box-header with-border">
         <p>
-            <?= Html::a('<i class="fa fa-plus"></i> Ajukan Artikel', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-plus"></i> Tambah Artikel', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
         </p>
     </div>
     <div class="box-body">
@@ -43,13 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
             'judul',
-            'create_by',
-            [
-                'attribute' => 'create_at',
-                'value' => function($data){
-                    return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
-                },
-            ],
             [
                 'attribute' => 'id_status_artikel',
                 'filter' => StatusArtikel::getList(),
@@ -57,6 +50,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->getStatus();
                 },
                 'format' => 'raw',
+            ],
+            [
+                'attribute' => 'create_at',
+                'value' => function($data){
+                    return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
+                },
             ],
             /*'update_by',
             [

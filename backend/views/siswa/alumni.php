@@ -2,10 +2,11 @@
 use yii\helpers\Html;
 use common\models\Siswa;
 
+$this->title = 'Siswa Alumni';
 $this->params['breadcrumbs'][] = ['label' => 'Alumni', 'url' => ['siswa/alumni']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php foreach (Siswa::findSiswaGroupBy() as $JurusanAngkatan) { ?>
+<?php foreach (Siswa::findSiswaGroupByStatus() as $JurusanAngkatan) { ?>
     <div class="box box-primary collapsed-box">
         <div class="box-header with-border">
             <h3 class="box-title"><?= $JurusanAngkatan->jurusanAngkatan->jurusan->nama.' - '.$JurusanAngkatan->jurusanAngkatan->angkatan->tahun ?></h3>

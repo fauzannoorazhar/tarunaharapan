@@ -68,10 +68,17 @@ class UserController extends Controller
 
     public function actionProfil()
     {        
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         if (User::isAdmin()) {
             $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         } elseif (User::isOperator()) {
+            $id = User::getUser();
+            $user = User::find()->where(['id' => $id])->one();
+        } elseif (User::isAnggota()) {
             $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         }
@@ -112,12 +119,21 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             /*$model->setPasswordHash();*/
             $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            if (User::isAdmin() && User::isOperator()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                return $this->redirect(['profil', 'id' => $model->id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -127,10 +143,17 @@ class UserController extends Controller
 
     public function actionSetPassword()
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         if (User::isAdmin()) {
             $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         } elseif (User::isOperator()) {
+            $id = User::getUser();
+            $user = User::find()->where(['id' => $id])->one();
+        } elseif (User::isAnggota()) {
             $id = User::getUser();
             $user = User::find()->where(['id' => $id])->one();
         }
@@ -143,10 +166,11 @@ class UserController extends Controller
             if($user->save()) {
                 \Yii::$app->session->setFlash('success','Password berhasil disimpan');
 
-                /*if ($user->id_role == Role::OPD)
-                    return $this->redirect(['opd/index']);*/
-                
-                return $this->redirect(['view','id' => User::getUser()]);
+                if (User::isAdmin() && User::isOperator()) {
+                    return $this->redirect(['view', 'id' => $model]);
+                } else {
+                    return $this->redirect(['profil', 'id' => $model]);
+                }
             } else {
                 print_r($user->getErrors());
                 break;

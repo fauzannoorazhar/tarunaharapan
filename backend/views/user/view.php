@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=>'nama_anggota',
                     'format'=>'raw',
                     'value'=> function($data){
-                        return Html::a($data->nama_anggota, ['anggota/view', 'id'=>$data->getRelationField("anggota","nama")]);
+                        return Html::a($data->getRelationField('anggota','nama'), ['anggota/view', 'id'=> $data->nama_anggota]);
                     },
                 ],
                 'username',
@@ -44,12 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
                     },
                 ],
-                [
+                /*[
                     'attribute' => 'update_at',
                     'value' => function($data){
                         return Helper::getWaktuWIB(Helper::convert($data->update_at, 'datetime'));
                     },
-                ],
+                ],*/
                 [
                     'attribute' => 'last_login',
                     'value' => function($data){
@@ -76,7 +76,7 @@ $this->params['breadcrumbs'][] = $this->title;
          
     </div> 
     <div class="box-footer with-border"> 
-            <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?> 
+            <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
         <?php if (User::isAdmin()) { ?>
             <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [ 
                 'class' => 'btn btn-danger btn-flat', 
@@ -88,5 +88,4 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php } ?>
         </p> 
     </div> 
-
 </div> 

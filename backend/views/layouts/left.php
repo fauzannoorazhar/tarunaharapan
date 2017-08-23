@@ -48,7 +48,7 @@ use common\models\StatusArtikel;
                     ['label' => 'MENU KESISWAAN', 'options' => ['class' => 'header']],
                     ['label' => 'Seluruh Siswa', 'icon' => 'users', 'url' => ['siswa/index']],
                     ['label' => 'Siswa Alumni', 'icon' => 'graduation-cap', 'url' => ['siswa/alumni']],
-                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/aktif']],
+                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/siswa-aktif']],
                     /*[
                         'label' => 'SISWA',
                         'icon' => 'universal-access',
@@ -109,7 +109,7 @@ use common\models\StatusArtikel;
                     ['label' => 'MENU KESISWAAN', 'options' => ['class' => 'header']],
                     ['label' => 'Seluruh Siswa', 'icon' => 'users', 'url' => ['siswa/index']],
                     ['label' => 'Siswa Alumni', 'icon' => 'graduation-cap', 'url' => ['siswa/alumni']],
-                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/aktif']],
+                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/siswa-aktif']],
 
                     ['label' => 'MENU ANGGOTA', 'options' => ['class' => 'header']],
                     ['label' => 'Anggota', 'icon' => 'user', 'url' => ['anggota/index']],
@@ -122,6 +122,24 @@ use common\models\StatusArtikel;
 
                     ['label' => 'PENGATURAN AKUN', 'options' => ['class' => 'header']],
                     ['label' => 'Profil', 'icon' => 'user-circle-o', 'url' => ['user/profil']],
+                    ['label' => 'Ganti Password', 'icon' => 'unlock-alt', 'url' => ['user/set-password']],
+                    ['label' => 'Logout', 'icon' => 'power-off', 'url' => ['site/logout']],
+                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                ],
+            ]
+        ) ?>
+    <?php } elseif (User::isAnggota()){ ?>
+        <?= dmstr\widgets\Menu::widget(
+            [
+                'options' => ['class' => 'sidebar-menu'],
+                'items' => [
+                    ['label' => 'Halaman Depan', 'icon' => 'circle-o', 'url' => \Yii::$app->urlManagerFrontEnd->baseUrl,['target' => '_blank']],
+                    ['label' => 'MENU NAVIGASI', 'options' => ['class' => 'header']],
+                    ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/anggota']],
+                    ['label' => 'Artikel', 'icon' => 'newspaper-o', 'url' => ['artikel/index']],
+
+                    ['label' => 'PENGATURAN AKUN', 'options' => ['class' => 'header']],
+                    ['label' => 'Akun', 'icon' => 'user-circle-o', 'url' => ['user/profil']],
                     ['label' => 'Ganti Password', 'icon' => 'unlock-alt', 'url' => ['user/set-password']],
                     ['label' => 'Logout', 'icon' => 'power-off', 'url' => ['site/logout']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],

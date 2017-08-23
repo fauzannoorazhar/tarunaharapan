@@ -1,4 +1,5 @@
 <?php
+use yii\helpers\Html;
 use common\models\Siswa;
 use ckarjun\owlcarousel\OwlCarouselWidget;
 ?>
@@ -17,24 +18,81 @@ use ckarjun\owlcarousel\OwlCarouselWidget;
     </section>
 </div>
 
-<?php OwlCarouselWidget::begin([
-    'container' => 'div',
-    'containerOptions' => [
-        'id' => 'my-container-id',
-        'class' => 'my-container-class'
-    ],
-    'pluginOptions' => [
-        'autoPlay' => 3000,
-        'items' => 4,
-        'itemsDesktop' => [1199,3],
-        'itemsDesktopSmall' => [979,3]
-    ]
-])?>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
+<div>&nbsp;</div>
 
-<div class="my-item-class"><img src="my-image-1" alt="My Image"></div>
-<div class="my-item-class"><img src="my-image-2" alt="My Image"></div>
-<div class="my-item-class"><img src="my-image-3" alt="My Image"></div>
-<div class="my-item-class"><img src="my-image-4" alt="My Image"></div>
-
-
-<?php OwlCarouselWidget::end(); ?>
+<section id="publication" class="section-padding padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="title">Stay always updated</p>
+                    <h2 class="heading">Our Publications</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div id="publication-slider" class="owl-carousel">
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog.html">read more</a>
+                    </div>
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="blog_detail.html" class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog.html">read more</a>
+                    </div>
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog_detail.html">read more</a>
+                    </div>
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog.html">read more</a>
+                    </div>
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog.html">read more</a>
+                    </div>
+                    <div class="item">
+                        <div class="image">
+                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
+                        </div>
+                        <h5>18 November 2015</h5>
+                        <h4>Familiar idea with brand</h4>
+                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
+                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
+                        <a href="blog.html">read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>

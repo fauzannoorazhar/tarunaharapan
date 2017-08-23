@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="col-md-6 col-xs-7">
                     <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
                     <?= Html::a('<i class="fa fa-mortar-board"></i> Siswa Alumni', ['alumni'], ['class' => 'btn btn-primary btn-flat']) ?>
-                    <?= Html::a('<i class="fa fa-check"></i> Siswa Aktif', ['aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
+                    <?= Html::a('<i class="fa fa-check"></i> Siswa Aktif', ['siswa-aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
                 </div>
                 <div class="col-md-6 col-xs-5">
                     <div class="pull-right">
