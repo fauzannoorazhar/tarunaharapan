@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use common\components\Helper;
 use common\models\Artikel;
+use common\models\StatusArtikel;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Anggota */
@@ -51,34 +52,45 @@ $this->params['breadcrumbs'][] = ['label' => 'Profil', 'url' => ['anggota']];
                 <?php foreach ($model->artikel as $artikel): ?>    
                     <ul class="timeline timeline-inverse">
                         <li class="time-label">
-                            <span class="bg-red">
-                            <?= \Yii::$app->formatter->asDate($artikel->create_at, 'long');  ?>
-                            </span>
+                                <?php if ($artikel->id_status_artikel == StatusArtikel::DIPROSES): ?>
+                                    <span class="bg-green">
+                                        Artikel Diproses
+                                    </span> 
+                                <?php elseif ($artikel->id_status_artikel == StatusArtikel::DITERIMA): ?>
+                                    <span class="bg-blue">
+                                        Artikel Diterima
+                                    </span>
+                                <?php elseif ($artikel->id_status_artikel == StatusArtikel::DITOLAK): ?>
+                                    <span class="bg-red">
+                                        Artikel Ditolak
+                                    </span>
+                                <?php endif ?>
                         </li>
+
                         <li>
-                            <i class="fa fa-newspaper-o bg-blue"></i>
+                            <?php if ($artikel->id_status_artikel == StatusArtikel::DIPROSES): ?>
+                                <i class="fa fa-refresh bg-green"></i> 
+                            <?php elseif ($artikel->id_status_artikel == StatusArtikel::DITERIMA): ?>
+                                <i class="fa fa-check bg-blue"></i>
+                            <?php elseif ($artikel->id_status_artikel == StatusArtikel::DITOLAK): ?>
+                                <i class="fa fa-close bg-red"></i>
+                            <?php endif ?>
 
                             <div class="timeline-item">
-                                <span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+                                <span class="time"><i class="fa fa-clock-o"></i> <?= \Yii::$app->formatter->asDate($artikel->create_at, 'long');  ?></span>
 
-                                <h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
+                                <h3 class="timeline-header"><?= $artikel->getRelationField('anggota','nama') ?></h3>
 
                                 <div class="timeline-body">
-                                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-                                    weebly ning heekya handango imeem plugg dopplr jibjab, movity
-                                    jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-                                    quora plaxo ideeli hulu weebly balihoo...
+                                    <?= substr($artikel->isi, 0, 150) ?>
                                 </div>
-                                <div class="timeline-footer">
-                                    <a class="btn btn-primary btn-flat btn-xs">Read more</a>
-                                    <a class="btn btn-danger btn-flat btn-xs">Delete</a>
-                                </div>
+                            <div class="timeline-footer">
+                                <?= Html::a('<i class="fa fa-eye"></i> View', ['artikel/view','id' => $artikel->id], ['class' => 'btn btn-primary btn-flat btn-xs']); ?>
+                                <?= Html::a('<i class="fa fa-pencil"></i> Update', ['artikel/update','id' => $artikel->id], ['class' => 'btn btn-success btn-flat btn-xs']); ?>
+                                <?= Html::a('<i class="fa fa-trash"></i> Delete', ['artikel/delete','id' => $artikel->id], ['class' => 'btn btn-danger btn-flat btn-xs','data' => ['confirm' => 'Apakah Anda Serius Ingin Menghapus Artikel Ini?','method' => 'post']]); ?>
+                            </div>
                             </div>
                         </li>
-                        <li>
-                            <i class="fa fa-clock-o bg-gray"></i>
-                        </li>
-                        <div>&nbsp;</div>
                     </ul>
                 <?php endforeach ?>
             </div>

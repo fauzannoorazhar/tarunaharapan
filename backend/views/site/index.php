@@ -12,8 +12,8 @@ $this->title = 'Selamat Datang';
                 <!-- small box -->
                 <div class="small-box bg-primary">
                     <div class="inner">
-                        <h3><?= Siswa::getJumlahRpl() ?></h3>
                         <p>Rekayasa Peragkat Lunak</p>
+                        <h3><?= Siswa::getJumlahRpl() ?><sup class="small-box-sup"></sup></h3>
                     </div>
                     <div class="icon">
                         <i class="fa fa-laptop"></i>
@@ -26,8 +26,8 @@ $this->title = 'Selamat Datang';
                 <!-- small box -->
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <h3><?= Siswa::getJumlahAka() ?></h3>
                         <p>Akutansi</p>
+                        <h3><?= Siswa::getJumlahAka() ?></h3>
                     </div>
                     <div class="icon">
                         <i class="fa fa-dollar"></i>
@@ -40,8 +40,8 @@ $this->title = 'Selamat Datang';
                 <!-- small box -->
                 <div class="small-box bg-yellow">
                     <div class="inner">
-                        <h3><?= Siswa::getJumlahPm() ?></h3>
                         <p>Pemasaran</p>
+                        <h3><?= Siswa::getJumlahPm() ?></h3>
                     </div>
                     <div class="icon">
                         <i class="fa fa-area-chart"></i>
@@ -54,8 +54,8 @@ $this->title = 'Selamat Datang';
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3><?= Siswa::getJumlahTkr() ?></h3>
                         <p>Teknik Kendaraan Ringan</p>
+                        <h3><?= Siswa::getJumlahTkr() ?></h3>
                     </div>
                     <div class="icon">
                         <i class="fa fa-car"></i>
@@ -68,8 +68,8 @@ $this->title = 'Selamat Datang';
                 <!-- small box -->
                 <div class="small-box bg-red">
                     <div class="inner">
-                        <h3><?= Siswa::getJumlahTsm() ?></h3>
                         <p>Teknik Sepedah Motor</p>
+                        <h3><?= Siswa::getJumlahTsm() ?></h3>
                     </div>
                     <div class="icon">
                         <i class="fa fa-motorcycle"></i>

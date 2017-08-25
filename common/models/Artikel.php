@@ -164,7 +164,7 @@ class Artikel extends \yii\db\ActiveRecord
         ->all();
     }
 
-    public function findRatingById()
+    /*public function findRatingById()
     {
         return Rating::find()
         ->where(['id_artikel' => $this->id])
@@ -183,7 +183,7 @@ class Artikel extends \yii\db\ActiveRecord
         return Rating::find()
         ->where(['id_artikel' => 38])
         ->count();
-    }
+    }*/
 
     public function getStatus()
     {
@@ -215,21 +215,6 @@ class Artikel extends \yii\db\ActiveRecord
         return static::find()
         ->where(['id_status_artikel' => StatusArtikel::DITOLAK, 'create_by' => User::getUser()])
         ->count();
-    }
-
-    public function findArtikelGroupByTanggal()
-    {
-        return Artikel::find()
-        ->where(['create_by' => 66])
-        ->groupBy('create_at')
-        ->all();
-    }
-
-    public function findArtikelAll($tanggal)
-    {
-        return Artikel::find()
-        ->where(['create_at' => $tanggal])
-        ->all();
     }
 
     /*public function getRata()

@@ -22,6 +22,20 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['signup', 'login'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index','create','update','delete','view','profil','set-password','aktifkan'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

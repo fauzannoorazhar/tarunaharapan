@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div> 
     <div class="box-footer with-border"> 
             <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting Akun', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?> 
-            <?= Html::a('<i class="fa fa-eye"></i> Kelola Profil', ['anggota/profil', 'id'=> $model->nama_anggota], ['class' => 'btn btn-primary btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-eye"></i> Lihat Profil', ['anggota/profil', 'id'=> $model->nama_anggota], ['class' => 'btn btn-primary btn-flat']) ?>
         <?php if (User::isAdmin()) { ?>
             <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [ 
                 'class' => 'btn btn-danger btn-flat', 

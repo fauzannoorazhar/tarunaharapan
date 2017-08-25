@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c03f61c0a4f34e92386b793008d40610",
+    "content-hash": "f12b103c71a0a5512db400fc901c54de",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -2173,6 +2173,46 @@
                 "mailer"
             ],
             "time": "2017-05-01T15:54:03+00:00"
+        },
+        {
+            "name": "vilochane/yii2-barcode-generator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Vilochane/yii2-barcode-generator-8-types.git",
+                "reference": "61dc3424bf54c8b4521d8c40cb590c732890f5bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Vilochane/yii2-barcode-generator-8-types/zipball/61dc3424bf54c8b4521d8c40cb590c732890f5bb",
+                "reference": "61dc3424bf54c8b4521d8c40cb590c732890f5bb",
+                "shasum": ""
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "barcode\\barcode\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vilochane",
+                    "email": "vilochane@gmail.com"
+                }
+            ],
+            "description": "This extension based on Simple jQuery Based Barcode Generator Wrapper for BarCode Coder Library (BCC Library Version 2.0) by DEMONTE Jean-Baptiste, HOUREZ Jonathan.",
+            "homepage": "https://github.com/Vilochane/yii2-barcode-generator-8-types.git",
+            "keywords": [
+                " barcode-generator",
+                " barcode-generator-8-types",
+                "extension",
+                "yii2"
+            ],
+            "time": "2015-04-30T07:23:23+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -4920,7 +4960,8 @@
         "kartik-v/yii2-slider": 20,
         "kartik-v/yii2-markdown": 20,
         "kartik-v/yii2-widget-fileinput": 20,
-        "perminder-klair/yii2-dropzone": 20
+        "perminder-klair/yii2-dropzone": 20,
+        "vilochane/yii2-barcode-generator": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

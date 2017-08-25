@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\filters\AccessControl;
+use common\models\User;
 
 /**
  * GaleriArtikelController implements the CRUD actions for GaleriArtikel model.
@@ -21,6 +23,20 @@ class GaleriArtikelController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [ 
+                    [
+                        'actions' => ['signup','login','error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index','create','update','delete','view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -64,6 +80,10 @@ class GaleriArtikelController extends Controller
      */
     public function actionCreate($id_artikel = null)
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+
         $model = new GaleriArtikel();
         $model->id_artikel = $id_artikel;
 
@@ -83,7 +103,8 @@ class GaleriArtikelController extends Controller
                 $picture->saveAs($path, false);
             }
             if($model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash('success', 'Artikel telah ditambahkan photo lainnya');
+            return $this->redirect(['artikel/index']);
             }
         } else {
             return $this->render('create', [

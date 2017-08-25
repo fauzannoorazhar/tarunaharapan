@@ -16,6 +16,7 @@ use common\models\Anggota;
  */
 class SiteController extends Controller
 {
+
     /**
      * @inheritdoc
      */
@@ -26,12 +27,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login', 'error','register','error','dev'],
+                        'actions' => ['signup', 'login','error'],
                         'allow' => true,
-                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','logout','login','logout','error','dev','anggota'],
+                        'actions' => ['index','dev','anggota','error','register','logout','date'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -184,21 +184,13 @@ class SiteController extends Controller
 
     public function actionDev()
     {   
-        /*foreach (JurusanAngkatan::find()->all() as $data) {
-            if ($data->save()) {
-                Yii::$app->session->setFlash('success','Kamu Berhasil Melakukan Save Semua Data');
-            }
-        }*/
-        $obj = new Studen();
-        $obj->students = ['Kalle', 'Ross', 'Felipe'];
+        return $this->render('dev', ['time' => date('H:i:s')]);
 
-        var_dump($this->get_students(null));
-        var_dump($this->get_students($obj));
+    }
 
-        $inst = new Studen();
-        $inst->test();
-
-        Studen::test();
+    public function actionDate()
+    {   
+        return $this->render('dev', ['time' => date('Y-m-d')]);
 
     }
 }

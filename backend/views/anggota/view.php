@@ -91,35 +91,3 @@ $this->params['breadcrumbs'][] = $this->title;
         </table>
     </div>
 </div>
-
-<?php foreach ($model->artikel as $tanggal) { ?>
-    <div class="box box-primary collapsed-box">
-        <div class="box-header with-border">
-            <h3 class="box-title"><?= Helper::getWaktuWIB(Helper::convert($tanggal->create_at, 'datetime')); ?></h3>
-            <div class="box-tools pull-left">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                    </button>
-            </div>
-        </div>
-        <div class="box-body">
-            <table class="table table-bordered table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Judul</th>
-                    </tr>
-                </thead>
-
-                <?php 
-                $i = 1; 
-                foreach (Artikel::findArtikelAll($tanggal) as $artikel) { ?>
-                    <tr>
-                        <td><?= $i; ?></td>
-                        <td><?= $artikel->judul ?></td>
-                    </tr>
-                <?php $i++; } ?>
-
-            </table>
-        </div>
-    </div>
-<?php } ?>

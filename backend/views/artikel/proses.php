@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use common\components\Helper;
+use common\models\StatusArtikel;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TentangSearch */
@@ -40,12 +41,47 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
             'judul',
-            'create_by',
+            [
+                'attribute' => 'create_by',
+                'value' => function($data){
+                    return $data->getRelationField('anggota','nama');
+                },
+            ],
             [
                 'attribute' => 'create_at',
                 'value' => function($data){
                     return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
                 },
+            ],
+            [
+                'class' => 'app\components\ToggleActionColumn',
+                'contentOptions'=>['style'=>'text-align:center'],
+                    'template' => '{proses}',
+                    'buttons' => [
+                        'proses' => function ($url, $model) {
+                            return Html::a('<span class="fa fa-check"></span>', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITERIMA], [
+                                    'data-toggle' =>'tooltip','title' => Yii::t('app', 'Terima Artikel'),
+                                    'data' => [
+                                            'confirm' => 'Apakah Kamu Serius Ingin Menerima Artikel Ini?',
+                                        ],
+                            ]);
+                        },
+                    ],
+            ],
+            [
+                'class' => 'app\components\ToggleActionColumn',
+                'contentOptions'=>['style'=>'text-align:center'],
+                    'template' => '{tolak}',
+                    'buttons' => [
+                        'tolak' => function ($url, $model) {
+                            return Html::a('<span class="fa fa-close"></span>', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITOLAK], [
+                                    'data-toggle' =>'tooltip','title' => Yii::t('app', 'Tolak Artikel'),
+                                    'data' => [
+                                            'confirm' => 'Apakah Kamu Serius Ingin Menolak Artikel Ini?',
+                                        ],
+                            ]);
+                        },
+                    ],
             ],
             /*'update_by',
             [

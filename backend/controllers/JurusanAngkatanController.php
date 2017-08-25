@@ -25,8 +25,13 @@ class JurusanAngkatanController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [ 
                     [
-                        'actions' => ['index','view','create','update','delete'],
+                        'actions' => ['signup','login','error'],
                         'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index','create','update','delete','view'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],

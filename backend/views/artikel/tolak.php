@@ -40,7 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
             'judul',
-            'create_by',
+            [
+                'attribute' => 'create_by',
+                'value' => function($data){
+                    return $data->getRelationField('anggota','nama');
+                },
+            ],
             [
                 'attribute' => 'create_at',
                 'value' => function($data){

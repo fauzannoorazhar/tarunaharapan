@@ -67,13 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
         
     </div>
     <div class="box-footer with-border">
-        <p><?= Html::a('<i class="fa fa-list"></i> Daftar Artikel', ['index'], ['class' => 'btn btn-success btn-flat']); ?>
-            <?php 
-            if ($model->id_status_artikel == StatusArtikel::DIPROSES && User::isAdmin() || User::isOperator()) { ?>
-                <?= Html::a('<i class="fa fa-check"></i> Ubah Menjadi Diterima', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITERIMA], ['class' => 'btn btn-primary btn-flat', 'data-confirm' => 'Yakin akan menerima artikel ini?']); ?>
-                <?= Html::a('<i class="fa fa-remove"></i> Tolak Artikel', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITOLAK], ['class' => 'btn btn-danger btn-flat', 'data-confirm' => 'Yakin akan menolak artikel ini?']); ?>
-            <?php } ?>
-            <?= Html::a('<i class="fa fa-plus"></i> Tambah Photo Artikel Lainnya', ['galeri-artikel/create','id_artikel' => $model->id], ['class' => 'btn btn-warning btn-flat']) ?>
+        <p>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Artikel', ['index'], ['class' => 'btn btn-success btn-flat']);
+
+            if (!User::isAnggota() AND $model->id_status_artikel !== StatusArtikel::DITOLAK) { ?>
+                <?= Html::a('<i class="fa fa-plus"></i> Tambah Artikel Gambar Lainnya', ['galeri-artikel/create', 'id_artikel' => $model->id], ['class' => 'btn btn-warning btn-flat']);
+            }
+                if ($model->id_status_artikel == StatusArtikel::DITOLAK) { ?>
+                    <?= Html::a('<i class="fa fa-paper-plane"></i> Ajukan Kembali', ['ubah-status','id' => $model->id,'id_status_artikel' => StatusArtikel::DIPROSES], ['class' => 'btn btn-info btn-flat','data' => ['confirm' => 'Apakah Anda Ingin Mengirim Kembali Artikel Untuk Diposting?']]);
+                } ?>
         </p>
     </div>
 

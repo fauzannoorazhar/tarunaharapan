@@ -14,15 +14,15 @@ use yii\bootstrap\ActiveForm;
     </div>
     <div class="box-body">
     <?php $form = ActiveForm::begin([            
-                        'layout'=>'horizontal',
-                        'fieldConfig' => [
-                        'horizontalCssClasses' => [
-                            'label' => 'col-sm-3',
-                            'wrapper' => 'col-sm-4',
-                            'error' => '',
-                            'hint' => '',
-                    ],
-                    ]]); ?>
+            'layout'=>'horizontal',
+            'fieldConfig' => [
+            'horizontalCssClasses' => [
+                'label' => 'col-sm-3',
+                'wrapper' => 'col-sm-4',
+                'error' => '',
+                'hint' => '',
+        ],
+    ]]); ?>
 
     <?= $form->field($model, 'tahun')->textInput(['maxlength' => true]) ?>
 

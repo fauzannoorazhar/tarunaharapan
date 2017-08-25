@@ -24,10 +24,15 @@ class SiswaController extends Controller
         return [
             'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
                 'class' => AccessControl::className(),
-                'rules' => [ 
+                'rules' => [
                     [
-                        'actions' => ['index','view','create','update','delete','alumni','siswa-aktif'],
+                        'actions' => ['signup', 'login'],
                         'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index','create','update','delete','view','alumni','siswa-aktif'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],

@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\User;
+use yii\filters\AccessControl;
 
 /**
  * AnggotaController implements the CRUD actions for Anggota model.
@@ -21,6 +22,20 @@ class AnggotaController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
+                'class' => AccessControl::className(),
+                'rules' => [ 
+                    [
+                        'actions' => ['signup','login','error'],
+                        'allow' => true,
+                    ],
+                    [
+                        'actions' => ['index','create','update','delete','view','profil'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

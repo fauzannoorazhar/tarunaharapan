@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use common\models\JenisKelamin;
 use common\components\Helper;
+use common\models\Anggota;
+use common\widgets\Label;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\AnggotaSearch */
@@ -29,7 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            'nama',
+            [
+                'attribute'=>'nama',
+                'format'=>'raw',
+                /*'value'=> function($data){
+                    return Html::a($data->getRelationField('user','username'), ['user/view', 'id'=> $data->nama]);
+                },*/
+            ],
             'email:email',
             [
                 'attribute' => 'id_jenis_kelamin',
@@ -44,7 +52,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Helper::getTanggal($data->tanggal_lahir);
                 },
             ],
-
+            [
+                'header' => 'Jumlah Artikel',
+                'format' => 'raw',
+                'value' => function($data) {
+                        return Label::widget([
+                                'context' => 'info',
+                                'text' => $data->getArtikelCount()
+                            ]);
+                    },
+                'headerOptions' => ['style' => 'text-align:center'],
+                'contentOptions' => ['style' => 'text-align:center']
+            ],
             [
                 'class' => 'app\components\ToggleActionColumn',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],

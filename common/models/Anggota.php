@@ -88,11 +88,27 @@ class Anggota extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(),['nama_anggota' => 'id']);
     }
 
+    public function getRelationField($relation,$field)
+    {
+        if(!empty($this->$relation->$field)){
+            return $this->$relation->$field;   
+        }
+        else{
+            return null;
+        }
+    }
+
     public function getArtikel()
     {
-        return $this
-        ->hasMany(Artikel::className(), ['create_by' => 'id'])
+        return 
+        $this->hasMany(Artikel::className(), ['create_by' => 'id'])
         ->via('user');
+    }
+
+    //Fungsi Yang Melakukan Perhitungan Jumlah Artikel Dari Relasi
+    public function getArtikelCount()
+    {
+        return $this->getArtikel()->count();
     }
 
     /**

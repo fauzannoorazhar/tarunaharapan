@@ -27,14 +27,13 @@ class ArtikelController extends Controller
         return [
             'access' => [//AccessControl menyediakan kontrol akses sederhana berdasarkan aturan perangkat  
                 'class' => AccessControl::className(),
-                'rules' => [
+                'rules' => [ 
                     [
-                        'actions' => ['signup', 'login', 'error','register','error'],
+                        'actions' => ['signup','login','error'],
                         'allow' => true,
-                        'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index','view','update','delete','error','create','proses','terima','tolak','ubah-status'],
+                        'actions' => ['index','view','create','update','delete','proses','terima','tolak','ubah-status'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -109,7 +108,7 @@ class ArtikelController extends Controller
 
         //save tanpa validasi
         if($model->save(false)){
-            Yii::$app->session->setFlash('success','Status Telah Diubah ! ');
+            Yii::$app->session->setFlash('success','Status Telah Diubah');
             return $this->redirect(Yii::$app->request->referrer);
         } else{
             return print_r($model->getErrors());
@@ -243,7 +242,7 @@ class ArtikelController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**

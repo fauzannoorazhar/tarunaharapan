@@ -12,7 +12,7 @@ use kartik\file\FileInput;
 
 <div class="box box-primary galeri-artikel-form">
     <div class="box-header with-border">
-        <h3 class="box-title">Form galeri-artikel</h3>
+        <h3 class="box-title">Form Galeri Artikel</h3>
     </div>
     <div class="box-body">
     <?php $form = ActiveForm::begin([    

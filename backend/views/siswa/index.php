@@ -96,3 +96,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <?php Pjax::end(); ?>
 </div>
+
+
+<?php $optionsArray = array(
+'elementId'=> 'showBarcode', /* div or canvas id*/
+'value'=> 'asdasdasd', /* value for EAN 13 be careful to set right values for each barcode type */
+'type'=>'ean8',/*supported types  ean8, ean13, upc, std25, int25, code11, code39, code93, code128, codabar, msi, datamatrix*/
+ 
+); ?>
+<?= \barcode\barcode\BarcodeGenerator::widget($optionsArray); ?>
+<?= \barcode\barcode\BarcodeGenerator::widget(); ?>
