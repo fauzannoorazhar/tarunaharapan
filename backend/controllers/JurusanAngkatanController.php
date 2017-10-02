@@ -83,6 +83,7 @@ class JurusanAngkatanController extends Controller
         $model = new JurusanAngkatan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success','Data berhasil disimpan.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -102,6 +103,7 @@ class JurusanAngkatanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success','Data berhasil disimpan.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -120,6 +122,7 @@ class JurusanAngkatanController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(['index']);
     }
 

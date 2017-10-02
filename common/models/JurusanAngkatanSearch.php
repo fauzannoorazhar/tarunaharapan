@@ -70,7 +70,7 @@ class JurusanAngkatanSearch extends JurusanAngkatan
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'pagination' => ['pageSize' => 5],
+            'pagination' => ['pageSize' => 20],
         ]);        
 
         return $dataProvider;

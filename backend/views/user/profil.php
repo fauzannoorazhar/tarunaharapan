@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=>'nama_anggota',
                     'format'=>'raw',
                     'value'=> function($data){
-                        return Html::a($data->nama_anggota, ['anggota/view', 'id'=> $data->getRelationField("anggota","nama")]);
+                        return Html::a($data->anggota->nama, ['anggota/view', 'id' => $data->getRelationField("anggota","id")]);
                     },
                 ],
                 'username',
@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model',
                 [
                     'attribute' => 'status',
+                    'format' => 'raw',
                     'value' => function($data){
                         return $data->getStatus();
                     },
@@ -63,7 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model, 
                 'attributes' => [ 
                     'username',
-                    'password',
                     [
                         'attribute' => 'last_login',
                         'value' => function($data){
@@ -89,18 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
          
     </div> 
     <div class="box-footer with-border"> 
-            <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting Akun', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?> 
-            <?= Html::a('<i class="fa fa-eye"></i> Lihat Profil', ['anggota/profil', 'id'=> $model->nama_anggota], ['class' => 'btn btn-primary btn-flat']) ?>
-        <?php if (User::isAdmin()) { ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [ 
-                'class' => 'btn btn-danger btn-flat', 
-                'data' => [ 
-                    'confirm' => 'Yakin Akan Menghapus Data?', 
-                    'method' => 'post', 
-                ], 
-            ]) ?> 
-        <?php } ?>
+            <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting Akun', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?> 
         </p> 
     </div> 
 </div> 
-

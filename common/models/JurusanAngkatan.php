@@ -36,8 +36,8 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_jurusan'],'unique','message' => '{attribute} Sudah Ada'],
-            [['id_jurusan', 'id_angkatan'], 'required'],
+            [['id_jurusan', 'id_angkatan'], 'unique', 'targetAttribute' => ['id_jurusan', 'id_angkatan'],'message' => '{attribute} Sudah Digunakan'],
+            [['id_jurusan', 'id_angkatan'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['id_jurusan', 'id_angkatan'], 'integer'],
             [['slug'],'string', 'max' => 255],
             [['id_jurusan'], 'exist', 'skipOnError' => true, 'targetClass' => Jurusan::className(), 'targetAttribute' => ['id_jurusan' => 'id']],
@@ -63,7 +63,9 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
             ],
             [
                 'class' => SluggableBehavior::className(),
-                'attribute' => 'jurusan.nama',
+                'attribute' => ['jurusan.nama','angkatan.tahun'],
+                'immutable' => true,
+                'ensureUnique' => true,
             ],
         ];
     }
@@ -131,5 +133,43 @@ class JurusanAngkatan extends \yii\db\ActiveRecord
         ->joinWith(['siswa','jurusan'])
         ->where(['siswa.status' => 2])
         ->orderBy(['id' => SORT_ASC]);
+    }
+
+    /*public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->tambah = 'Menambahkan  '.$this->jurusan->nama.' Tahun '.$this->angkatan->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        } else {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->pembaruan = 'Memperbaharui  '.$this->jurusan->nama.' Tahun '.$this->angkatan->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        if (User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->hapus = 'Menghapus  '.$this->jurusan->nama.' Tahun '.$this->angkatan->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+
+        parent::afterDelete();
+    }*/
+
+    public function getCount()
+    {
+        return Siswa::find()
+            ->andWhere(['id_jurusan_angkatan' => $this->id])
+            ->count();
     }
 }

@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'responsive'=>true,
+        'responsiveWrap' => false,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',

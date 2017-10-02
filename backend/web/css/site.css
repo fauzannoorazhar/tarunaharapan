@@ -133,4 +133,26 @@ input#siswasearch-globalsearch {
         height: 35px;
         border: 2px solid #3c8dbc;
     }
+}   
+
+.box-body.box-overflow {
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+}
+
+.gambar-artikel {
+    height: 200px; 
+    width: 200px;
+    margin: 1% 4px 2% 2%;
+}
+
+img.gambar-left {
+    height: 51px;
+    border-radius: 100%;
+}
+
+img.gambar-profil {
+    height: 80px;
+    border-radius: 100%; 
 }

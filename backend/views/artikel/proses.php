@@ -12,7 +12,7 @@ use common\models\StatusArtikel;
 $this->title = 'Artikel Status Proses';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="box box-primary tentang-index">
+<div class="box box-success tentang-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="box-header with-border">
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'create_by',
                 'value' => function($data){
-                    return $data->getRelationField('anggota','nama');
+                    return $data->anggota->nama;
                 },
             ],
             [
@@ -62,7 +62,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="fa fa-check"></span>', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITERIMA], [
                                     'data-toggle' =>'tooltip','title' => Yii::t('app', 'Terima Artikel'),
                                     'data' => [
-                                            'confirm' => 'Apakah Kamu Serius Ingin Menerima Artikel Ini?',
+                                            'confirm' => 'Apakah Anda Yakin Ingin Menerima Artikel Ini?',
                                         ],
                             ]);
                         },
@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<span class="fa fa-close"></span>', ['ubah-status', 'id' => $model->id,'id_status_artikel' => StatusArtikel::DITOLAK], [
                                     'data-toggle' =>'tooltip','title' => Yii::t('app', 'Tolak Artikel'),
                                     'data' => [
-                                            'confirm' => 'Apakah Kamu Serius Ingin Menolak Artikel Ini?',
+                                            'confirm' => 'Apakah Anda Yakin Ingin Menolak Artikel Ini?',
                                         ],
                             ]);
                         },

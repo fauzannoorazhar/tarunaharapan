@@ -235,7 +235,7 @@ p.title{
 	color:#000;
 }
 .btn-green{
-	background:#82B440;
+	background:#4097ca;
 	border:1px solid transparent;
 }	
 .btn-blue{
@@ -797,7 +797,7 @@ ul.top-right li a:hover.instagram{
 
 /* ------------ Banner With Text Rotator ------------ */
 .text-rotator{
-	background:url('../images/banner_text.jpg');
+	background:url('../pictures/test.jpg');
 	padding-top:109px;
 	background-size:cover;
 	background-attachment:fixed;
@@ -805,7 +805,7 @@ ul.top-right li a:hover.instagram{
 	width:100%;
 }
 .text-rotator #paralax-slider{
-	padding:15% 0;
+	padding: 20% 0;
 }
 #paralax-slider .item-content p{
 	font-size:20px;
@@ -887,7 +887,7 @@ ul.top-right li a:hover.instagram{
 }	
 #about .canvas-box h4{
 	margin-bottom:15px;
-	color:#000;
+	/*color:#000;*/
 }
 /* ------------ What We Offer ------------ */
 
@@ -895,10 +895,12 @@ ul.top-right li a:hover.instagram{
 
 /* ------------ Paralax background ------------ */
 #bg-paralax {
-  background:url("../pictures/body.png") no-repeat;
+  background:url("../pictures/cover2.jpg") no-repeat;
   color: #fff;
-  padding:10% 0;
+  padding: 20% 0;
+  /*height: 650px;*/
 }
+
 #bg-paralax , #testinomial{
   background-size:cover;
   background-position:center center;
@@ -1779,7 +1781,7 @@ ul.top-right li a:hover.instagram{
 /* ---------- Footer  ---------- */
 footer{
 	background:#121416;
-	padding:35px 0;
+	padding:100 0;
 	position:relative;
 }
 footer p{
@@ -1808,7 +1810,7 @@ footer .breadcrumb li a:hover, footer .breadcrumb li a:focus{
   font-size:20px;
   right:25px;
   z-index:800;
-  background:#82b440;
+  background:#4097ca;
   color:#fff;
   border-radius:5px;
   height:40px;
@@ -1887,9 +1889,12 @@ footer .breadcrumb li a:hover, footer .breadcrumb li a:focus{
   z-index: 10;
 }
 
- ul.social-link li a :hover,  ul.social-link li a:focus{
-	color:#fff;
-	 border: none;
+ul.social-link li a :hover, ul.social-link li a:focus {
+    color: #fff;
+    background: #4097ca;
+    border-radius: 100%;
+    border: none;
+    /* border: 1px solid; */
 }
 
 
@@ -2104,15 +2109,17 @@ footer .breadcrumb li a:hover, footer .breadcrumb li a:focus{
 }
 
 #area-main .tag-cloud li a , .blog-reply a.btn-rep{
-    background:#efefef;
+    background: #f5f5f5;
     color: #1b1d1f;
-	 font-size:12px;
+    font-size: 12px;
     padding: 8px 15px;
-	 text-transform:uppercase;
+    text-transform: uppercase;
+    border: 1px solid #bdc1c5;
+    font-size: 84%;
 }
 #area-main .tag-cloud li a:hover , #area-main .tag-cloud li a:focus ,
 .blog-reply a.btn-rep:hover,.blog-reply a.btn-rep:focus{
-    background:#82b440;
+    background:#4097ca;
     color: #fff;
 	 -webkit-transition: all 500ms linear;
    -moz-transition: all 500ms linear;
@@ -2196,7 +2203,8 @@ footer .breadcrumb li a:hover, footer .breadcrumb li a:focus{
 }
 
 .widget h4 , .widget img{
-	margin-bottom:25px;
+	margin-bottom: 3%;
+    margin-left: 2%;
 }
 .widget > img{
 	width:100%;
@@ -2256,7 +2264,6 @@ ul.category li a .date{
 
           /* Inner Pages Top*/
 .innerpage-banner {
-    background: url(../images/banner-about.jpg) no-repeat center center / cover;
     padding-top: 200px;
     max-height: 440px;
     border-bottom: 4px solid #4097ca;

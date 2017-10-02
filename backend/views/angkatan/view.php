@@ -11,7 +11,6 @@ use common\components\Helper;
 $this->params['breadcrumbs'][] = ['label' => 'Angkatan', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div>&nbsp;</div>
 <div class="box box-primary angkatan-view">
     <div class="box-header with-border">
         <h1 class="box-title">Detail Angkatan <?= Html::encode($this->title) ?></h1>
@@ -28,14 +27,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('<i class="fa fa-pencil"></i> Sunting Angkatan', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Angkatan', ['index'], ['class' => 'btn btn-warning btn-flat']) ?>
         </p>
     </div>
 </div>

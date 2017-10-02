@@ -26,14 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-                        'isi:ntext',
-                        [   
-                            'attribute' => 'create_by',
-                            /*'value' => function($data){
-                                return Tentang::getUser($data->create_by);
-                            },*/
+                        'nama',
+                        [   'attribute' => 'isi',
+                            'format' => 'raw',
                         ],
-                        'update_by',
+                        /*'update_by',*/
                         [
                             'attribute' => 'create_at',
                             'value' => function($data){
@@ -54,14 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('<i class="fa fa-pencil"></i> Sunting Tentang', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Tentang', ['index'], ['class' => 'btn btn-warning btn-flat']) ?>
         </p>
     </div>
 

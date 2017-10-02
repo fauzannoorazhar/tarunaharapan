@@ -30,7 +30,7 @@ class UserController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index','create','update','delete','view','profil','set-password','aktifkan'],
+                        'actions' => ['index','create','update','delete','view','profil','set-password','aktifkan','status-aktif'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -111,10 +111,11 @@ class UserController extends Controller
     {
         $model = new User();
         $model->status = 1;
-        $model->id_role = 3;
-        $model->model = 'Anggota';
+        $model->id_role = 2;
+        $model->model = 'Operator';
 
-        if ($model->load(Yii::$app->request->post())){
+        if ($model->load(Yii::$app->request->post()) && $model->validate()){
+            Yii::$app->session->setFlash('success','Data berhasil disimpan.');
             $model->password = Yii::$app->getSecurity()->generatePasswordHash($model->password);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -144,8 +145,10 @@ class UserController extends Controller
             $model->save();
 
             if (User::isAdmin() && User::isOperator()) {
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                 return $this->redirect(['profil', 'id' => $model->id]);
             }
         } else {
@@ -172,6 +175,8 @@ class UserController extends Controller
             $user = User::find()->where(['id' => $id])->one();
         }
 
+        $referrer = Yii::$app->request->referrer;
+
         $model = new SetPasswordForm;
 
         if($model->load(Yii::$app->request->post()) && $model->validate()) {
@@ -181,13 +186,14 @@ class UserController extends Controller
                 \Yii::$app->session->setFlash('success','Password berhasil disimpan');
 
                 if (User::isAdmin() && User::isOperator()) {
+                    Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                     return $this->redirect(['view', 'id' => $model]);
                 } else {
+                    Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                     return $this->redirect(['profil', 'id' => $model]);
                 }
             } else {
                 print_r($user->getErrors());
-                break;
             }
         }
 
@@ -228,13 +234,23 @@ class UserController extends Controller
     public function actionAktifkan($id)
     {
         $model = $this->findModel($id);
+        $model->status = User::ACTIVE;
 
-        if($model->status = 1){        
-            if($model->save()){
-                return $this->redirect(['site/login']);
-            }
-        } else {
+        if($model->save()){        
             return $this->redirect(['site/login']);
+        } else {
+            return print_r($model->getErrors());
+        }
+    }
+
+    public function actionStatusAktif($id)
+    {
+        $model = $this->findModel($id);
+
+        $model->status = User::ACTIVE;
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success','User telah diaktifkan');
+            return $this->redirect(Yii::$app->request->referrer);
         }
     }
 }

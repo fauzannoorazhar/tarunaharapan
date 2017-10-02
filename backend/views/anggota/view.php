@@ -20,45 +20,46 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-body">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'nama',
-            'alamat:ntext',
-            [
-                'attribute' => 'id_jenis_kelamin',
-                'filter' => JenisKelamin::getList(),
-                'value' => function($data){
-                    return $data->jenisKelamin->nama;
-                },
-            ],
-            'email:email',
-            [
-                'attribute' => 'tanggal_lahir',
-                'value' => function($data){
-                    return Helper::getTanggal($data->tanggal_lahir);
-                },
-            ],
-            [
-                'attribute' => 'create_at',
-                'value' => function($data){
-                    return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
-                },
-            ],
-        ],
-    ]) ?>
+    <div class="row">
+        <div class="col-sm-2">
+            <?= $model->getGambar(['style' => 'width:150px']); ?>
+        </div>
+
+        <div class="col-sm-10">
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    'nama',
+                    'alamat:ntext',
+                    [
+                        'attribute' => 'id_jenis_kelamin',
+                        'filter' => JenisKelamin::getList(),
+                        'value' => function($data){
+                            return $data->jenisKelamin->nama;
+                        },
+                    ],
+                    'email:email',
+                    [
+                        'attribute' => 'tanggal_lahir',
+                        'value' => function($data){
+                            return Helper::getTanggal($data->tanggal_lahir);
+                        },
+                    ],
+                    [
+                        'attribute' => 'create_at',
+                        'value' => function($data){
+                            return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
+                        },
+                    ],
+                ],
+            ]) ?>
+        </div>
+    </div>
         
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Anggota', ['index'], ['class' => 'btn btn-warning btn-flat']) ?>
         </p>
     </div>
 
@@ -66,6 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="box box-primary">
     <div class="box-header with-border">
+        <h3 class="box-title">Artikel Yang Dibuat</h3>
     </div>
 
     <div class="box-body">

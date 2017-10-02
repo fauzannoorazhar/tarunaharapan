@@ -6,6 +6,7 @@ use common\models\JenisKelamin;
 use common\components\Helper;
 use common\models\Anggota;
 use common\widgets\Label;
+use common\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\AnggotaSearch */
@@ -24,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'responsive'=>true,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',
@@ -56,16 +58,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => 'Jumlah Artikel',
                 'format' => 'raw',
                 'value' => function($data) {
-                        return Label::widget([
-                                'context' => 'info',
-                                'text' => $data->getArtikelCount()
-                            ]);
-                    },
+                    return Label::widget([
+                            'context' => 'warning',
+                            'text' => $data->getArtikelCount()
+                        ]);
+                },
                 'headerOptions' => ['style' => 'text-align:center'],
                 'contentOptions' => ['style' => 'text-align:center']
             ],
             [
                 'class' => 'app\components\ToggleActionColumn',
+                'template' => User::isAdmin() ? '{view} {update} {delete}' : '{view}',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],
                 'contentOptions'=>['style'=>'text-align:center']
             ],

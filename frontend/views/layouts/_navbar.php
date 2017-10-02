@@ -23,9 +23,10 @@ use yii\bootstrap\NavBar;
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                   ['label' => 'Home', 'url' => ['/site/index']],
-                  ['label' => 'Alumni', 'url' => ['/alumni/index']],
+                  ['label' => 'Tentang', 'url' => ['/tentang/index']],
+                  ['label' => 'Alumni', 'url' => ['/siswa/index']],
                   ['label' => 'Artikel', 'url' => ['/artikel/index']],
-                  ['label'=>'Login', 'url'=>\Yii::$app->urlManagerFrontEnd->baseUrl],
+                  ['label'=>'Login', 'url'=> \Yii::$app->urlManagerFrontEnd->baseUrl],
               ],
         ]);
         NavBar::end();

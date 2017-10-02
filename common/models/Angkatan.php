@@ -29,8 +29,9 @@ class Angkatan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['tahun'], 'required'],
+            [['tahun'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['tahun'], 'safe'],
+            ['tahun','integer'],
             [['tahun'],'unique','message'=>'{attribute} Angkatan Sudah Ada'],
         ];
     }
@@ -61,7 +62,7 @@ class Angkatan extends \yii\db\ActiveRecord
         ->via('jurusanAngkatan');
     }
 
-    public function getList()
+    public static function getList()
     {
         return ArrayHelper::map(Angkatan::find()->all(),'id','tahun');
     }
@@ -70,4 +71,34 @@ class Angkatan extends \yii\db\ActiveRecord
     {
         return self::find()->count();
     }
+
+    /*public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert && User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->tambah = 'Menambahkan Angkatan '.$this->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        } elseif (User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->pembaruan = 'Memperbaharui Angkatan '.$this->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        if (User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->hapus = 'Menghapus Angkatan '.$this->tahun;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);            
+        }
+        parent::afterDelete();
+    }*/
 }

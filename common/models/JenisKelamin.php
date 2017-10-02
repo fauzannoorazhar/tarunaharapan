@@ -53,7 +53,7 @@ class JenisKelamin extends \yii\db\ActiveRecord
         return $this->hasMany(Siswa::className(), ['id_jenis_kelamin' => 'id']);
     }
 
-    public function getList()
+    public static function getList()
     {
         return ArrayHelper::map(JenisKelamin::find()->all(),'id','nama');
     }

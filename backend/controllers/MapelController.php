@@ -66,6 +66,7 @@ class MapelController extends Controller
         $model = new Mapel();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success','Data berhasil disimpan.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -85,6 +86,7 @@ class MapelController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success','Data berhasil disimpan.');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -103,6 +105,7 @@ class MapelController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(['index']);
     }
 

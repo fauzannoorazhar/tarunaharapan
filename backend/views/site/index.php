@@ -1,106 +1,102 @@
 <?php
 use yii\helpers\Url;
-use common\models\Siswa;
-use common\models\Jurusan;
-use common\models\guru;
-use common\models\Angkatan;
+use yii\helpers\Html;
+use common\models\Artikel;
+use common\components\Helper;
+use common\models\User;
+
 $this->title = 'Selamat Datang';
 ?>
 
-        <div class="row">
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-primary">
-                    <div class="inner">
-                        <p>Rekayasa Peragkat Lunak</p>
-                        <h3><?= Siswa::getJumlahRpl() ?><sup class="small-box-sup"></sup></h3>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-laptop"></i>
-                    </div>
-                    <a href="<?= Url::to(['jurusan/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
+<div class="row">
+    <div class="col-lg-4 col-xs-6">
+        <div class="small-box bg-green">
+            <div class="inner">
+                <h3><?= Artikel::getArtikelProsesAll() ?></h3>
+                <p>Semua Artikel Diproses</p>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-green">
-                    <div class="inner">
-                        <p>Akutansi</p>
-                        <h3><?= Siswa::getJumlahAka() ?></h3>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-dollar"></i>
-                    </div>
-                    <a href="<?= Url::to(['jurusan/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
+            <div class="icon">
+                <i class="fa fa-refresh"></i>
             </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-yellow">
-                    <div class="inner">
-                        <p>Pemasaran</p>
-                        <h3><?= Siswa::getJumlahPm() ?></h3>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-area-chart"></i>
-                    </div>
-                    <a href="<?= Url::to(['jurusan/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-aqua">
-                    <div class="inner">
-                        <p>Teknik Kendaraan Ringan</p>
-                        <h3><?= Siswa::getJumlahTkr() ?></h3>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-car"></i>
-                    </div>
-                    <a href="<?= Url::to(['jurusan/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
-            <!-- ./col -->
-            <div class="col-lg-3 col-xs-6">
-                <!-- small box -->
-                <div class="small-box bg-red">
-                    <div class="inner">
-                        <p>Teknik Sepedah Motor</p>
-                        <h3><?= Siswa::getJumlahTsm() ?></h3>
-                    </div>
-                    <div class="icon">
-                        <i class="fa fa-motorcycle"></i>
-                    </div>
-                    <a href="<?= Url::to(['jurusan/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
-                </div>
-            </div>
+            <a href="<?= Url::to(['artikel/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
         </div>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <div class="small-box bg-primary">
+            <div class="inner">
+                <h3><?= Artikel::getArtikelDiterimaAll() ?></h3>
+                <p>Semua Artikel Diterima</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-check"></i>
+            </div>
+            <a href="<?= Url::to(['artikel/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xs-6">
+        <div class="small-box bg-red">
+            <div class="inner">
+                <h3><?= Artikel::getArtikelDitolakAll() ?></h3>
+                <p>Semua Artikel Ditolak</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-close"></i>
+            </div>
+            <a href="<?= Url::to(['artikel/index']); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
 
-<?php
-    /*$hitunghari['awal'] = '1998-12-09';
-    $hitunghari['akhir'] = date('Y-m-d');
-    $lahir = $hitunghari['awal'];
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Artikel Bulan Ini</h3>
+    </div>
 
-    $selisih = time() - strtotime ($lahir);
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-condensed"> 
+            <tr>
+                <th>No</th>
+                <th>Judul</th>
+                <th>Status Artikel</th>
+                <th>Tag Artikel</th>
+                <th>Dibuat Oleh</th>
+                <th>Waktu Dibuat</th>
+            </tr>
+            <?php $no = 1; foreach (Artikel::findArtikelBulanIni() as $data): ?>
+            <tr>
+                <td><?= $no ?></td>
+                <td><?= $data->judul ?></td>
+                <td><?= $data->getStatus(); ?></td>
+                <td><?= $data->tagArtikel->nama ?></td>
+                <td><?= $data->anggota->nama; ?></td>
+                <td><?= Helper::getTanggalSingkat(Helper::convert($data->create_at, 'datetime')) ?></td>
+            </tr>
+            <?php $no++; endforeach ?>
+        </table>
+    </div>
+</div>
 
-    print $selisih.'<br>';
-    print time().'<br>';
-    print strtotime('1998-01-01').'<br>';
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Anggota Login Terakhir</h3>
+    </div>
 
-    $tahun = floor ($selisih / 31536000);
-
-    print $tahun.'<br>';
-    print floor('1998-01-01' / 31536000);
-
-    $bulan = floor (($selisih % 31536000) / 2592000);
-        foreach ($hitunghari as $key => $val)
-        {
-            $hitunghari[$key] = strtotime ($val);
-        }
-    $hitunghari['selisih'] = $hitunghari['akhir'] - $hitunghari['awal'];
-    $hitunghari['selisih'] = number_format ($hitunghari['selisih'] / 86400, 2) . 'hari';*/
-    /*echo $tahun.' Tahun';*/
-?>
+    <div class="box-body">
+        <table class="table table-bordered table-striped table-condensed"> 
+            <tr>
+                <th>No</th>
+                <th>Nama Anggota</th>
+                <th>Nama Akun</th>
+                <th>Login Terakhir</th>
+            </tr>
+            <?php $i=1; foreach (User::find()->where(['id_role' => 3])->all() as $user): ?>
+            <tr>
+                <td><?= $i ?></td>
+                <td><?= Html::a($user->anggota->nama, ['anggota/view','id' => $user->nama_anggota], ['option' => 'value']); ?></td>
+                <td><?= $user->username ?></td>
+                <td><?= Helper::getWaktuWIB(Helper::convert($user->last_login, 'datetime')) ?></td>
+            </tr>
+            <?php $i++; endforeach ?>
+        </table>
+    </div>
+</div>

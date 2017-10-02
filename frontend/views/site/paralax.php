@@ -1,17 +1,20 @@
 <?php
 use yii\helpers\Html;
 use common\models\Siswa;
-use ckarjun\owlcarousel\OwlCarouselWidget;
+use common\models\Eskul;
+use common\components\Helper;
+use common\models\Pengaturan;
+
+$paralax_kecil = Pengaturan::find()->where(['posisi' => Pengaturan::PARALAX_KECIL])->one();
+$paralax = Pengaturan::find()->where(['posisi' => Pengaturan::PARALAX])->one();
 ?>
 <div style="position:relative;" class="top-padding">
     <section id="bg-paralax">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <p style="color: white">Unleash your creative potential with BizOne</p>
-                    <h2 class="magin30">Looking For Exclusive Digital Services?</h2>
-
-                    <a class="btn-green btn-common bounce-top page-scroll" href="#letstalk">Let's Talk</a>
+                    <p style="color: white; font-size: 180%"><?= $paralax_kecil->nama ?></p>
+                    <h2 class="magin30" style="font-size: 350%"><?= $paralax->nama ?>?</h2>
                 </div>
             </div>
         </div>
@@ -23,76 +26,50 @@ use ckarjun\owlcarousel\OwlCarouselWidget;
 <div>&nbsp;</div>
 
 <section id="publication" class="section-padding padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <p class="title">Stay always updated</p>
-                    <h2 class="heading">Our Publications</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div id="publication-slider" class="owl-carousel">
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog.html">read more</a>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="blog_detail.html" class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog.html">read more</a>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog_detail.html">read more</a>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog.html">read more</a>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog.html">read more</a>
-                    </div>
-                    <div class="item">
-                        <div class="image">
-                            <a href="blog_detail.html"><?= Html::img('../images/publication1.jpg', ['option' => 'value']); ?></a>
-                        </div>
-                        <h5>18 November 2015</h5>
-                        <h4>Familiar idea with brand</h4>
-                        <p>by <a href="#." class="name">Smith </a> - <a href="#." class="comment">5 Comments</a></p>
-                        <p>Keep away from people who try to belittle your ambitions Small people always do that but the really great Friendly.</p>
-                        <a href="blog.html">read more</a>
-                    </div>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <p class="title">SMK TARUNA HARAPAN 1 CIPATAT</p>
+                <h2 class="heading">EKSTRAKULIKULER</h2>
             </div>
         </div>
-    </section>
+        <div class="row">
+            <div id="publication-slider" class="owl-carousel">
+                <?php foreach (Eskul::find()->orderBy(['urutan' => SORT_ASC])->all() as $eskul) { ?>
+                    <div class="item">
+                        <div class="image">
+                            <?= Html::a($eskul->getGambar(), ['eskul/detail','slug' => $eskul->slug], ['option' => 'value']); ?>
+                        </div>
+                            <h5><i class="fa fa-edit"></i>
+                                Oleh <?= $eskul->user->anggota->nama ?>
+                                <i class="fa fa-calendar"></i>
+                                <?= Helper::getTanggal(Helper::convert($eskul->create_at, 'datetime')); ?>
+                            </h5>
+                            <h4>
+                                <?= Html::a($eskul->nama, ['eskul/detail','slug' => $eskul->slug], ['option' => 'value']); ?>
+                            </h4>
+                            <p style="text-align: justify;">
+                                <?= $eskul->getKeterangan() ?>
+                            </p>
+                            <?= Html::a('Baca Selengkapnya', ['eskul/detail','slug' => $eskul->slug], ['option' => 'value']); ?>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <div>&nbsp;</div> -->
+
+<!-- <section class="we-do bg-grey padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center wow fadeIn">
+                <p class="title"></p>
+                <h2 class="heading"></h2>
+            </div>
+            
+        </div>
+    </div>
+</section>
+ -->

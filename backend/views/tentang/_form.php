@@ -25,7 +25,19 @@ use dosamigos\ckeditor\CKEditor;
         ],
     ]]); ?>
 
-    <?= $form->field($model, 'isi')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'nama')->textInput() ?>
+
+    <?= $form->field($model, 'isi',[
+        'horizontalCssClasses' => [
+            'label' => 'col-sm-3',
+            'wrapper' => 'col-sm-9',
+            'error' => '',
+            'hint' => '',
+        ],
+        ])->widget(CKEditor::className(), [
+        'options' => ['rows' => 3],
+        'preset' => 'advanced'
+    ]) ?>
 
     <?= $form->field($model, 'gambar')->fileInput() ?>
 

@@ -20,12 +20,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-header with-border">
         <p>
             <div class="row">
-                <div class="col-md-6 col-xs-7">
+                <div class="col-md-6 col-xs-12">
                     <?= Html::a('<i class="fa fa-plus"></i> Tambah Siswa', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
                     <?= Html::a('<i class="fa fa-mortar-board"></i> Siswa Alumni', ['alumni'], ['class' => 'btn btn-primary btn-flat']) ?>
                     <?= Html::a('<i class="fa fa-check"></i> Siswa Aktif', ['siswa-aktif'], ['class' => 'btn btn-primary btn-flat']) ?>
                 </div>
-                <div class="col-md-6 col-xs-5">
+                <div class="col-md-6 col-xs-12">
                     <div class="pull-right">
                         <div class="has-feedback"> 
                             <?= $this->render('_search', ['model' => $searchModel]); ?>
@@ -84,8 +84,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->jurusanAngkatan->jurusan->nama . ' - ' . $data->jurusanAngkatan->angkatan->tahun;
                 }
             ],
-            //'photo',
-
             [
                 'class' => 'app\components\ToggleActionColumn',
                 'headerOptions'=>['style'=>'text-align:center;width:80px'],

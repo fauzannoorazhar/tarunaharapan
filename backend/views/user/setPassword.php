@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     'layout'=>'horizontal',
     'fieldConfig' => [
         'horizontalCssClasses' => [
-            'label' => 'col-sm-2',
-            'wrapper' => 'col-sm-4',
+            'label' => 'col-sm-2 col-xs-12',
+            'wrapper' => 'col-sm-4 col-xs-12',
             'error' => '',
             'hint' => '',
         ],

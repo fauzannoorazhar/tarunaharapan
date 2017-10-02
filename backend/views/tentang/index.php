@@ -15,9 +15,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="box-header with-border">
-        <p>
-            <?= Html::a('<i class="fa fa-plus"></i> Tambah Tentang', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
-        </p>
     </div>
     <div class="box-body">
 
@@ -31,14 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'headerOptions'=>['style'=>'text-align:center;width:20px;'],
                 'contentOptions'=>['style'=>'text-align:center;width:20px;']
             ],
-            'create_by',
+            'nama',
             [
                 'attribute' => 'create_at',
                 'value' => function($data){
                     return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
                 },
             ],
-            'update_by',
+            /*'update_by',*/
             [
                 'attribute' => 'update_at',
                 'value' => function($data){
@@ -46,7 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             [
-                'class' => 'app\components\ToggleActionColumn',
+                    'class' => 'app\components\ToggleActionColumn',
+                'template' => '{update} {view}',
                 'headerOptions'=>['style'=>'text-align:center;width:10px'],
                 'contentOptions'=>['style'=>'text-align:center']
             ],

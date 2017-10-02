@@ -46,13 +46,6 @@ use kartik\date\DatePicker;
         ],
     ]) ?>
 
-    <?= $form->field($model, 'status')->widget(select2::className(), [
-        'data' => Siswa::getListStatus(),
-        'options' => [
-            'placeholder' => 'Pilih Status',
-        ]
-    ]) ?>
-
     <?= $form->field($model, 'id_jenis_kelamin')->widget(select2::className(), [
         'data' => JenisKelamin::getList(),
         'options' => [
@@ -66,6 +59,13 @@ use kartik\date\DatePicker;
             'placeholder' => 'Pilih Jurusan Angkatan',
         ]
     ]) ?>
+
+    <?php /*$form->field($model, 'status')->widget(select2::className(), [
+        'data' => Siswa::getListStatus(),
+        'options' => [
+            'placeholder' => 'Pilih Status',
+        ]
+    ])*/ ?>
 
     <?php /*$form->field($model, 'status')->radioList([
         1 => 'Belum Lulus', 

@@ -109,7 +109,8 @@ class SiswaController extends Controller
                 $picture->saveAs($path, false);
             }
             if($model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             return $this->render('create', [
@@ -158,6 +159,7 @@ class SiswaController extends Controller
             }
 
             if($model->save()){
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -177,6 +179,7 @@ class SiswaController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(['index']);
     }
 

@@ -27,7 +27,8 @@ class Anggota extends \yii\db\ActiveRecord
 {
     public $username;
     public $password;
-    public $reCaptcha;
+    public $password_konfirmasi;
+    /*public $reCaptcha;*/
 
     /**
      * @inheritdoc
@@ -43,16 +44,18 @@ class Anggota extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => '6LeolSwUAAAAAHPe4jWXr6UfkGvR5MKQ7vBQG53y', 'uncheckedMessage' => 'Please confirm that you are not a bot.'],
-
+            /*[['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(), 'secret' => '6LeolSwUAAAAAHPe4jWXr6UfkGvR5MKQ7vBQG53y', 'uncheckedMessage' => 'Please confirm that you are not a bot.'],*/
             ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => '{attribute} Sudah Ada'],
+            ['password_konfirmasi', 'validatePassword'],
             [['nama'],'unique','message' => '{attribute} Pengguna Sudah Ada'],
-            [['nama', 'alamat', 'id_jenis_kelamin', 'email', 'tanggal_lahir','username','password'], 'required'],
+            [['nama', 'alamat', 'id_jenis_kelamin', 'email', 'tanggal_lahir','username','password','password_konfirmasi'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['alamat'], 'string'],
-            [['id_jenis_kelamin', 'create_at', 'last_login'], 'integer'],
-            [['create_at'], 'safe'],
-            [['nama', 'email'], 'string', 'max' => 255],
+            [['id_jenis_kelamin', 'create_at'], 'integer'],
+            [['create_at','bio','photo'], 'safe'],
+            [['nama', 'email','photo'], 'string', 'max' => 255],
             [['email'],'email'],
+            [['photo'], 'string', 'max' => 255],
+            ['photo', 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'gif'], 'maxSize' => 1024 * 1024 * 2],
         ];
     }
 
@@ -76,6 +79,8 @@ class Anggota extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nama' => 'Nama',
             'alamat' => 'Alamat',
+            'photo' => 'Photo',
+            'bio' => 'Bio',
             'id_jenis_kelamin' => 'Jenis Kelamin',
             'email' => 'Email',
             'tanggal_lahir' => 'Tanggal Lahir',
@@ -144,7 +149,8 @@ class Anggota extends \yii\db\ActiveRecord
         Dengan Hormat Kepada '.$this->nama.' <br><br>
 
         Terima Kasih Telah Berpartisipasi Menjadi Anggota Kami<br><br>
-        Silahkan Lakukan Login Dengan Menggunakan Data Sebagai Berikut : <br><br>
+        Hubungi Admin Untuk Melakukan Pengaktifan Akun<br><br>
+        Setelah Admin Mengaktifkan Lakukan Login Dengan Menggunakan Data Sebagai Berikut : <br><br>
         <table>
             <tr>
                 <td>Username</td>
@@ -163,9 +169,6 @@ class Anggota extends \yii\db\ActiveRecord
 
         Terima Kasih
         <br><br>
-        Untuk Mengaktifkan Akun Anda Klik URL Dibawah Ini.
-            <a href="http://localhost/tarunaharapan2/backend/web/index.php?r=user/aktifkan&id='.$this->user->id.'">Klik disini</a>
-
         ';
 
     return Yii::$app->mailer->compose()
@@ -216,5 +219,38 @@ class Anggota extends \yii\db\ActiveRecord
             ->setHtmlBody($konten)
             ->send();
     }
+
+    public function validatePassword($attribute, $params)
+    {
+        if($this->password != $this->password_konfirmasi)
+        {
+            $this->addError($attribute, 'Password konfirmasi tidak sesuai');
+        }
+    }
+
+    public function getGambar($htmlOptions=[])
+    {
+        //Jika file ada dalam direktori
+        if($this->photo == null && !file_exists('@uploads/uploads/'.$this->photo) && $this->id_jenis_kelamin !== 1){
+            return Html::img('@uploads/pictures/avatar2.png',$htmlOptions);
+        } elseif ($this->photo == null && !file_exists('@uploads/uploads/'.$this->photo) && $this->id_jenis_kelamin !== 2) {
+            return Html::img('@uploads/pictures/avatar5.png',$htmlOptions);
+        } else {
+            return Html::img('@uploads/uploads/'. $this->photo,$htmlOptions);
+        }
+    }
+
+    /*public function afterDelete()
+    {
+        if (User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->hapus = 'Menghapus Anggota '.$this->nama;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+
+        parent::afterDelete();
+    }*/
 
 }

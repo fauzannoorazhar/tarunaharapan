@@ -99,7 +99,8 @@ class JurusanController extends Controller
                 $picture->saveAs($path, false);
             }
             if($model->save()){
-            return $this->redirect(['view', 'id' => $model->id]);
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
+                return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             return $this->render('create', [
@@ -148,6 +149,7 @@ class JurusanController extends Controller
             }
 
             if($model->save()){
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -167,6 +169,7 @@ class JurusanController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(['index']);
     }
 

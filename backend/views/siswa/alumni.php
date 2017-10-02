@@ -6,13 +6,29 @@ $this->title = 'Siswa Alumni';
 $this->params['breadcrumbs'][] = ['label' => 'Alumni', 'url' => ['siswa/alumni']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<?php foreach (Siswa::findSiswaGroupByStatus() as $JurusanAngkatan) { ?>
-    <div class="box box-primary collapsed-box">
+<?php foreach (Siswa::findSiswaGroupByStatusAlumni() as $JurusanAngkatan) { ?>
+        <?php $length = strlen($JurusanAngkatan->jurusanAngkatan->jurusan->nama); 
+            if ($length <= 8) {
+                echo '<div class="box box-primary collapsed-box">';
+            } elseif ($length <= 10) {
+                echo '<div class="box box-success collapsed-box">';
+            } elseif ($length <= 15) {
+                echo '<div class="box box-warning collapsed-box">';
+            } elseif ($length <= 20) {
+                echo '<div class="box box-info collapsed-box">';
+            } else {
+                echo '<div class="box box-danger collapsed-box">';
+            }
+        ?>
         <div class="box-header with-border">
-            <h3 class="box-title"><?= $JurusanAngkatan->jurusanAngkatan->jurusan->nama.' - '.$JurusanAngkatan->jurusanAngkatan->angkatan->tahun ?></h3>
-            <div class="box-tools pull-left">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                    </button>
+            <h3 class="box-title">
+                <?= $JurusanAngkatan->jurusanAngkatan->jurusan->nama.' - '.$JurusanAngkatan->jurusanAngkatan->angkatan->tahun
+                ?>
+            </h3>
+            <div class="box-tools pull-right">
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" data-widget="collapse"><i class="fa fa-plus"></i>
+                </button>
+                <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="Close" data-widget="remove"><i class="fa fa-times"></i></button>
             </div>
         </div>
         <div class="box-body">
@@ -31,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?php 
                 $i = 1; 
-                foreach (Siswa::findSiswaByJurusanAngkatan($JurusanAngkatan) as $siswa) { ?>
+                foreach (Siswa::findSiswaByJurusanAngkatanAlumni($JurusanAngkatan) as $siswa) { ?>
                     <tr>
                         <td><?= $i; ?></td>
                         <td><?= $siswa->nama ?></td>

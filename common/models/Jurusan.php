@@ -31,8 +31,9 @@ class Jurusan extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama'], 'required'],
+            [['nama'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['nama','logo'], 'string', 'max' => 255],
+            ['logo', 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'gif'], 'maxSize' => 1024 * 1024 * 2],
             [['nama'],'unique','message'=>'{attribute} Jurusan Sudah Ada'],
         ];
     }
@@ -64,7 +65,7 @@ class Jurusan extends \yii\db\ActiveRecord
             ->via('jurusanAngkatan');
     }
 
-    public function getList()
+    public static function getList()
     {
         return ArrayHelper::map(Jurusan::find()->all(),'id','nama');
     }
@@ -84,4 +85,34 @@ class Jurusan extends \yii\db\ActiveRecord
             return Html::img('@uploads/uploads/'. $this->logo,$htmlOptions);
         }
     }
+
+    /*public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->tambah = 'Menambahkan Jurusan '.$this->nama;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        } else {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->pembaruan = 'Memperbaharui Jurusan '.$this->nama;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function afterDelete()
+    {
+        if (User::isOperator()) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->hapus = 'Menghapus Jurusan '.$this->nama;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);            
+        }
+        parent::afterDelete();
+    }*/
 }

@@ -30,10 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                 ],
                 'username',
-                'password',
                 'model',
                 [
                     'attribute' => 'status',
+                    'format' => 'raw',
                     'value' => function($data){
                         return $data->getStatus();
                     },
@@ -62,6 +62,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= DetailView::widget([ 
             'model' => $model, 
             'attributes' => [ 
+                [
+                    'attribute'=>'nama_anggota',
+                    'format'=>'raw',
+                    'value'=> function($data){
+                        return Html::a($data->getRelationField('anggota','nama'), ['anggota/view', 'id'=> $data->nama_anggota]);
+                    },
+                ],
                 'username',
                 'password',
                 [
@@ -76,16 +83,6 @@ $this->params['breadcrumbs'][] = $this->title;
          
     </div> 
     <div class="box-footer with-border"> 
-            <p><?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-        <?php if (User::isAdmin()) { ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [ 
-                'class' => 'btn btn-danger btn-flat', 
-                'data' => [ 
-                    'confirm' => 'Yakin Akan Menghapus Data?', 
-                    'method' => 'post', 
-                ], 
-            ]) ?> 
-        <?php } ?>
-        </p> 
+        
     </div> 
 </div> 

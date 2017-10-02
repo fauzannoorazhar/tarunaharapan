@@ -73,7 +73,7 @@ return [
             'class' => 'yii\web\urlManager',
             'enablePrettyUrl' => false,
             'showScriptName' => false,
-            'baseUrl' => 'http://127.0.0.1/tarunaharapan2/frontend/web/site/index',
+            'baseUrl' => 'http://localhost/tarpanone/frontend/web/site/index',
         ],
         
     ],

@@ -24,7 +24,7 @@ class SetPasswordForm extends Model
     {
         return [
             // email and password are both required
-            [['password_konfirmasi', 'password'], 'required','message'=>'{attribute} harus diisi'],
+            [['password_konfirmasi', 'password'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             // password is validated by validatePassword()
             ['password_konfirmasi', 'validatePassword'],
         ];

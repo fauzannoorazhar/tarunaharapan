@@ -34,14 +34,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('<i class="fa fa-pencil"></i> Sunting Jurusan', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Jurusan', ['index'], ['class' => 'btn btn-warning btn-flat']) ?>
         </p>
     </div>
 

@@ -1,1 +1,1 @@
-<?php header("Location: /tarunaharapan2/frontend/web/site/index"); ?>
+<?php header("Location: /tarpanone/frontend/web/site/index"); ?>

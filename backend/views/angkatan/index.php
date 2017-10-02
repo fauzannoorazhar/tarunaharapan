@@ -24,7 +24,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'bordered' => true,
+        'striped' => false,
         'responsive'=>true,
+        'floatHeader'=>false,
+        'containerOptions'=>['style'=>'overflow: auto'], // only set when $responsive = false
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'filterRowOptions'=>['class'=>'kartik-sheet-style'],
+        'persistResize'=>false,
+        'pjax'=>true,
+        'responsiveWrap' => false,
         'columns' => [
             [
                 'class' => 'yii\grid\SerialColumn',

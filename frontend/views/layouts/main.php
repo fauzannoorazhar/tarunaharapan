@@ -22,7 +22,7 @@ BizoneAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?= Html::csrfMetaTags() ?>
         <title><?= Html::encode($this->title) ?></title>
         <?php $this->head() ?>
@@ -39,12 +39,12 @@ BizoneAsset::register($this);
 
 <?= $this->render('_navbar'); ?>
 
-<section class="innerpage-banner">
+<section class="innerpage-banner" style="background: url(../pictures/a.jpeg) no-repeat center center / cover;">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 text-left wow fadeInDown" data-wow-duration="500ms" data-wow-delay="200ms">
+            <div class="col-md-12 text-left">
                 <h2>SMK TARPAN ONE</h2>
-                <p class="tagline wow fadeInDown">Taruna Harapan 1  Cipatat</p>
+                <p class="tagline">Taruna Harapan 1  Cipatat</p>
             </div>
         </div>
     </div>

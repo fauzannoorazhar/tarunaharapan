@@ -24,7 +24,13 @@ use yii\bootstrap\ActiveForm;
         ], 
     ]]); ?> 
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+        <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+
+    <?php if($model->isNewRecord){ ?>
+
+        <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+        
+    <?php } ?>
 
     </div> 
     <div class="box-footer with-border form-group"> 

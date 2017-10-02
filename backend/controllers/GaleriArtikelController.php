@@ -102,11 +102,12 @@ class GaleriArtikelController extends Controller
                 $path = Yii::getAlias('@frontend').'/web/uploads/'.$model->gambar;
                 $picture->saveAs($path, false);
             }
-            if($model->save()){
+            if($model->save(false)){
                 Yii::$app->session->setFlash('success', 'Artikel telah ditambahkan photo lainnya');
             return $this->redirect(['artikel/index']);
             }
         } else {
+            Yii::$app->session->setFlash('warning', 'Pastikan Anda Menambahkan Photo Untuk Artikel Ini Dengan Ukuran Kurang Dari 2mb!');
             return $this->render('create', [
                 'model' => $model,
             ]);
@@ -129,10 +130,45 @@ class GaleriArtikelController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (User::isAnggota()) {
+            $this->layout = 'anggota';
+        }
+        
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        // Untuk merubah atau update gambar, jadi tidak perlu menambah gambar lagi ketika akan mengupdate gambar
+        $old_picture = $model->gambar;
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Action Tambah Berkas Upload 
+            $gambar = UploadedFile::getInstance($model, 'gambar');
+
+            // kondisi yang tidak mengharuskan menambah gambar lagi
+            if(is_object($gambar)){
+                $model->gambar = $gambar->baseName;//Nama dasar file uploads
+                $model->gambar .= Yii::$app->formatter->asTimestamp(date('Y-d-m h:i:s'));
+                $model->gambar .= '.' . $gambar->extension;
+
+                //@path Penyimpanan Jelas
+                $path = Yii::getAlias('@frontend').'/web/uploads/';
+
+                $gambar->saveAs($path.$model->gambar, false);
+
+                //Memerikasi apakah file dalam di rektori ada
+                if(file_exists($path.$old_picture) AND $old_picture != null)
+                {
+                    //Menghapus file
+                    unlink($path.$old_picture);
+                }
+
+            } else {
+                $model->gambar = $old_picture;
+            }
+
+            if($model->save()){
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -150,6 +186,7 @@ class GaleriArtikelController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(['index']);
     }
 

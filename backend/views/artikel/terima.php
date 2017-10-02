@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'create_by',
                 'value' => function($data){
-                    return $data->getRelationField('anggota','nama');
+                    return $data->anggota->nama;
                 },
             ],
             [

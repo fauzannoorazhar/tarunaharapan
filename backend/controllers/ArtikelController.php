@@ -108,7 +108,7 @@ class ArtikelController extends Controller
 
         //save tanpa validasi
         if($model->save(false)){
-            Yii::$app->session->setFlash('success','Status Telah Diubah');
+            Yii::$app->session->setFlash('success','Status Artikel Telah Diubah');
             return $this->redirect(Yii::$app->request->referrer);
         } else{
             return print_r($model->getErrors());
@@ -168,7 +168,7 @@ class ArtikelController extends Controller
             if($model->save(false)){
 
                 if (User::isAnggota()) {
-                    Yii::$app->session->setFlash('success', 'Artikel telah dibuat, silahkan tunggu artikel diterima oleh admin, dengan melakukan cek pada email anda!');
+                    Yii::$app->session->setFlash('success', 'Artikel telah dibuat, silahkan tunggu artikel diterima oleh admin');
                 }
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -196,7 +196,7 @@ class ArtikelController extends Controller
         // Untuk merubah atau update gambar, jadi tidak perlu menambah gambar lagi ketika akan mengupdate gambar
         $old_picture = $model->gambar;
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
             // Action Tambah Berkas Upload 
             $gambar = UploadedFile::getInstance($model, 'gambar');
 
@@ -222,7 +222,8 @@ class ArtikelController extends Controller
                 $model->gambar = $old_picture;
             }
 
-            if($model->save()){
+            if($model->save(false)){
+                Yii::$app->session->setFlash('success','Data berhasil disimpan.');
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -242,6 +243,7 @@ class ArtikelController extends Controller
     {
         $this->findModel($id)->delete();
 
+        Yii::$app->session->setFlash('success','Data berhasil dihapus.');
         return $this->redirect(Yii::$app->request->referrer);
     }
 

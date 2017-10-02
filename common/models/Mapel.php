@@ -29,7 +29,7 @@ class Mapel extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nama'], 'required'],
+            [['nama'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['nama'], 'string', 'max' => 255],
         ];
     }

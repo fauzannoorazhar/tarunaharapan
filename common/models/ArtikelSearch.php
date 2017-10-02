@@ -20,7 +20,7 @@ class ArtikelSearch extends Artikel
     {
         return [
             [['id'], 'integer'],
-            [['judul', 'isi','gambar','id_status_artikel'], 'safe'],
+            [['judul', 'isi','gambar','id_status_artikel','id_tag_artikel'], 'safe'],
         ];
     }
 
@@ -44,7 +44,7 @@ class ArtikelSearch extends Artikel
     public function getQuerySearch($params)
     {
         if (User::isAnggota()) {    
-            $query = Artikel::find()->andWhere(['create_by' => Yii::$app->user->identity->id]);
+            $query = Artikel::find()->andWhere(['create_by' => User::getUser()]);
         } else {
             $query = Artikel::find();
         }
@@ -62,6 +62,7 @@ class ArtikelSearch extends Artikel
         $query
             ->andFilterWhere(['like', 'judul', $this->judul])
             ->andFilterWhere(['like', 'id_status_artikel', $this->id_status_artikel])
+            ->andFilterWhere(['like', 'id_tag_artikel', $this->id_tag_artikel])
             ->andFilterWhere(['like', 'isi', $this->isi]);
 
         return $query;
@@ -70,6 +71,47 @@ class ArtikelSearch extends Artikel
     public function search($params)
     {
         $query = $this->getQuerySearch($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort'=> ['defaultOrder' => ['id' => SORT_DESC]],
+        ]);        
+
+        return $dataProvider;
+    }
+
+    public function getQuerySearchArtikel($params)
+    {  
+        $query = Artikel::find()->where(['id_status_artikel' => StatusArtikel::DITERIMA]);
+
+        $this->load($params);
+
+        // add conditions that should always apply here
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'id' => $this->id,
+            'judul' => $this->judul,
+        ]);
+
+        $query
+            ->andFilterWhere(['like', 'judul', $this->judul])
+            ->andFilterWhere(['like', 'id_status_artikel', $this->id_status_artikel])
+            ->andFilterWhere(['like', 'id_tag_artikel', $this->id_tag_artikel])
+            ->andFilterWhere(['like', 'isi', $this->isi]);
+
+        return $query;
+    }
+
+    public function searchArtikel($params)
+    {
+        $query = $this->getQuerySearchArtikel($params);
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

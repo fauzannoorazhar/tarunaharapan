@@ -23,7 +23,7 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required','message' => ''],
+            [['username', 'password'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -47,7 +47,7 @@ class LoginForm extends Model
             if (!$user || !$user->validatePassword($this->password)) {
                 $this->addError($attribute, 'Username dan Password Yang Anda Masukan Salah.');
             } elseif ($user->status == User::INACTIVE) {
-                $this->addError($attribute, 'Akun Anda Belum Aktif');
+                $this->addError($attribute, 'Akun Anda Belum Aktif Cek Email Untuk Mengaktifkan Akun');
             }
         }
     }

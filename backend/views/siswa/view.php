@@ -36,13 +36,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                         ],
                         [
-                            'attribute' => 'status',
-                            'value' => function($data) {
-                                return $data->getStatus();
-                            },
-                            'format' => 'raw',
-                        ],
-                        [
                             'attribute' => 'id_jurusan_angkatan',
                             'filter' => Siswa::getList(),
                             'value' => function($data) {
@@ -54,6 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function($data) {
                                 return $data->jenisKelamin->nama;
                             },
+                        ],
+                        [
+                            'attribute' => 'status',
+                            'value' => function($data) {
+                                return $data->getStatus();
+                            },
+                            'format' => 'raw',
                         ],
                     ],
                 ]) ?>
@@ -85,14 +85,8 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="box-footer with-border">
         <p>
-            <?= Html::a('<i class="fa fa-pencil"></i> Sunting', ['update', 'id' => $model->id], ['class' => 'btn btn-primary btn-flat']) ?>
-            <?= Html::a('<i class="fa fa-trash"></i> Hapus', ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger btn-flat',
-                'data' => [
-                    'confirm' => 'Yakin Akan Menghapus Data?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?= Html::a('<i class="fa fa-pencil"></i> Sunting Siswa', ['update', 'id' => $model->id], ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::a('<i class="fa fa-list"></i> Daftar Siswa', ['index'], ['class' => 'btn btn-warning btn-flat']) ?>
         </p>
     </div>
 

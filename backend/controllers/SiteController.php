@@ -7,7 +7,7 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use common\models\User;
-use common\models\Studen;
+use common\models\Siswa;
 use common\models\JurusanAngkatan;
 use common\models\Anggota;
 
@@ -27,11 +27,11 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['signup', 'login','error'],
+                        'actions' => ['signup', 'login','error','register'],
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index','dev','anggota','error','register','logout','date'],
+                        'actions' => ['index','dev','anggota','error','register','logout','generate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -87,8 +87,10 @@ class SiteController extends Controller
         
         if (User::isAnggota()) {
             return $this->render('anggota');
-        } else {
+        } elseif (User::isOperator()) {
             return $this->render('index');
+        } else {
+            return $this->render('admin');
         }
     }
 
@@ -116,9 +118,11 @@ class SiteController extends Controller
             } 
 
             \Yii::$app->getSession()->setFlash('success', 'Selamat Datang '.User::getNamaUser());
-            if (User::isAdmin() || User::isOperator()) {
+            if (User::isAdmin()) {
                 return $this->redirect(['site/index']);
-            } else {
+            } elseif (User::isOperator()) {
+                return $this->redirect(['site/index']);
+            } elseif (User::isAnggota()) {
                 return $this->redirect(['site/anggota']);
             }
 
@@ -139,7 +143,7 @@ class SiteController extends Controller
             $model->createUser();
             $model->sendMailToUser();
             $model->sendMailToAdmin();
-                return $this->redirect(['site/login']); 
+            return $this->redirect(['site/login']); 
         } else {
             return $this->render('register',[
                 'model' => $model
@@ -184,7 +188,33 @@ class SiteController extends Controller
 
     public function actionDev()
     {   
-        return $this->render('dev', ['time' => date('H:i:s')]);
+        /*return $this->render('dev', ['time' => date('H:i:s')]);*/
+        /*$i = 1;
+        foreach (TagArtikel::find()->all() as $lirik) {
+            if (!$lirik->save()) {
+                print_r($lirik->getErrors());
+            } else {
+                print $i++.'<br>';
+            }
+        }*/
+        /*foreach (JurusanAngkatan::find()->all() as $data) {
+            if (!$data->save()) {
+                print_r($data->getErrors());
+            } else {
+                print 'sukses';
+            }
+        }*/
+
+        /*$user = User::find()->where(['id' => Yii::$app->user->identity->id])->one();
+        $user->status = 2;*/
+
+        /*print $user->status;*/
+        $siswa = Siswa::find()
+            ->joinWith('angkatan')
+            ->andWhere(['tahun' => date('Y')])
+            ->count();
+
+        echo $siswa;
 
     }
 

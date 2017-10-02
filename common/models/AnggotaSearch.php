@@ -19,7 +19,7 @@ class AnggotaSearch extends Anggota
     {
         return [
             [['id', 'id_jenis_kelamin', 'create_at'], 'integer'],
-            [['nama', 'alamat', 'email', 'tanggal_lahir'], 'safe'],
+            [['nama', 'alamat', 'email', 'tanggal_lahir','photo','bio'], 'safe'],
         ];
     }
 
@@ -54,7 +54,6 @@ class AnggotaSearch extends Anggota
             'id_jenis_kelamin' => $this->id_jenis_kelamin,
             'tanggal_lahir' => $this->tanggal_lahir,
             'create_at' => $this->create_at,
-            'last_login' => $this->last_login,
         ]);
 
         $query->andFilterWhere(['like', 'nama', $this->nama])

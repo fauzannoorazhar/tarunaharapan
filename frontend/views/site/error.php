@@ -4,24 +4,45 @@
 /* @var $name string */
 /* @var $message string */
 /* @var $exception Exception */
-
+use yii\widgets\Breadcrumbs;
 use yii\helpers\Html;
 
-$this->title = $name;
+$this->title = 'Tarpan One';
+$this->params['breadcrumbs'][] = 'Not Found (#404)';
 ?>
-<div class="site-error">
+<body style="background: #F2F2F2">
+    <section id="area-main" class="padding">
+    <h5 class="hidden">hidden</h5>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1">
+                </div>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+                <div class="col-md-10 col-xs-12">
+                    <?= Breadcrumbs::widget([
+                        'homeLink' => [ 
+                        'label' => Yii::t('yii', 'Home'),
+                        'url' => ['site/index'],
+                         ],
+                        'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+                    ]) ?>
+                </div>
 
-    <div class="alert alert-danger">
-        <?= nl2br(Html::encode($message)) ?>
-    </div>
+                <div class="col-md-1">
+                </div>
+            </div>
 
-    <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
-    </p>
+                <div class="row">
+                    <div class="col-md-1">
+                    </div>
 
-</div>
+                    <div class="col-md-10" style="text-align: center;">
+                        <span class="fa fa-warning fa-5x text-danger"></span> <h2>Oops! Page not found :(</h2>
+                    </div>
+
+                    <div class="col-md-1">
+                    </div>
+                </div>
+        </div>
+    </section>
+</body>

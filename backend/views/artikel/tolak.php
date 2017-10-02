@@ -11,7 +11,7 @@ use common\components\Helper;
 $this->title = 'Artikel Status Tolak';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="box box-primary tentang-index">
+<div class="box box-danger tentang-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <div class="box-header with-border">

@@ -16,42 +16,46 @@ use common\models\JenisKelamin;
         <h3 class="box-title">Form anggota</h3>
     </div>
     <div class="box-body">
-    <?php $form = ActiveForm::begin([            
-        'layout'=>'horizontal',
-        'fieldConfig' => [
-        'horizontalCssClasses' => [
-            'label' => 'col-sm-3',
-            'wrapper' => 'col-sm-4',
-            'error' => '',
-            'hint' => '',
-    ],
-    ]]); ?>
-
-    <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'alamat')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'id_jenis_kelamin')->widget(select2::className(), [
-        'data' => JenisKelamin::getList(),
-        'options' => [
-            'placeholder' => 'Pilih Jenis Kelamin',
-        ]
-    ]) ?>
-
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tanggal_lahir')->widget(DatePicker::ClassName(),[
-        'options' => ['placeholder' => 'Pilih Tanggal'],
-        'pluginOptions' => [
-            'format' => 'yyyy-mm-d',
-            'autoclose' =>true
+        <?php $form = ActiveForm::begin([            
+            'layout'=>'horizontal',
+            'fieldConfig' => [
+            'horizontalCssClasses' => [
+                'label' => 'col-sm-3',
+                'wrapper' => 'col-sm-4',
+                'error' => '',
+                'hint' => '',
         ],
-    ]) ?>
-    
+        ]]); ?>
+
+        <?= $form->field($model, 'nama')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'id_jenis_kelamin')->widget(select2::className(), [
+            'data' => JenisKelamin::getList(),
+            'options' => [
+                'placeholder' => 'Pilih Jenis Kelamin',
+            ]
+        ]) ?>
+
+        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+        <?= $form->field($model, 'tanggal_lahir')->widget(DatePicker::ClassName(),[
+            'options' => ['placeholder' => 'Pilih Tanggal'],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-d',
+                'autoclose' =>true
+            ],
+        ]) ?>
+
+        <?= $form->field($model, 'alamat')->textarea(['rows' => 3]) ?>
+
+        <?= $form->field($model, 'bio')->textarea(['rows' => 3]) ?>
+
+        <?= $form->field($model, 'photo')->fileInput() ?>
+        
     </div>
     <div class="box-footer with-border form-group">
         <div class="col-sm-3 col-sm-offset-3">
-            <?= Html::submitButton('Simpan', ['class' => 'btn btn-success btn-flat']) ?>
+            <?= Html::submitButton('<i class="fa fa-check"></i> Simpan', ['class' => 'btn btn-success btn-flat']) ?>
         </div>
     </div>
 

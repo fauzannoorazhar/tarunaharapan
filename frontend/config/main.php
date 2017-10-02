@@ -65,7 +65,11 @@ return [
             'rules' => [
                 /*'<artikel:\w+>/<detail:\w+>/<slug>' => '<artikel>/<detail>',*/
                 'Artikel/<slug>' => 'artikel/detail',
-                'Alumni/<slug>' => 'alumni/detail',
+                'Alumni/<slug>' => 'siswa/index',
+                'Alumni/<slug>' => 'siswa/detail',
+                'Eskul/<slug>' => 'eskul/detail',
+                'Tentang/<slug>' => 'tentang/index',
+                'TagArtikel/<slug>' => 'tag-artikel/index',
             ],
             'normalizer' => [
                 'class' => UrlNormalizer::className(),
@@ -77,7 +81,7 @@ return [
             'class' => 'yii\web\urlManager',
             'enablePrettyUrl' => false,
             'showScriptName' => false,
-            'baseUrl' => 'http://127.0.0.1/tarunaharapan2/backend/web/index.php?r=site%2Flogin',
+            'baseUrl' => 'http://localhost/tarpanone/backend/web/index.php?r=site%2Flogin',
         ],
     ],
     'params' => $params,

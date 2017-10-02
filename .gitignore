@@ -33,3 +33,12 @@ phpunit.phar
 
 # vagrant runtime
 /.vagrant
+
+# db config
+common/config/main-local.php
+
+# asset backend
+backend/web/asset
+
+# asset backend
+frontend/web/asset

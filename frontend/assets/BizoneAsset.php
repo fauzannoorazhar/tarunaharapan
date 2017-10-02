@@ -25,6 +25,8 @@ class BizOneAsset extends AssetBundle
         'css/onepage.css',
         'css/owl.carousel.css',
         'css/owl.transitions.css',
+        'css/settings.css',
+        'css/zerogrid.css',
     ];
     public $js = [
         'js/jquery-2.1.4.js',

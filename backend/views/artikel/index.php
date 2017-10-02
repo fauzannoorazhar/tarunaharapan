@@ -5,6 +5,7 @@ use kartik\grid\GridView;
 use common\components\Helper;
 use common\models\StatusArtikel;
 use common\models\User;
+use common\models\TagArtikel;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\TentangSearch */
@@ -19,6 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="box-header with-border">
         <p>
             <?= Html::a('<i class="fa fa-plus"></i> Tambah Artikel', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
+            <?php /*if (!User::isAnggota()): ?>
+                <?= Html::a('<i class="fa fa-eye"></i> Lihat Artikel', $url = null, ['class' => 'btn btn-info btn-flat']); ?>
+            <?php endif*/ ?>
         </p>
     </div>
     <div class="box-body">
@@ -46,12 +50,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 'judul',
                 [
+                    'attribute' => 'id_tag_artikel',
+                    'format' => 'raw',
+                    'filter' => TagArtikel::getList(), 
+                    'options' => ['style' => 'width: 40px'],
+                    'value' => function($data){
+                        return $data->tagArtikel->nama;
+                    },
+                ],
+                [
                     'attribute' => 'id_status_artikel',
                     'filter' => StatusArtikel::getList(),
                     'value' => function ($data) {
                         return $data->getStatus();
                     },
                     'format' => 'raw',
+                ],
+                [
+                    'attribute' => 'create_by',
+                    'value' => function($data){
+                        return $data->anggota->nama;
+                    },
                 ],
                 [
                     'attribute' => 'create_at',
@@ -61,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
                 [
                     'class' => 'app\components\ToggleActionColumn',
+                    'template' => User::isAdmin() ? '{view} {update} {delete}' : '{update} {view}',
                     'headerOptions'=>['style'=>'text-align:center;width:10px'],
                     'contentOptions'=>['style'=>'text-align:center']
                 ],
@@ -97,26 +117,38 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                 ],
                 [
-                    'attribute' => 'create_at',
-                    'value' => function($data){
-                        return Helper::getWaktuWIB(Helper::convert($data->create_at, 'datetime'));
-                    },
-                ],
-                [
-                    'class' => 'app\components\ToggleActionColumn',
-                    'contentOptions'=>['style'=>'text-align:center'],
-                        'template' => '{tambah}',
-                        'buttons' => [
-                            'tambah' => function ($url, $model) {
-                                return Html::a('<span class="fa fa-plus"></span>', ['galeri-artikel/create','id_artikel' => $model->id], [
-                                        'data-toggle' =>'tooltip','title' => Yii::t('app', 'Tambah Gambar Artikel Lainnya'),
-                                        
+                    'label' => '',
+                    'format' => 'raw',
+                    'options' => ['style' => 'width: 40px'],
+                    'contentOptions' => ['style' => 'text-align:center;'],
+                    'value' => function($data) {
+                        if ($data->id_status_artikel !== StatusArtikel::DITERIMA) {
+                            return Html::a('<span class="fa fa-plus"></span>', ['galeri-artikel/create','id_artikel' => $data->id], [
+                                        'data-toggle' =>'tooltip','title' => Yii::t('app', 'Tambah Photo Artikel Lainnya'),     
                                 ]);
-                            },
-                        ],
+                        } else {
+                            return Html::a('<span class="fa fa-plus"></span>', ['galeri-artikel/create','id_artikel' => $data->id], [
+                                        'data-toggle' =>'tooltip','title' => Yii::t('app', 'Tambah Photo Artikel Lainnya'),
+                                ]);
+                        }
+                    }
                 ],
+                /*[
+                    'label' => '',
+                    'format' => 'raw',
+                    'options' => ['style' => 'width: 40px'],
+                    'contentOptions' => ['style' => 'text-align:center;'],
+                    'value' => function($data) {
+                        if ($data->id_status_artikel == StatusArtikel::DITERIMA) {
+                            return Html::a('<i class="fa fa-pencil">', ['update','id' => $data->id], ['data-toggle' => 'tooltip', 'title' => 'Update Artikel']);
+                        } else {
+                            return Html::a('<i class="fa fa-pencil">', ['update','id' => $data->id], ['data-toggle' => 'tooltip', 'title' => 'Update Artikel']);
+                        }
+                    }
+                ],*/
                 [
                     'class' => 'app\components\ToggleActionColumn',
+                    'template' => '{view} {update} {delete}',
                     'headerOptions'=>['style'=>'text-align:center;width:10px'],
                     'contentOptions'=>['style'=>'text-align:center']
                 ],

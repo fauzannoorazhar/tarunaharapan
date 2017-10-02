@@ -1,5 +1,7 @@
 <?php
+use yii\helpers\Html;
 use common\models\User;
+use common\models\Anggota;
 use common\models\StatusArtikel;
 ?>
 
@@ -10,7 +12,12 @@ use common\models\StatusArtikel;
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                <?php 
+                    $one = Anggota::find()
+                    ->where(['id' => Yii::$app->user->identity->nama_anggota])
+                    ->one();
+                    echo $one->getGambar(['class' => 'gambar-left']); 
+                ?>
             </div>
             <div class="pull-left info">
                 <p><?= User::getNamaUser(); ?></p>
@@ -36,7 +43,7 @@ use common\models\StatusArtikel;
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Frontend', 'icon' => 'circle-o', 'url' => \Yii::$app->urlManagerFrontEnd->baseUrl,['target' => '_blank']],
+                    ['label' => 'Frontend', 'icon' => 'circle-o', 'url' => \Yii::$app->urlManagerFrontEnd->baseUrl],
                     ['label' => 'MENU NAVIGASI', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/index']],
 
@@ -77,15 +84,21 @@ use common\models\StatusArtikel;
                     ['label' => 'Anggota', 'icon' => 'user', 'url' => ['anggota/index']],
 
                     ['label' => 'MENU ARTIKEL', 'options' => ['class' => 'header']],
+                    ['label' => 'Tag Artikel', 'icon' => 'tags', 'url' => ['tag-artikel/index']],
                     ['label' => 'Artikel', 'icon' => 'newspaper-o', 'url' => ['artikel/index']],
                     ['label' => 'Proses', 'icon' => 'newspaper-o', 'url' => ['artikel/proses','id_status_artikel' => StatusArtikel::DIPROSES]],
                     ['label' => 'Diterima', 'icon' => 'newspaper-o', 'url' => ['artikel/terima','id_status_artikel' => StatusArtikel::DITERIMA]],
                     ['label' => 'Ditolak', 'icon' => 'newspaper-o', 'url' => ['artikel/tolak','id_status_artikel' => StatusArtikel::DITOLAK]],
 
                     ['label' => 'MENU LAINNYA', 'options' => ['class' => 'header']],
+                    ['label' => 'Ekstrakulikuler', 'icon' => 'users', 'url' => ['eskul/index']],
                     ['label' => 'Tentang', 'icon' => 'info-circle', 'url' => ['tentang/index']],
+                    ['label' => 'Pengaturan', 'icon' => 'cogs', 'url' => ['pengaturan/index']],
                     
                     ['label' => 'PENGATURAN AKUN', 'options' => ['class' => 'header']],
+                    ['label' => 'Profil', 'icon' => 'user', 'url' => ['anggota/profil', 'id'=> Yii::$app->user->identity->nama_anggota]],
+                    /*['label' => 'Aktifitas Operator', 'icon' => 'user-circle-o', 'url' => ['pemeriksaan/index']],*/
+                    ['label' => 'Tambah Operator', 'icon' => 'user-plus', 'url' => ['user/create']],
                     ['label' => 'User', 'icon' => 'user-circle-o', 'url' => ['user/index']],
                     ['label' => 'Logout', 'icon' => 'power-off', 'url' => ['site/logout']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
@@ -101,7 +114,7 @@ use common\models\StatusArtikel;
                     ['label' => 'MENU NAVIGASI', 'options' => ['class' => 'header']],
                     ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/index']],
 
-                    ['label' => 'MENU JURUSAN DAN ANGKATAN', 'options' => ['class' => 'header']],
+                    /*['label' => 'MENU JURUSAN DAN ANGKATAN', 'options' => ['class' => 'header']],
                     ['label' => 'Angkatan', 'icon' => 'mortar-board', 'url' => ['angkatan/index']],
                     ['label' => 'Jurusan', 'icon' => 'mortar-board', 'url' => ['jurusan/index']],
                     ['label' => 'Jurusan Angkatan', 'icon' => 'mortar-board', 'url' => ['jurusan-angkatan/index']],
@@ -109,7 +122,7 @@ use common\models\StatusArtikel;
                     ['label' => 'MENU KESISWAAN', 'options' => ['class' => 'header']],
                     ['label' => 'Seluruh Siswa', 'icon' => 'users', 'url' => ['siswa/index']],
                     ['label' => 'Siswa Alumni', 'icon' => 'graduation-cap', 'url' => ['siswa/alumni']],
-                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/siswa-aktif']],
+                    ['label' => 'Siswa Aktif', 'icon' => 'check', 'url' => ['siswa/siswa-aktif']],*/
 
                     ['label' => 'MENU ANGGOTA', 'options' => ['class' => 'header']],
                     ['label' => 'Anggota', 'icon' => 'user', 'url' => ['anggota/index']],
@@ -121,7 +134,8 @@ use common\models\StatusArtikel;
                     ['label' => 'Ditolak', 'icon' => 'newspaper-o', 'url' => ['artikel/tolak','id_status_artikel' => StatusArtikel::DITOLAK]],
 
                     ['label' => 'PENGATURAN AKUN', 'options' => ['class' => 'header']],
-                    ['label' => 'Profil', 'icon' => 'user-circle-o', 'url' => ['user/profil']],
+                    ['label' => 'Profil', 'icon' => 'user-circle-o', 'url' => ['anggota/profil', 'id'=> Yii::$app->user->identity->nama_anggota]],
+                    ['label' => 'User', 'icon' => 'user-circle-o', 'url' => ['user/profil']],
                     ['label' => 'Ganti Password', 'icon' => 'unlock-alt', 'url' => ['user/set-password']],
                     ['label' => 'Logout', 'icon' => 'power-off', 'url' => ['site/logout']],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
@@ -133,12 +147,13 @@ use common\models\StatusArtikel;
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'Halaman Depan', 'icon' => 'circle-o', 'url' => \Yii::$app->urlManagerFrontEnd->baseUrl,['target' => '_blank']],
+                    ['label' => 'Halaman Depan', 'icon' => 'circle-o', 'url' => \Yii::$app->urlManagerFrontEnd->baseUrl],
                     ['label' => 'MENU NAVIGASI', 'options' => ['class' => 'header']],
-                    ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/anggota']],
+                    ['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['site/index']],
                     ['label' => 'Artikel', 'icon' => 'newspaper-o', 'url' => ['artikel/index']],
 
                     ['label' => 'PENGATURAN AKUN', 'options' => ['class' => 'header']],
+                    ['label' => 'Profil', 'icon' => 'user', 'url' => ['anggota/profil', 'id'=> Yii::$app->user->identity->nama_anggota]],
                     ['label' => 'Akun', 'icon' => 'user-circle-o', 'url' => ['user/profil']],
                     ['label' => 'Ganti Password', 'icon' => 'unlock-alt', 'url' => ['user/set-password']],
                     ['label' => 'Logout', 'icon' => 'power-off', 'url' => ['site/logout']],

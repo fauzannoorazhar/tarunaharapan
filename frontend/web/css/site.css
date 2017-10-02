@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    zoom: 100%;
 }
 
 .wrap {
@@ -82,7 +83,7 @@ a.desc:after {
     box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
     padding-top: 2%;
     padding-bottom: 1%;
-    margin-bottom: 2%;
+    margin-bottom: 5%;
     line-height: 23px;
     text-align: justify;
     border-top: 4px solid #4097ca;
@@ -93,8 +94,8 @@ a.desc:after {
     -webkit-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
     -moz-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
     box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
-    padding-top: 2%;
-    padding-bottom: 1%;
+    /*padding-top: 2%;
+    padding-bottom: 1%;*/
     margin-bottom: 2%;
     line-height: 23px;
     text-align: justify;
@@ -130,25 +131,30 @@ a.desc:after {
     -webkit-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
     -moz-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
     box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
-    margin-bottom: 1%;
-    width: 22%;
+    margin-bottom: 2%;
+    width: 100%;
     /* padding: 5px; */
-    padding-top: 1%;
+    padding-top: 1.5%;
     padding-left: 2%;
     border-left: 5px solid #4097ca;
-    padding-bottom: 1%;
+    padding-bottom: 1.5%;
     background: white;
 }
 
 .artikel-detail {
     word-spacing: 1px;
     letter-spacing: 1px;
+    margin-top: -2%;
+    font-size: 12px;
+    margin-right: 2%;
+    padding-top: 1%;
 }
 
 img.img-responsive.img-artikel {
-    border: 2px solid #4097ca;
+    border: 1px solid #4097ca;
     padding: 1px;
     margin-top: 2%;
+    border-radius: 1%;
 }
 
 img.img-responsive.img-alumni {
@@ -198,3 +204,169 @@ a.text-judul {
     color: #82b440;
 }
 
+.zoom {
+    zoom: 120%;
+}
+
+img.img-eskul {
+    width: 100%;
+    /* height: 100%; */
+    border: 1px solid rgb(64, 151, 202);
+    padding: 1px;
+    border-radius: 2%;
+    margin-bottom: 4%;
+}
+
+img.img-responsive.img-artikel-list {
+    /* border: 1px solid #4097ca; */
+    /* border-radius: 8%; */
+    padding-top: 5%;
+}
+
+@media only screen and (max-width: 768px) {
+    img.img-responsive.img-artikel-list {
+        padding-top: 0%;
+        padding-bottom: 15%;
+        width: 100%;
+        height: 100%;
+    }
+
+    li.list-box-terbaru {
+        border-bottom: 1px solid #c3c3c3;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding-bottom: 3%;
+        font-size: 130%;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    img.img-responsive.img-artikel-list {
+            padding-top: 0%;
+            padding-bottom: 3%;
+            width: 100%;
+            height: 100%;
+    }
+
+    li.list-box-terbaru {
+        border-bottom: 1px solid #c3c3c3;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        padding-bottom: 3%;
+        font-size: 135%;
+    }
+
+    h4.judul-box-terbaru {
+        font-size: 150%;
+    }
+}
+
+.box-artikel-terbaru {
+    -webkit-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    /* padding-top: 2%; */
+    /* padding-bottom: 1%; */
+    margin-bottom: 2%;
+    line-height: 23px;
+    padding: 4%;
+    border-left: 4px solid #4097ca;
+    background: white;
+}
+
+li.list-box-terbaru {
+    border-bottom: 1px solid #c3c3c3;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-bottom: 3%;
+}
+
+.color10 {
+    color: #00c0ef;
+}
+
+.color20 {
+    color: #ac40d0;    
+}
+
+.color30 {
+    color: #EC768C;    
+}
+
+.color40 {
+    color: #00a65a;    
+}
+
+.color50 {
+    color: #1dd2b9;    
+}
+
+p.font-depan {
+    font-family: sans-serif;
+    font-style: oblique;
+}
+
+h2.heading.text-center {
+    font-family: -webkit-body;
+    text-transform: capitalize;
+    font-size: 225%;
+    padding-bottom: 5%;
+    font-weight: 200;
+    /* border-bottom: 1px solid; */
+    /* font-stretch: ultra-condensed; */
+}
+
+.box-side-artikel {
+    -webkit-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    -moz-box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    box-shadow: 0px 0px 4px -1px rgba(0,0,0,1);
+    margin-bottom: 2%;
+    width: 100%;
+    padding: 5%; 
+    border-left: 5px solid #4097ca;
+    background: white;
+}
+
+.box-photo-eskul {
+    border: 1px dashed #4097ca;
+    padding: 2%;
+    margin-bottom: 25%;
+    text-align: center;
+    height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .box-photo-eskul {
+        border: 1px dashed #4097ca;
+        padding: 2%;
+        margin-bottom: 20%;
+        text-align: center;
+        height: 100%;
+    }
+    .img-visi-misi {
+        width:100%;
+        height:50px;
+    }
+}
+
+.img-visi-misi {
+    width:100%; height:300px;
+}
+
+.box-gambar-jurusan {
+    -webkit-box-shadow:7px 6px 0px 0px #78777a ,13px 12px 0px 0px #4f5154 ;
+    -moz-box-shadow:7px 6px 0px 0px #78777a ,13px 12px 0px 0px #4f5154 ;
+    box-shadow:7px 6px 0px 0px #78777a ,13px 12px 0px 0px #4f5154 ;
+    margin-bottom: 10%;
+    height: 100%;
+    text-align: center;
+    margin-right: 3%;
+    padding: 7%;
+    border: 1px solid #78777a;
+}
+
+.box-nama-jurusan {
+    border: 1px solid #78777a;
+    padding: 1%;
+    margin-top: 5%;
+}

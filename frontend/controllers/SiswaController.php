@@ -1,19 +1,27 @@
 <?php
 namespace frontend\controllers;
-use common\models\Siswa;
+use common\models\JurusanAngkatan;
+use yii\web\NotFoundHttpException;
 
 class SiswaController extends \yii\web\Controller
 {
-    public function actionDetailSiswa($id)
+    public function actionIndex()
     {
-        return $this->render('detail-siswa',[
-        	'model' => $this->findModel($id),
+        return $this->render('index');
+    }
+
+    public function actionDetail($slug)
+    {
+        $model = $this->findSlug(['slug' => $slug]);
+
+        return $this->render('detail',[
+            'model' => $model,
         ]);
     }
 
-    protected function findModel($id) 
+    protected function findSlug($condition)
     {
-        if (($model = Siswa::findOne($id)) !== null) { 
+        if (($model = JurusanAngkatan::findOne($condition)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

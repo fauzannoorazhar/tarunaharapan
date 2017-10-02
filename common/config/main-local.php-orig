@@ -1,0 +1,33 @@
+<?php
+return [
+        'name' => 'Yii Blog !',
+        'components' => [
+        'urlManager' => [
+        'enablePrettyUrl' => false
+    ],
+        'db' => 
+    [
+        'class' => 'yii\db\Connection',
+        'dsn' => 'mysql:host=localhost;dbname=tarunaharapan2',
+        'username' => 'root',
+        'password' => '',
+        'charset' => 'utf8',
+    ],
+       'mailer' => [
+        'class' => 'yii\swiftmailer\Mailer',
+        'transport' => [
+            'class' => 'Swift_SmtpTransport',
+            'host' => 'matra.websitewelcome.com',
+            'username' => 'adminppi@previewaplikasi.com',
+            'password' => 'prevburger123',
+            'port' => '587',
+            'encryption' => 'tls',
+            ],
+        ],
+    [
+        'class' => 'yii\swiftmailer\Mailer',
+        'viewPath' => '@common/mail',
+        'useFileTransport' => true,38
+    ],
+    ],
+]; ?>

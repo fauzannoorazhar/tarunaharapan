@@ -32,7 +32,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['username','password'], 'required'],
+            [['username'],'unique','message'=>'{attribute} Sudah Ada'],
+            [['username','password'], 'required','message' => '{attribute} Tidak Boleh Kosong'],
             [['id_role'], 'integer'],
             [['model', 'id_role'],'safe'],
             [['username', 'password'], 'string', 'max' => 255],
@@ -218,9 +219,36 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function getStatus()
     {
         if (static::INACTIVE) {
-            return 'Akun Tidak Aktif';
+            return '<span class="label label-warning"> Akun Belum Aktif </span>';
         } else {
-            return 'Akun Aktif';
+            return '<span class="label label-success"> Akun Telah Aktif </span>';
         }
     }
+
+    /*public function beforeSave($insert)
+    {
+        if ($insert) {
+            $Anggota = new Anggota();    
+            $Anggota->nama = $this->username;
+            $Anggota->id_jenis_kelamin = 1;
+                if ($Anggota->save(false)) {
+                    $this->nama_anggota = $Anggota->id;
+                }
+        }
+
+        return parent::beforeSave($insert);
+    }*/
+
+    /*public function afterSave($insert, $changedAttributes)
+    {
+        if ($insert) {
+            $pemeriksaan = new Pemeriksaan();
+            $pemeriksaan->nama = User::getNamaUser();
+            $pemeriksaan->tambah = 'Menambahkan User '.$this->username;
+            $pemeriksaan->tanggal = date('Y-m-d H:i:s');
+            $pemeriksaan->save(false);
+        }
+        return parent::afterSave($insert, $changedAttributes);
+    }*/
+
 }

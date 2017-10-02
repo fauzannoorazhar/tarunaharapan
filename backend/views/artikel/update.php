@@ -7,7 +7,6 @@ use yii\helpers\Html;
 
 $this->title = 'Sunting Artikel';
 $this->params['breadcrumbs'][] = ['label' => 'Artikel', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Sunting';
 ?>
 <div class="artikel-update">

@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use kartik\date\DatePicker;
 use dosamigos\ckeditor\CKEditor;
+use kartik\select2\Select2;
+use common\models\TagArtikel;
 /*use kartik\rating\StarRating;*/
 
 
@@ -31,12 +33,26 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'judul')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'isi')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
+    <?= $form->field($model, 'id_tag_artikel')->widget(select2::className(), [
+        'data' => TagArtikel::getList(),
+        'options' => [
+            'placeholder' => 'Pilih Tag',
+        ]
+    ]) ?>
+
+    <?= $form->field($model, 'isi',[
+        'horizontalCssClasses' => [
+            'label' => 'col-sm-3',
+            'wrapper' => 'col-sm-9',
+            'error' => '',
+            'hint' => '',
+        ],
+        ])->widget(CKEditor::className(), [
+        'options' => ['rows' => 3],
         'preset' => 'advanced'
     ]) ?>
 
-    <?= $form->field($model, 'gambar')->fileInput() ?>
+    <?= $form->field($model, 'gambar')->fileInput()->label('Cover Artikel') ?>
 
     </div>
     <div class="box-footer with-border form-group">

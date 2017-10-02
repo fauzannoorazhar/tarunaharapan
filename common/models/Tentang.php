@@ -58,7 +58,9 @@ class Tentang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            ['isi','required','message' => '{attribute} Tidak Boleh Kosong'],
             [['isi'], 'string'],
+            [['nama'], 'string', 'max' => 50],
             [['gambar'], 'string', 'max' => 255],
             ['gambar', 'file', 'extensions' => ['png', 'jpg', 'jpeg', 'gif'], 'maxSize' => 1024 * 1024 * 2],
         ];
@@ -71,6 +73,7 @@ class Tentang extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'nama' => 'Nama',
             'isi' => 'Konten',
             'gambar' => 'Gambar',
             'create_by' => 'Dibuat Oleh',
@@ -83,10 +86,10 @@ class Tentang extends \yii\db\ActiveRecord
     public function getGambar($htmlOptions=[])
     {
         //Jika file ada dalam direktori
-        if($this->gambar == null && !file_exists('@web/uploads/'.$this->gambar)){
-            return Html::img('@web/images/logo2.png',$htmlOptions);
+        if($this->gambar == null && !file_exists('@uploads/uploads/'.$this->gambar)){
+            return Html::img('@uploads/images/logo2.png',$htmlOptions);
         } else {
-            return Html::img('@web/uploads/'. $this->gambar,$htmlOptions);
+            return Html::img('@uploads/uploads/'. $this->gambar,$htmlOptions);
         }
     }
 
